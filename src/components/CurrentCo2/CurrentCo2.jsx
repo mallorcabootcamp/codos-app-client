@@ -12,32 +12,26 @@ const dangerValues = {
     mediumDanger: 50,
 }
 
-export const CurrentCo2 = ({eCoValue}) => {
+export const CurrentCo2 = ({ eCoValue }) => {
 
     const [color, setColor] = useState(colorValues.green);
 
     useEffect(() => {
         if (eCoValue < dangerValues.noDanger) {
             setColor(colorValues.green);
-        }else if (eCoValue < dangerValues.mediumDanger) {
+        } else if (eCoValue < dangerValues.mediumDanger) {
             setColor(colorValues.orange);
-        }else{
+        } else {
             setColor(colorValues.red);
         }
     }, [eCoValue]);
 
     return (
         <div className='container'>
-            <div className='row m-5'>
-                <div className='col'>
-                    <h1 className="h3 text-left">Actual:</h1>
-                    <div className='row'>
-                        <div className='col text-center py-3 rounded shadow' style={{backgroundColor: color}}>
-                            <p className='h4 p-0 m-0 text-white'>eCo²</p>
-                            <p className='h3 p-0 m-0 text-white'>{eCoValue} ppm</p>
-                        </div>
-                    </div>
-                </div>
+            <h1 className="h3 text-left">Actual:</h1>
+            <div className='text-center py-3 rounded shadow' style={{ backgroundColor: color }}>
+                <p className='h4 p-0 m-0 text-white'>eCo²</p>
+                <p className='h3 p-0 m-0 text-white'>{eCoValue} ppm</p>
             </div>
         </div>
     )
