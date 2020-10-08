@@ -6,8 +6,8 @@ import "./IndexValuesAndIcon.css";
 export const IndexValuesAndIcon = ({ value, icon }) => {
 
     return (
-        <div className='col text-center'>
-            <p className='h4'><FontAwesomeIcon icon={icon} size="lg" /> <span className='h3'>{value}</span></p>
+        <div className='col'>
+            <p className='h4'><FontAwesomeIcon icon={icon} size="lg" /> <span className='h5'>{value}</span></p>
         </div>
     )
 

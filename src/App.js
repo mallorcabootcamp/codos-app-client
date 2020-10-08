@@ -7,7 +7,7 @@ function App() {
   return (
     <>
       <CurrentCo2 eCoValue='0' />
-      <div className='container'>
+      <div className='container px-5'>
             <div className='row'>
               <IndexValuesAndIcon value='23 Cº' icon={faThermometerHalf} />
               <IndexValuesAndIcon value='85% hr' icon={faTint} />
