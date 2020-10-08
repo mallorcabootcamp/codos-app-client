@@ -1,36 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import "./CurrentCo2.css";
 
-const colorValues = {
-    red: '#e74c3c',
-    orange: '#f39c12',
-    green: '#2ecc71'
-}
-
-const dangerValues = {
-    noDanger: 15,
-    mediumDanger: 50,
-}
-
 export const CurrentCo2 = ({ eCoValue }) => {
 
-    const [color, setColor] = useState(colorValues.green);
+    const [color, setColor] = useState('');
+
+    const getColor = (eCoValue) => {
+        const hue=((1 - eCoValue / 100) * 120);
+        return `hsl(${hue},70%,60%)`;
+    }
 
     useEffect(() => {
-        if (eCoValue < dangerValues.noDanger) {
-            setColor(colorValues.green);
-        } else if (eCoValue < dangerValues.mediumDanger) {
-            setColor(colorValues.orange);
-        } else {
-            setColor(colorValues.red);
-        }
+        const colorValue = getColor(eCoValue);
+        setColor(colorValue)
     }, [eCoValue]);
 
     return (
-        <div className='container'>
+        <div className='container p-5'>
             <h1 className="h3 text-left">Actual:</h1>
             <div className='text-center py-3 rounded shadow' style={{ backgroundColor: color }}>
-                <p className='h4 p-0 m-0 text-white'>eCo²</p>
+                <p className='h5 p-0 m-0 text-white'>eCo²</p>
                 <p className='h3 p-0 m-0 text-white'>{eCoValue} ppm</p>
             </div>
         </div>
