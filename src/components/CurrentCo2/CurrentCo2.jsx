@@ -4,12 +4,6 @@ import "./CurrentCo2.css";
 export const CurrentCo2 = ({ eCoValue }) => {
 
     const [color, setColor] = useState('');
-
-    const getColor = (eCoValue) => {
-        const hue=((1 - eCoValue / 100) * 120);
-        return `hsl(${hue},70%,60%)`;
-    }
-
     useEffect(() => {
         const colorValue = getColor(eCoValue);
         setColor(colorValue)
@@ -24,4 +18,9 @@ export const CurrentCo2 = ({ eCoValue }) => {
             </div>
         </div>
     )
+}
+
+const getColor = (eCoValue) => {
+    const hue = ((1 - eCoValue / 100) * 120);
+    return `hsl(${hue},70%,60%)`;
 }
