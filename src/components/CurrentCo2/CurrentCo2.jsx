@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import "./CurrentCo2.css";
 
+const maximumColorRange = 120;
+const maximumECoValue = 100; 
+
 export const CurrentCo2 = ({ eCoValue }) => {
 
     const [color, setColor] = useState('');
@@ -21,6 +24,6 @@ export const CurrentCo2 = ({ eCoValue }) => {
 }
 
 const getColor = (eCoValue) => {
-    const hue = ((1 - eCoValue / 100) * 120);
+    const hue = ((1 - eCoValue / maximumECoValue) * maximumColorRange);
     return `hsl(${hue},70%,60%)`;
 }

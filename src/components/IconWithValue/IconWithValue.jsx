@@ -7,12 +7,8 @@ import "./IconWithValue.css";
 
 export const IconWithValue = ({ value, icon }) => {
 
-    return (
-        <div className='col text-center'>
-            <p className='h4'><FontAwesomeIcon icon={getIconFromIconName(icon)} size="lg" /> <span className='h3'>{value}</span></p>
-        </div>
-    )
-
+    return <p className='h4'><FontAwesomeIcon icon={getIconFromIconName(icon)} size="lg" /> <span className='h3'>{value}</span></p>
+    
 }
 
 const getIconFromIconName = (iconName) => {
