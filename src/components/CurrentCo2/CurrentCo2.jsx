@@ -15,7 +15,7 @@ export const CurrentCo2 = ({ eCoValue }) => {
     return (
         <div className='container p-5'>
             <h1 className="h3 text-left">Actual:</h1>
-            <div className='text-center py-3 rounded shadow' style={{ backgroundColor: color }}>
+            <div className='text-center py-3 shadow' style={{ backgroundColor: color }}>
                 <p className='h5 p-0 m-0 text-white'>eCo²</p>
                 <p className='h3 p-0 m-0 text-white'>{eCoValue} ppm</p>
             </div>
