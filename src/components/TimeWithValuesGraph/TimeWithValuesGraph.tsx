@@ -9,6 +9,8 @@ import { GridColumns } from '@visx/grid';
 
 type TooltipData = HistoricalValues;
 
+
+
 const stock = historicalValues.slice(0,8);
 export const accentColor = '#fff';
 
@@ -31,7 +33,15 @@ export default withTooltip(
 
     const xMax = width - margin.left - margin.right;
     const yMax = height - margin.top - margin.bottom;
-    
+
+
+    // scale is needed to config the number of column lines that we want in our graph
+    const scale = scaleTime({
+      range: [0, xMax],
+      round: true,
+      domain: [0,7],
+    });
+
     // scales
     const dateScale = useMemo(
       () =>
@@ -45,7 +55,7 @@ export default withTooltip(
       () =>
         scaleLinear({
           range: [yMax, 0],
-          domain: [0, (max(stock, getStockValue) || 0) + yMax / 3],
+          domain: [0, (max(stock, getStockValue) || 0) + yMax / 8],
           nice: true
         }),
       [yMax]
@@ -56,15 +66,12 @@ export default withTooltip(
         <svg width={width} height={height}>
           <rect x={0} y={0} width={width} height={height} fill="#bdc3c7" opacity='.5' />
           <GridColumns
-            scale={dateScale}
+            scale={scale}
             height={yMax}
-            strokeDasharray="1.5"
+            strokeDasharray="1.2"
             stroke={accentColor}
             strokeOpacity={1}
             pointerEvents="none"
-            offset={12}
-            
-            
           />
           <AreaClosed
             data={stock}
