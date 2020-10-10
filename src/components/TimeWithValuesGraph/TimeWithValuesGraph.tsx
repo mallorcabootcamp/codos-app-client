@@ -9,10 +9,8 @@ import { GridColumns } from '@visx/grid';
 
 type TooltipData = HistoricalValues;
 
-
-
 const stock = historicalValues.slice(0,8);
-export const accentColor = '#fff';
+export const accentColor = '#3498db';
 
 const getDate = (d: HistoricalValues) => new Date(d.date);
 const getStockValue = (d: HistoricalValues) => d.close;
@@ -55,7 +53,7 @@ export default withTooltip(
       () =>
         scaleLinear({
           range: [yMax, 0],
-          domain: [0, (max(stock, getStockValue) || 0) + yMax / 8],
+          domain: [0, (max(stock, getStockValue) || 0) + yMax / 10],
           nice: true
         }),
       [yMax]
@@ -68,9 +66,9 @@ export default withTooltip(
           <GridColumns
             scale={scale}
             height={yMax}
-            strokeDasharray="1.2"
+            strokeDasharray="2"
             stroke={accentColor}
-            strokeOpacity={1}
+            strokeOpacity={.6}
             pointerEvents="none"
           />
           <AreaClosed

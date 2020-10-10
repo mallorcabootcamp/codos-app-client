@@ -14,6 +14,7 @@
     "@types/d3-time-format": "^3.0.0",
     "@types/react": "^16.9.51",
     "@types/react-dom": "^16.9.8",
+    "@typescript-eslint/parser": "^4.4.0",
     "@visx/event": "^1.0.0",
     "@visx/grid": "^1.0.0",
     "@visx/mock-data": "^1.0.0",
