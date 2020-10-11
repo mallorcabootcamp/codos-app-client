@@ -8,13 +8,15 @@ import { max, extent } from "d3-array";
 import { GridColumns } from '@visx/grid';
 
 type TooltipData = HistoricalValues;
-
-const stock = historicalValues.slice(0,8);
-export const accentColor = '#3498db';
-
+let timeRank = {
+  startTime: 0,
+  endTime: 8
+}
+const stock = historicalValues.slice(timeRank.startTime, timeRank.endTime);
+const accentColor = '#3498db';
 const getDate = (d: HistoricalValues) => new Date(d.date);
 const getStockValue = (d: HistoricalValues) => d.close;
-export type AreaProps = {
+type AreaProps = {
   width: number;
   height: number;
   margin?: { top: number; right: number; bottom: number; left: number };
@@ -25,22 +27,19 @@ export default withTooltip(
     width,
     height,
     margin = { top: 0, right: 0, bottom: 0, left: 0 },
-    hideTooltip
   }: AreaProps & WithTooltipProvidedProps<TooltipData>) => {
     if (width < 10) return null;
 
     const xMax = width - margin.left - margin.right;
     const yMax = height - margin.top - margin.bottom;
 
-
+    // scales
     // scale is needed to config the number of column lines that we want in our graph
     const scale = scaleTime({
       range: [0, xMax],
       round: true,
-      domain: [0,7],
+      domain: [1, timeRank.endTime],
     });
-
-    // scales
     const dateScale = useMemo(
       () =>
         scaleTime({
@@ -53,7 +52,7 @@ export default withTooltip(
       () =>
         scaleLinear({
           range: [yMax, 0],
-          domain: [0, (max(stock, getStockValue) || 0) + yMax / 10],
+          domain: [0, (max(stock, getStockValue) || 0) + yMax / 8],
           nice: true
         }),
       [yMax]
@@ -62,7 +61,13 @@ export default withTooltip(
     return (
       <div className='shadow'>
         <svg width={width} height={height}>
-          <rect x={0} y={0} width={width} height={height} fill="#bdc3c7" opacity='.5' />
+          <rect x={0}
+            y={0}
+            width={width}
+            height={height}
+            fill="#bdc3c7"
+            opacity='.5'
+          />
           <GridColumns
             scale={scale}
             height={yMax}
@@ -70,6 +75,7 @@ export default withTooltip(
             stroke={accentColor}
             strokeOpacity={.6}
             pointerEvents="none"
+            
           />
           <AreaClosed
             data={stock}
