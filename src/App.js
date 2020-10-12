@@ -5,6 +5,8 @@ import { Icon } from './components/IconWithValue/Icon';
 import ParentSize from "@visx/responsive/lib/components/ParentSize";
 import TimeWithValuesGraph from "./components/TimeWithValuesGraph/TimeWithValuesGraph";
 
+const hours = 8;
+
 function App() {
   return (
     <>
@@ -20,12 +22,12 @@ function App() {
         </div>
       </div>
       <div className='container px-5 py-5 my-5'>
-        <p className='h3'>Últimas horas:</p>
+        <p className='h3'>Últimas {hours} horas:</p>
         <div className='row'>
           <div className='col text-center'>
 
             <ParentSize className=''>
-              {({ width }) => <TimeWithValuesGraph width={width} height={100} />}
+              {({ width }) => <TimeWithValuesGraph width={width} height={150} />}
             </ParentSize>,
           </div>
         </div>
