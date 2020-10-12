@@ -27,7 +27,7 @@ function App() {
           <div className='col text-center'>
 
             <ParentSize className=''>
-              {({ width }) => <TimeWithValuesGraph width={width} height={150} />}
+              {({ width }) => <TimeWithValuesGraph width={width} height={100} />}
             </ParentSize>,
           </div>
         </div>

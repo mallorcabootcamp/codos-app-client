@@ -17,7 +17,7 @@ let timeRank = {
 const stock = historicalValues.slice(timeRank.startTime, timeRank.endTime);
 const accentColor = '#3498db';
 const bgColor = '#bdc3c7';
-const axisColor = '#000';
+const axisColor = '#2980b9';
 const getDate = (d: HistoricalValues) => new Date(d.date);
 const getStockValue = (d: HistoricalValues) => d.close;
 type AreaProps = {
@@ -39,7 +39,7 @@ export default withTooltip(
   ({
     width,
     height,
-    margin = { top: 0, right: 0, bottom: 18, left: 15 },
+    margin = { top: 0, right: 0, bottom: 18, left: 10 },
   }: AreaProps & WithTooltipProvidedProps<TooltipData>) => {
     if (width < 10) return null;
 
@@ -48,7 +48,7 @@ export default withTooltip(
 
     // scales
     const scale = scaleTime({
-      range: [15, xMax],
+      range: [10, xMax],
       round: true,
       domain: [1, timeRank.endTime],
     });
@@ -56,7 +56,7 @@ export default withTooltip(
     const dateScale = useMemo(
       () =>
         scaleTime({
-          range: [15, xMax],
+          range: [10, xMax],
           domain: extent(stock, getDate) as [Date, Date]
         }),
       [xMax]
