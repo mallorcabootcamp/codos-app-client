@@ -2,17 +2,16 @@ import React, { useMemo } from "react";
 import { AreaClosed, Bar } from "@visx/shape";
 import historicalValues, { HistoricalValues } from "./HistoricalValues";
 import { scaleUtc, scaleLinear, coerceNumber, scaleTime } from '@visx/scale'
-import { AxisBottom } from '@visx/axis';
+import { AxisBottom, AxisLeft } from '@visx/axis';
 import { max, extent } from "d3-array";
 import { GridColumns } from '@visx/grid';
+import { timeFormat } from 'd3-time-format';
 import moment from 'moment';
 
-const getMinMax = (vals: (number | { valueOf(): number })[]) => {
-  const numericVals = vals.map(coerceNumber);
-  return [Math.min(...numericVals), Math.max(...numericVals)];
-};
 
 //  config variables
+const formatDate = timeFormat("%b %d, '%y");
+
 let timeRank = {
   startTime: 0,
   endTime: 8
@@ -32,7 +31,6 @@ const axisBottomTickLabelProps = {
   fill: axisColor,
 };
 
-const timeValues = [new Date('2020-04-24T07:00:00.000Z'), new Date('2020-04-24T07:08:00.000Z')]
 
 /**
  * data [{date: Date, value: number}]
@@ -44,25 +42,46 @@ const timeValues = [new Date('2020-04-24T07:00:00.000Z'), new Date('2020-04-24T0
 // Graph setup
 export const TimeWithValuesGraph = ({ width, margin, height }: any) => {
 
-  const xMax = 200 - margin.left - margin.right;
-  const yMax = height - margin.top - margin.bottom;
+  const xMax = width - margin;
+  const yMax = height - margin;
 
   // scales
-  const scale = scaleTime({
-    range: [10, xMax],
-    round: true,
-    domain: [1, timeRank.endTime],
-  });
 
-  const scaleAxisBottom = scaleUtc({
-    domain: getMinMax(timeValues),
-    range: [0, width],
-  })
+  const scaleAxisLeft = useMemo(
+    () =>
+      scaleLinear<number>({
+        domain: [
+          Math.max(...historicalValues.map(d => Math.max(d.close))),
+          Math.min(...historicalValues.map(d => Math.min(d.close)))
+        ],
+        nice: true,
+        range: [0, Math.max(...historicalValues.map(d => Math.max(d.close)))]
+      }),
+    []
+  );
+
+  const scale = useMemo(
+    () =>
+      scaleLinear({
+        range: [margin, xMax],
+        domain: [1, timeRank.endTime],
+      }),
+    [xMax]
+  );
+
+  const scaleAxisBottom = useMemo(
+    () =>
+      scaleUtc({
+        range: [margin, xMax],
+        domain: extent(stock, getDate) as [Date, Date]
+      }),
+    [xMax]
+  );
 
   const dateScale = useMemo(
     () =>
       scaleTime({
-        range: [10, xMax],
+        range: [margin, xMax],
         domain: extent(stock, getDate) as [Date, Date]
       }),
     [xMax]
@@ -71,7 +90,7 @@ export const TimeWithValuesGraph = ({ width, margin, height }: any) => {
     () =>
       scaleLinear({
         range: [yMax, 0],
-        domain: [0, (max(stock, getStockValue) || 0) + yMax / 8],
+        domain: [0, (max(stock, getStockValue) || 0) + yMax / 10],
         nice: true
       }),
     [yMax]
@@ -80,7 +99,8 @@ export const TimeWithValuesGraph = ({ width, margin, height }: any) => {
   return (
     <div className='shadow'>
       <svg width={width} height={height}>
-        <rect x={0}
+        <rect
+          x={0}
           y={0}
           width={width}
           height={height}
@@ -90,7 +110,7 @@ export const TimeWithValuesGraph = ({ width, margin, height }: any) => {
         <GridColumns
           scale={scale}
           height={yMax}
-          top={15}
+          top={margin}
           strokeDasharray="2"
           stroke={accentColor}
           strokeOpacity={.6}
@@ -115,6 +135,15 @@ export const TimeWithValuesGraph = ({ width, margin, height }: any) => {
           tickFormat={(value) => {
             return moment(value as Date).format(`HH:mm`)
           }}
+        />
+        <AxisLeft
+          top={47}
+          left={margin}
+          scale={scaleAxisLeft}
+          numTicks={3}
+          stroke={axisColor}
+          tickStroke={axisColor}
+          tickLabelProps={() => axisBottomTickLabelProps}
         />
         <Bar
           x={0}
