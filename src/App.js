@@ -3,7 +3,7 @@ import { CurrentCo2 } from './components/CurrentCo2/CurrentCo2.jsx';
 import { IconWithValue } from './components/IconWithValue/IconWithValue.jsx';
 import { Icon } from './components/IconWithValue/Icon';
 import ParentSize from "@visx/responsive/lib/components/ParentSize";
-import TimeWithValuesGraph from "./components/TimeWithValuesGraph/TimeWithValuesGraph";
+import {TimeWithValuesGraph} from "./components/TimeWithValuesGraph/TimeWithValuesGraph";
 
 const hours = 8;
 
@@ -27,7 +27,7 @@ function App() {
           <div className='col text-center'>
 
             <ParentSize className=''>
-              {({ width }) => <TimeWithValuesGraph width={width} height={100} />}
+              {({ width }) => <TimeWithValuesGraph margin={{}} width={width} height={100} />}
             </ParentSize>,
           </div>
         </div>
