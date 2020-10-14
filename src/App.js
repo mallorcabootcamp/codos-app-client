@@ -18,7 +18,7 @@ function App() {
             <IconWithValue value='23 ºC' icon={Icon.thermometer} />
           </div>
           <div className='col text-right'>
-            <IconWithValue value='85% hr' icon={Icon.thermometer} />
+            <IconWithValue value='85% hr' icon={Icon.humidity} />
           </div>
         </div>
       </div>
