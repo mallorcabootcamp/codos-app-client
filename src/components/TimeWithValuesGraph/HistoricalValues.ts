@@ -5,8 +5,8 @@ export interface HistoricalValues {
   
   const historicalValues: HistoricalValues[] = [
     { date: "2020-04-24T00:00:00.000Z", close: 5 },
-    { date: "2020-04-24T01:00:00.000Z", close: 10 },
-    { date: "2020-04-24T02:00:00.000Z", close: 5 },
+    { date: "2020-04-24T01:00:00.000Z", close: 5 },
+    { date: "2020-04-24T02:00:00.000Z", close: 30 },
     { date: "2020-04-24T03:00:00.000Z", close: 5 },
     { date: "2020-04-24T04:00:00.000Z", close: 0 },
     { date: "2020-04-24T05:00:00.000Z", close: 9 },

@@ -1,27 +1,23 @@
 import React, { useMemo } from "react";
 import { AreaClosed, Bar } from "@visx/shape";
-import historicalValues, { HistoricalValues } from "./HistoricalValues";
-import { scaleUtc, scaleLinear, coerceNumber, scaleTime } from '@visx/scale'
+import { scaleUtc, scaleLinear, scaleTime } from '@visx/scale'
 import { AxisBottom, AxisLeft } from '@visx/axis';
-import { max, extent } from "d3-array";
+import { extent } from "d3-array";
 import { GridColumns } from '@visx/grid';
-import { timeFormat } from 'd3-time-format';
 import moment from 'moment';
+import "./TimeWithValuesGraph.css";
 
-
-//  config variables
-const formatDate = timeFormat("%b %d, '%y");
-
-let timeRank = {
+const timeRank = {
   startTime: 0,
   endTime: 8
 }
-const stock = historicalValues.slice(timeRank.startTime, timeRank.endTime);
-const accentColor = '#3498db';
-const bgColor = '#bdc3c7';
+interface HistoricalValues {
+  date: string;
+  close: number;
+}
+const graphColor = '#67aedd';
+const bgColor = '#dee1e3';
 const axisColor = '#2980b9';
-const getDate = (d: HistoricalValues) => new Date(d.date);
-const getStockValue = (d: HistoricalValues) => d.close;
 
 // axis config
 const axisBottomTickLabelProps = {
@@ -30,129 +26,142 @@ const axisBottomTickLabelProps = {
   fontSize: 10,
   fill: axisColor,
 };
-
+const axisLeftTickLabelProps = {
+  dx: '-0.25em',
+  dy: '0.25em',
+  fontFamily: 'Arial',
+  fontSize: 10,
+  textAnchor: 'end' as const,
+  fill: axisColor,
+};
 
 /**
- * data [{date: Date, value: number}]
- * color
- * uom ºC ppm
- * 
+ * data [{date: Date, value: number}] - Done
+ * color: If we follow the ???
+ * uom ºC ppm Done
+ * Added also timeFormat. This could be usefull if we want to show our bottom axis with diferent time values.
  */
 
 // Graph setup
-export const TimeWithValuesGraph = ({ width, margin, height }: any) => {
-
-  const xMax = width - margin;
-  const yMax = height - margin;
+export const TimeWithValuesGraph = ({ width, historicalValues, uom, marginY=22, marginX=27 , height, timeFormat }: any) => {
+  const stock = historicalValues.slice(timeRank.startTime, timeRank.endTime);
+  const getDate = (d: HistoricalValues) => new Date(d.date);
+  const getStockValue = (d: HistoricalValues) => d.close;
+  const xMax = width - marginX;
+  const yMax = height - marginY;
 
   // scales
-
-  const scaleAxisLeft = useMemo(
-    () =>
-      scaleLinear<number>({
-        domain: [
-          Math.max(...historicalValues.map(d => Math.max(d.close))),
-          Math.min(...historicalValues.map(d => Math.min(d.close)))
-        ],
-        nice: true,
-        range: [0, Math.max(...historicalValues.map(d => Math.max(d.close)))]
-      }),
-    []
-  );
-
-  const scale = useMemo(
+  const scaleGridColumns = useMemo(
     () =>
       scaleLinear({
-        range: [margin, xMax],
+        range: [marginX, xMax],
         domain: [1, timeRank.endTime],
       }),
-    [xMax]
+    [xMax, marginX]
+  );
+  const scaleAxisLeft = useMemo(
+    () =>
+      scaleLinear({
+        domain: [
+          Math.max(...stock.map((d: HistoricalValues) => Math.max(d.close))),
+          Math.min(...stock.map((d: HistoricalValues) => Math.min(d.close)))
+        ],
+        nice: true,
+        range: [0, yMax - marginY],
+
+      }),
+    [yMax, marginY, stock]
   );
 
   const scaleAxisBottom = useMemo(
     () =>
       scaleUtc({
-        range: [margin, xMax],
+        range: [marginX, xMax],
         domain: extent(stock, getDate) as [Date, Date]
       }),
-    [xMax]
+    [xMax, marginX, stock]
   );
 
   const dateScale = useMemo(
     () =>
       scaleTime({
-        range: [margin, xMax],
+        range: [marginX, xMax],
         domain: extent(stock, getDate) as [Date, Date]
       }),
-    [xMax]
+    [xMax, marginX, stock]
   );
   const stockValueScale = useMemo(
     () =>
       scaleLinear({
-        range: [yMax, 0],
-        domain: [0, (max(stock, getStockValue) || 0) + yMax / 10],
-        nice: true
+        range: [marginY, yMax],
+        domain: [
+          Math.min(...stock.map((d: HistoricalValues) => Math.min(d.close))),
+          Math.max(...stock.map((d: HistoricalValues) => Math.max(d.close)))
+        ],
+        nice: true,
+        reverse: true
       }),
-    [yMax]
+    [yMax, marginY, stock]
   );
 
   return (
-    <div className='shadow'>
-      <svg width={width} height={height}>
-        <rect
-          x={0}
-          y={0}
-          width={width}
-          height={height}
-          fill={bgColor}
-          opacity='.5'
-        />
-        <GridColumns
-          scale={scale}
-          height={yMax}
-          top={margin}
-          strokeDasharray="2"
-          stroke={accentColor}
-          strokeOpacity={.6}
-          pointerEvents="none"
+    <div className='text-left'>
+        <div className='display text-color pb-1 px-3 bg-color d-inline p-0 rounded-top'>
+          {uom}
+        </div>
+        <svg width={width} height={height}>
+          <rect
+            x={0}
+            y={0}
+            width={width}
+            height={height}
+            fill={bgColor}
+          ></rect>
+          <GridColumns
+            scale={scaleGridColumns}
+            height={yMax - marginY}
+            top={marginY}
+            numTicks={timeRank.endTime}
+            strokeDasharray="3"
+            stroke={graphColor}
+            pointerEvents="none"
 
-        />
-        <AreaClosed
-          data={stock}
-          x={(d) => dateScale(getDate(d)) ?? 0}
-          y={(d) => stockValueScale(getStockValue(d)) ?? 0}
-          yScale={stockValueScale}
-          fill={accentColor}
-          opacity='.6'
-        />
-        <AxisBottom
-          top={yMax}
-          scale={scaleAxisBottom}
-          numTicks={timeRank.endTime}
-          stroke={axisColor}
-          tickStroke={axisColor}
-          tickLabelProps={() => axisBottomTickLabelProps}
-          tickFormat={(value) => {
-            return moment(value as Date).format(`HH:mm`)
-          }}
-        />
-        <AxisLeft
-          top={47}
-          left={margin}
-          scale={scaleAxisLeft}
-          numTicks={3}
-          stroke={axisColor}
-          tickStroke={axisColor}
-          tickLabelProps={() => axisBottomTickLabelProps}
-        />
-        <Bar
-          x={0}
-          y={0}
-          width={width}
-          height={height}
-          fill="transparent"
-        />
-      </svg>
+          />
+          <AreaClosed
+            data={stock}
+            x={(d: HistoricalValues) => dateScale(getDate(d)) ?? 0}
+            y={(d: HistoricalValues) => stockValueScale(getStockValue(d)) ?? 0}
+            yScale={stockValueScale}
+            fill={graphColor}
+          />
+          <AxisBottom
+            top={yMax}
+            scale={scaleAxisBottom}
+            numTicks={timeRank.endTime}
+            stroke={axisColor}
+            tickStroke={axisColor}
+            tickLabelProps={() => axisBottomTickLabelProps}
+            tickFormat={(value) => {
+              return moment(value as Date).format(timeFormat)
+            }}
+          />
+          <AxisLeft
+            top={marginY}
+            left={marginX}
+            scale={scaleAxisLeft}
+            numTicks={3}
+            stroke={axisColor}
+            tickStroke={axisColor}
+            tickLabelProps={() => axisLeftTickLabelProps}
+          />
+          <Bar
+            x={0}
+            y={0}
+            width={width}
+            height={height}
+            fill="transparent"
+          />
+        </svg>
     </div>
   );
 }
