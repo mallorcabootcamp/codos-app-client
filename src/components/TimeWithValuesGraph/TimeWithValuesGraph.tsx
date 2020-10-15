@@ -37,7 +37,6 @@ const axisLeftTickLabelProps = {
 
 /**
  * data [{date: Date, value: number}] - Done
- * color: If we follow the ???
  * uom ºC ppm Done
  * Added also timeFormat. This could be usefull if we want to show our bottom axis with diferent time values.
  */
@@ -63,8 +62,8 @@ export const TimeWithValuesGraph = ({ width, historicalValues, uom, marginY=22, 
     () =>
       scaleLinear({
         domain: [
-          Math.max(...stock.map((d: HistoricalValues) => Math.max(d.close))),
-          Math.min(...stock.map((d: HistoricalValues) => Math.min(d.close)))
+          Math.max(...stock.map((d: HistoricalValues) => d.close)),
+          Math.min(...stock.map((d: HistoricalValues) => d.close))
         ],
         nice: true,
         range: [0, yMax - marginY],
@@ -106,7 +105,7 @@ export const TimeWithValuesGraph = ({ width, historicalValues, uom, marginY=22, 
 
   return (
     <div className='text-left'>
-        <div className='display text-color pb-1 px-3 bg-color d-inline p-0 rounded-top'>
+        <div className='display graph-label pb-1 px-3 d-inline p-0 rounded-top'>
           {uom}
         </div>
         <svg width={width} height={height}>
@@ -141,7 +140,7 @@ export const TimeWithValuesGraph = ({ width, historicalValues, uom, marginY=22, 
             stroke={axisColor}
             tickStroke={axisColor}
             tickLabelProps={() => axisBottomTickLabelProps}
-            tickFormat={(value) => {
+            tickFormat={(value: any) => {
               return moment(value as Date).format(timeFormat)
             }}
           />
