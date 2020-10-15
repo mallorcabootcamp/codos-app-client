@@ -10,8 +10,6 @@ function App() {
       <Route path='/History'>
           <History />
         </Route>
-      </Switch>
-      <Switch>
         <Route path='/' exact>
           <Main />
         </Route>
