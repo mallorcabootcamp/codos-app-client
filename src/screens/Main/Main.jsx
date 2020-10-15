@@ -13,7 +13,7 @@ const Main = () => {
     return (
         <div>
             <CurrentCo2 eCoValue={0} />
-            <div className='container px-5 '>
+            <div className='container px-5'>
                 <div className='row '>
                     <div className='col'>
                         <IconWithValue value='23 ºC' icon={Icon.thermometer} />

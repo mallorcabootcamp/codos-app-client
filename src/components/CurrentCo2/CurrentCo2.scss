@@ -1,0 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;700&display=swap');
+@import '../../Styles/Vars.scss';
+
+
+.currentCo2Elem {
+    div {
+        height: $widthAndHeight;
+        width: $widthAndHeight;
+        border: 13px;
+        border-style: solid;
+    }
+    .eco-elem{
+        font-size: 23px;
+    }
+    p {
+        font-family: 'Montserrat';
+        font-size: 30px;
+        font-weight: 700;
+    }
+    span {
+        font-size: 40px;
+    }
+
+}
