@@ -1,0 +1,42 @@
+@import '../../Styles/Vars.scss';
+
+.menu-elem{
+    color: $fontGreyColor;
+}
+
+.icon-with-value-elem{
+    padding: 25px 25px 5px 45px;
+    color: $fontGreyColor;
+    .icon-elem{
+        font-size: 29px;
+    }
+    .value-elem{
+        font-size: 22px;
+    }
+}
+
+.search-elem{
+    height: 75px;
+    width: 75px;
+    background-color: #575757;
+    font-size: 26px;
+    padding-top: 16px;
+}
+
+a {
+    color: #f8f8f8;
+}
+a:visited{
+    color: #f8f8f8;
+}
+.text-elem {
+    font-family: $fontFamilyMontserrat;
+    font-size: 0.9em;
+    font-weight: normal;
+}
+.graph-elem{
+    padding: 0px 0px 20px 0px;
+    margin-top: -20px;
+    font-family: $fontFamilyMontserrat;
+    font-weight: normal;
+}
