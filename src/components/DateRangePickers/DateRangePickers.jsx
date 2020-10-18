@@ -4,12 +4,20 @@ import './DateRangePickers.scss';
 
 export const DateRangePickers = ({ text }) => {
 
-    const [date, getDate] = useState('');
+    const [date, setDate] = useState('');
+
+    const handleChange = ({ target }) => {
+        const { name, value } = target
+        setDate( () => ({
+          [name]: value
+        }));
+      };
+    console.log(date);
     
     return (
         <>
             <label className='' for='date'>{text}:</label>
-            <input onChange={(e) => getDate([text, e.target.value])} type="date" id='date' min="2020-01-01" max="2020-12-31" />
+            <input onChange={handleChange} name={text} type="date" id='date' min="2020-01-01" max="2020-12-31" />
         </>
     )
 }
