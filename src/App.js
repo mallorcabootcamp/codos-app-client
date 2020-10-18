@@ -7,11 +7,9 @@ function App() {
   return (
     <Router>
       <Switch>
-      <Route path='/History'>
+        <Route path='/History'>
           <History />
         </Route>
-      </Switch>
-      <Switch>
         <Route path='/' exact>
           <Main />
         </Route>

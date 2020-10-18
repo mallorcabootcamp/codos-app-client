@@ -5,7 +5,7 @@ import { AxisBottom, AxisLeft } from '@visx/axis';
 import { extent } from "d3-array";
 import { GridColumns } from '@visx/grid';
 import moment from 'moment';
-import "./TimeWithValuesGraph.css";
+import "./TimeWithValuesGraph.scss";
 
 const timeRank = {
   startTime: 0,
@@ -15,9 +15,9 @@ interface HistoricalValues {
   date: string;
   close: number;
 }
-const graphColor = '#67aedd';
-const bgColor = '#dee1e3';
-const axisColor = '#2980b9';
+const graphColor = '#bdc3c7';
+const bgColor = '#ecf0f1';
+const axisColor = '#878a8c';
 
 // axis config
 const axisBottomTickLabelProps = {
@@ -42,7 +42,7 @@ const axisLeftTickLabelProps = {
  */
 
 // Graph setup
-export const TimeWithValuesGraph = ({ width, historicalValues, uom, marginY=22, marginX=27 , height, timeFormat }: any) => {
+export const TimeWithValuesGraph = ({ width, historicalValues, uom, marginY=20, marginX=40 , height, timeFormat }: any) => {
   const stock = historicalValues.slice(timeRank.startTime, timeRank.endTime);
   const getDate = (d: HistoricalValues) => new Date(d.date);
   const getStockValue = (d: HistoricalValues) => d.close;
@@ -53,7 +53,7 @@ export const TimeWithValuesGraph = ({ width, historicalValues, uom, marginY=22, 
   const scaleGridColumns = useMemo(
     () =>
       scaleLinear({
-        range: [marginX, xMax],
+        range: [marginX, xMax + marginX],
         domain: [1, timeRank.endTime],
       }),
     [xMax, marginX]
@@ -65,9 +65,7 @@ export const TimeWithValuesGraph = ({ width, historicalValues, uom, marginY=22, 
           Math.max(...stock.map((d: HistoricalValues) => d.close)),
           Math.min(...stock.map((d: HistoricalValues) => d.close))
         ],
-        nice: true,
         range: [0, yMax - marginY],
-
       }),
     [yMax, marginY, stock]
   );
@@ -75,7 +73,7 @@ export const TimeWithValuesGraph = ({ width, historicalValues, uom, marginY=22, 
   const scaleAxisBottom = useMemo(
     () =>
       scaleUtc({
-        range: [marginX, xMax],
+        range: [marginX, xMax + marginX],
         domain: extent(stock, getDate) as [Date, Date]
       }),
     [xMax, marginX, stock]
@@ -84,7 +82,7 @@ export const TimeWithValuesGraph = ({ width, historicalValues, uom, marginY=22, 
   const dateScale = useMemo(
     () =>
       scaleTime({
-        range: [marginX, xMax],
+        range: [marginX, xMax + marginX],
         domain: extent(stock, getDate) as [Date, Date]
       }),
     [xMax, marginX, stock]
@@ -97,35 +95,21 @@ export const TimeWithValuesGraph = ({ width, historicalValues, uom, marginY=22, 
           Math.min(...stock.map((d: HistoricalValues) => Math.min(d.close))),
           Math.max(...stock.map((d: HistoricalValues) => Math.max(d.close)))
         ],
-        nice: true,
         reverse: true
       }),
     [yMax, marginY, stock]
   );
 
   return (
-    <div className='text-left'>
-        <div className='display graph-label pb-1 px-3 d-inline p-0 rounded-top'>
-          {uom}
-        </div>
-        <svg width={width} height={height}>
+    <div className='text-left time-with-values-graph-elem'>
+        <svg width={width + marginY} height={height}>
           <rect
-            x={0}
-            y={0}
-            width={width}
-            height={height}
+            x={marginX}
+            y={marginY}
+            width={width - marginX}
+            height={height - marginY * 2}
             fill={bgColor}
           ></rect>
-          <GridColumns
-            scale={scaleGridColumns}
-            height={yMax - marginY}
-            top={marginY}
-            numTicks={timeRank.endTime}
-            strokeDasharray="3"
-            stroke={graphColor}
-            pointerEvents="none"
-
-          />
           <AreaClosed
             data={stock}
             x={(d: HistoricalValues) => dateScale(getDate(d)) ?? 0}
@@ -133,11 +117,20 @@ export const TimeWithValuesGraph = ({ width, historicalValues, uom, marginY=22, 
             yScale={stockValueScale}
             fill={graphColor}
           />
+          <GridColumns
+            scale={scaleGridColumns}
+            height={yMax - marginY}
+            top={marginY}
+            numTicks={timeRank.endTime}
+            stroke={axisColor}
+            strokeWidth={1.5}
+          />
           <AxisBottom
             top={yMax}
             scale={scaleAxisBottom}
             numTicks={timeRank.endTime}
             stroke={axisColor}
+            hideTicks={true}
             tickStroke={axisColor}
             tickLabelProps={() => axisBottomTickLabelProps}
             tickFormat={(value: any) => {
@@ -149,16 +142,10 @@ export const TimeWithValuesGraph = ({ width, historicalValues, uom, marginY=22, 
             left={marginX}
             scale={scaleAxisLeft}
             numTicks={3}
+            hideTicks={true}
             stroke={axisColor}
             tickStroke={axisColor}
             tickLabelProps={() => axisLeftTickLabelProps}
-          />
-          <Bar
-            x={0}
-            y={0}
-            width={width}
-            height={height}
-            fill="transparent"
           />
         </svg>
     </div>

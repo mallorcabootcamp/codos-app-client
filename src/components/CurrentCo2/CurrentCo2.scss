@@ -1,0 +1,29 @@
+@import '../../Styles/Vars.scss';
+$innerCircleSize: 265px;
+$outterCircleDifference: 32px;
+
+
+.current-co2-elem {
+    .inner-circle {
+        height: $innerCircleSize;
+        width: $innerCircleSize;
+        background-image: url(../../img/decoration.svg);
+        background-repeat: no-repeat;
+        background-position: bottom;
+    }
+    .outer-circle {
+        height: $innerCircleSize + $outterCircleDifference;
+        width: $innerCircleSize + $outterCircleDifference;
+    }
+    .eco-elem{
+        font-size: 23px;
+    }
+    p {
+        font-family: $fontFamilyMontserrat;
+        font-size: 30px;
+        font-weight: 700;
+    }
+    span {
+        font-size: 40px;
+    }
+}
