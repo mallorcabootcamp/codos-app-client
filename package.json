@@ -18,7 +18,6 @@
     "d3-array": "^2.8.0",
     "moment": "^2.29.1",
     "react": "^16.13.1",
-    "react-css-modules": "^4.7.11",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",
