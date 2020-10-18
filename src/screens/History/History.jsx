@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
+import { DateRangePickers } from '../../components/DateRangePickers/DateRangePickers';
 import './History.scss'
 
 const History = () => {
@@ -13,7 +14,14 @@ const History = () => {
             <div className='row'>
                 <h1 className='text-center history-text-elem'>Histórico</h1>
             </div>
-
+            <div className='row'>
+                <div className="col">
+                  <DateRangePickers text='Desde' />
+                </div>
+                <div className="col">
+                    <DateRangePickers text='Hasta' />
+                </div>
+            </div>
         </div>
     );
 }
