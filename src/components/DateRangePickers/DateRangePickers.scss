@@ -1,0 +1,27 @@
+@import '../../Styles/Vars.scss';
+
+.range-pickers-text-elem{
+    font-family: 'Montserrat';
+    font-weight: 700;
+    font-size: 0.9em;
+    color: $whiteColor;
+}
+::-webkit-calendar-picker-indicator { 
+    background-image: url(../../img/search-solid.svg); 
+    font-size: 1.2em;
+    color: $whiteColor;
+    filter: invert(100%);
+    background-color: #878787;
+    padding:  12px;
+    margin: -1px;
+
+}
+::-webkit-datetime-edit-fields-wrapper {
+    padding: 0 0px 0 5px;
+  }
+
+.range-pickers-input-elem{
+    color:  #878787;
+    padding: 0;
+    width: 160px;
+}
