@@ -5,7 +5,6 @@ import './DateRangePickers.scss';
 export const DateRangePickers = ({ text }) => {
 
     const [date, getDate] = useState('');
-    console.log(date);
     
     return (
         <>
