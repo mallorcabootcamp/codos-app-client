@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faThermometerFull, faTint } from '@fortawesome/free-solid-svg-icons';
 import {Icon} from './Icon';
 
-import "./IconWithValue.css";
+import "./IconWithValue.scss";
 
 export const IconWithValue = ({ value, icon }) => {
 

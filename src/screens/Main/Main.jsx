@@ -18,7 +18,7 @@ const Main = () => {
         <div>
             <div className='container'>
                 <div className='row'>
-                    <div className='col ml-4 pt-4 mt-3 h4 mb-0 d-inline menu-elem'>
+                    <div className='col ml-4 pt-4 mt-3 h4 mb-0 d-inline menu-elem' >
                         <p className='mb-0'><FontAwesomeIcon icon={faBars} size="lg" /></p>
                     </div>
                 </div>

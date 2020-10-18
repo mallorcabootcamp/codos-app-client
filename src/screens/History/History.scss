@@ -1,0 +1,25 @@
+@import '../../Styles/Vars.scss';
+
+.history-elem-container{
+    background-color:$darkGreyColor;
+    height: 100vh;;
+}
+
+.arrow-back-elem{
+    color: $darkGreyColor;
+    background-color: $whiteColor;
+    height: 50px;
+    width: 50px;
+    font-size: 1.3em;
+    padding: 9px 14px;
+
+    a:visited{
+        color: $darkGreyColor;
+    }
+}
+
+.history-text-elem{
+    color: $whiteColor;
+    font-size: 1.7em;
+    margin: -15px auto;
+}
