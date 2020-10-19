@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
-import { DatePicker } from '../../components/DateRangePickers/DatePicker';
+import { DatePicker } from '../../components/DatePickers/DatePicker';
 import './History.scss'
 
 const History = () => {
