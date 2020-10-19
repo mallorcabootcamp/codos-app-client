@@ -16,8 +16,8 @@ export const DateRangePickers = ({ text }) => {
     
     return (
         <>
-            <label className='' for='date'>{text}:</label>
-            <input onChange={handleChange} name={text} type="date" id='date' min="2020-01-01" max="2020-12-31" />
+            <label className='pt-5 range-pickers-text-elem' for='date'>{text}:</label>
+            <input className='range-pickers-input-elem' onChange={handleChange} name={text} type="date" id='date' />
         </>
     )
 }
