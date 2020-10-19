@@ -1,0 +1,11 @@
+@import "bootstrap/scss/bootstrap.scss";
+@import "Vars.scss";
+
+#root {
+    background-color: $whiteColor;
+}
+
+body {
+    font-family: "Montserrat";
+    background-color: $whiteColor;
+}
