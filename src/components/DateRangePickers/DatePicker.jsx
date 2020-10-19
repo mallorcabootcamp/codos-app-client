@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import './DateRangePickers.scss';
+import './DatePicker.scss';
 import shortid from 'shortid';
 
 
-export const DateRangePickers = ({ text }) => {
+export const DatePicker = ({ text }) => {
 
     const [date, setDate] = useState('');
     // const shortid = require('shortid');
@@ -20,8 +20,8 @@ export const DateRangePickers = ({ text }) => {
     
     return (
         <>
-            <label className='pt-5 range-pickers-text' for={idValue}>{text}:</label>
-            <input className='range-pickers-input' onChange={handleChange} name={text} type="date" id={idValue} />
+            <label className='pt-5 date-picker-text' for={idValue}>{text}:</label>
+            <input className='date-picker-input' onChange={handleChange} name={text} type="date" id={idValue} />
         </>
     )
 }
