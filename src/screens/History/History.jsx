@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
-import { DateRangePickers } from '../../components/DateRangePickers/DateRangePickers';
+import { DatePicker } from '../../components/DatePickers/DatePicker';
 import './History.scss'
 
 const History = () => {
@@ -16,10 +16,10 @@ const History = () => {
             </div>
             <div className='row date-range-pickers-container'>
                 <div className="col p-0">
-                  <DateRangePickers className='pt-3' text='Desde' />
+                  <DatePicker className='pt-3' text='Desde' />
                 </div>
                 <div className="col p-0">
-                    <DateRangePickers text='Hasta' />
+                    <DatePicker text='Hasta' />
                 </div>
             </div>
         </div>
