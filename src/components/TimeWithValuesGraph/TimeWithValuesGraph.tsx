@@ -7,10 +7,7 @@ import { GridColumns } from '@visx/grid';
 import moment from 'moment';
 import "./TimeWithValuesGraph.scss";
 
-const timeRank = {
-  startTime: 0,
-  endTime: 8
-}
+
 interface HistoricalValues {
   date: string;
   close: number;
@@ -42,12 +39,17 @@ const axisLeftTickLabelProps = {
  */
 
 // Graph setup
-export const TimeWithValuesGraph = ({ width, historicalValues, uom, marginY=20, marginX=40 , height, timeFormat }: any) => {
+export const TimeWithValuesGraph = ({ axis, endTimeValue, width, historicalValues, uom, marginY, marginX, height, timeFormat }: any) => {
+  const timeRank = {
+    startTime: 0,
+    endTime: endTimeValue
+  }
   const stock = historicalValues.slice(timeRank.startTime, timeRank.endTime);
   const getDate = (d: HistoricalValues) => new Date(d.date);
   const getStockValue = (d: HistoricalValues) => d.close;
   const xMax = width - marginX;
   const yMax = height - marginY;
+
 
   // scales
   const scaleGridColumns = useMemo(
@@ -102,29 +104,30 @@ export const TimeWithValuesGraph = ({ width, historicalValues, uom, marginY=20, 
 
   return (
     <div className='text-left time-with-values-graph-elem'>
-        <svg width={width + marginY} height={height}>
-          <rect
-            x={marginX}
-            y={marginY}
-            width={width - marginX}
-            height={height - marginY * 2}
-            fill={bgColor}
-          ></rect>
-          <AreaClosed
-            data={stock}
-            x={(d: HistoricalValues) => dateScale(getDate(d)) ?? 0}
-            y={(d: HistoricalValues) => stockValueScale(getStockValue(d)) ?? 0}
-            yScale={stockValueScale}
-            fill={graphColor}
-          />
-          <GridColumns
-            scale={scaleGridColumns}
-            height={yMax - marginY}
-            top={marginY}
-            numTicks={timeRank.endTime}
-            stroke={axisColor}
-            strokeWidth={1.5}
-          />
+      <svg width={width + marginY} height={height}>
+        <rect
+          x={marginX}
+          y={marginY}
+          width={width - marginX}
+          height={height - marginY * 2}
+          fill={bgColor}
+        ></rect>
+        <AreaClosed
+          data={stock}
+          x={(d: HistoricalValues) => dateScale(getDate(d)) ?? 0}
+          y={(d: HistoricalValues) => stockValueScale(getStockValue(d)) ?? 0}
+          yScale={stockValueScale}
+          fill={graphColor}
+        />
+        <GridColumns
+          scale={scaleGridColumns}
+          height={yMax - marginY}
+          top={marginY}
+          numTicks={timeRank.endTime}
+          stroke={axisColor}
+          strokeWidth={1.5}
+        />
+        {axis &&
           <AxisBottom
             top={yMax}
             scale={scaleAxisBottom}
@@ -136,7 +139,8 @@ export const TimeWithValuesGraph = ({ width, historicalValues, uom, marginY=20, 
             tickFormat={(value: any) => {
               return moment(value as Date).format(timeFormat)
             }}
-          />
+          />}
+        {axis &&
           <AxisLeft
             top={marginY}
             left={marginX}
@@ -147,8 +151,9 @@ export const TimeWithValuesGraph = ({ width, historicalValues, uom, marginY=20, 
             tickStroke={axisColor}
             tickLabelProps={() => axisLeftTickLabelProps}
             tickFormat={(e) => `${e} ${uom}`}
-          />
-        </svg>
+          />}
+
+      </svg>
     </div>
   );
 }
