@@ -146,6 +146,7 @@ export const TimeWithValuesGraph = ({ width, historicalValues, uom, marginY=20, 
             stroke={axisColor}
             tickStroke={axisColor}
             tickLabelProps={() => axisLeftTickLabelProps}
+            tickFormat={(e) => `${e} ${uom}`}
           />
         </svg>
     </div>
