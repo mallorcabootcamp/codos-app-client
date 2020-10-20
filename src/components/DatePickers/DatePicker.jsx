@@ -6,7 +6,6 @@ import shortid from 'shortid';
 export const DatePicker = ({ text }) => {
 
   const [date, setDate] = useState('');
-  // const shortid = require('shortid');
 
   const idValue = shortid.generate()
 
