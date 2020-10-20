@@ -39,7 +39,7 @@ const axisLeftTickLabelProps = {
  */
 
 // Graph setup
-export const TimeWithValuesGraph = ({ axis, endTimeValue, width, historicalValues, uom, marginY, marginX, height, timeFormat }: any) => {
+export const TimeWithValuesGraph = ({ endTimeValue, width, historicalValues, uom, marginY, marginX, height, timeFormat }: any) => {
   const timeRank = {
     startTime: 0,
     endTime: endTimeValue
@@ -127,7 +127,7 @@ export const TimeWithValuesGraph = ({ axis, endTimeValue, width, historicalValue
           stroke={axisColor}
           strokeWidth={1.5}
         />
-        {axis &&
+        
           <AxisBottom
             top={yMax}
             scale={scaleAxisBottom}
@@ -139,8 +139,8 @@ export const TimeWithValuesGraph = ({ axis, endTimeValue, width, historicalValue
             tickFormat={(value: any) => {
               return moment(value as Date).format(timeFormat)
             }}
-          />}
-        {axis &&
+          />
+      
           <AxisLeft
             top={marginY}
             left={marginX}
@@ -151,7 +151,7 @@ export const TimeWithValuesGraph = ({ axis, endTimeValue, width, historicalValue
             tickStroke={axisColor}
             tickLabelProps={() => axisLeftTickLabelProps}
             tickFormat={(e) => `${e} ${uom}`}
-          />}
+          />
 
       </svg>
     </div>

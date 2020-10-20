@@ -6,22 +6,10 @@
     color: $whiteColor;
 }
 
-::-webkit-calendar-picker-indicator { 
-    background-image: url(../../img/search-solid.svg); 
-    font-size: 1em;
-    color: $whiteColor;
-    filter: invert(100%);
-    background-color: #878787;
-    padding:  12px;
-    margin: -1px;
-
-}
-::-webkit-datetime-edit-fields-wrapper {
-    padding: 0 5px 0 5px;
-  }
-
 .date-picker-input{
-    color:  #878787;
-    padding: 0;
-    width: 160px;
+    color:  $lightGreyColor;
+    font-size: 0.9em;
+    padding: 10px 10px;
+    width: 100%;
+    border-radius: 10px;
 } 
