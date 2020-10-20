@@ -1,15 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import ParentSize from "@visx/responsive/lib/components/ParentSize";
-import { DatePicker } from '../../components/DatePickers/DatePicker';
+import { DatePicker } from '../../components/DatePicker/DatePicker';
 import { TimeWithValuesGraph } from '../../components/TimeWithValuesGraph/TimeWithValuesGraph';
 import historicalValues from "../../components/TimeWithValuesGraph/HistoricalValues";
 import { CardWithTextTab } from '../../components/CardWithTextTab/CardWithTextTab'
 import './History.scss'
 
 const History = () => {
+    // petición api 
+    const [fromDate, setFromDate] = useState();
+    const [toDate, setToDate] = useState();
+
     return (
         <div className='container history-elem-container'>
             <div className='row'>
@@ -20,10 +24,10 @@ const History = () => {
             </div>
             <div className='row date-range-pickers-container'>
                 <div className="col p-0">
-                    <DatePicker className='pt-3' text='Desde' />
+                    <DatePicker date={fromDate} onDateChanged={(value) => setFromDate(value)} className='pt-3' text='Desde' />
                 </div>
                 <div className="col p-0">
-                    <DatePicker text='Hasta' />
+                    <DatePicker date={toDate} onDateChanged={(value) => setToDate(value)} text='Hasta' />
                 </div>
             </div>
             <CardWithTextTab>
