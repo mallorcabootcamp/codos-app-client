@@ -1,5 +1,6 @@
+//eslint-disable-next-line
 import React, { useMemo } from "react";
-import { AreaClosed, Bar } from "@visx/shape";
+import { AreaClosed } from "@visx/shape";
 import { scaleUtc, scaleLinear, scaleTime } from '@visx/scale'
 import { AxisBottom, AxisLeft } from '@visx/axis';
 import { extent } from "d3-array";
@@ -58,7 +59,7 @@ export const TimeWithValuesGraph = ({ endTimeValue, width, historicalValues, uom
         range: [marginX, xMax + marginX],
         domain: [1, timeRank.endTime],
       }),
-    [xMax, marginX]
+    [xMax, marginX, timeRank.endTime]
   );
   const scaleAxisLeft = useMemo(
     () =>

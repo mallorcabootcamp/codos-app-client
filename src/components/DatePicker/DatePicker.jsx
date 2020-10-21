@@ -1,7 +1,6 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 import './DatePicker.scss';
 import shortid from 'shortid';
-
 
 export const DatePicker = ({ text, date, onDateChanged }) => {
   const idValue = useMemo(() => shortid.generate(), []);
