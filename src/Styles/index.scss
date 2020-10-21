@@ -3,9 +3,14 @@
 
 #root {
     background-color: $whiteColor;
+    height: 100%;
 }
 
 body {
     font-family: "Montserrat";
     background-color: $whiteColor;
+}
+
+body, html {
+    height: 100%;
 }
