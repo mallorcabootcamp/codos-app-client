@@ -1,23 +1,23 @@
 {
   "files": {
     "main.css": "/codos-app-client/static/css/main.684c8e69.chunk.css",
-    "main.js": "/codos-app-client/static/js/main.7f9cf474.chunk.js",
-    "main.js.map": "/codos-app-client/static/js/main.7f9cf474.chunk.js.map",
+    "main.js": "/codos-app-client/static/js/main.2f2780d9.chunk.js",
+    "main.js.map": "/codos-app-client/static/js/main.2f2780d9.chunk.js.map",
     "runtime-main.js": "/codos-app-client/static/js/runtime-main.44dc28e9.js",
     "runtime-main.js.map": "/codos-app-client/static/js/runtime-main.44dc28e9.js.map",
-    "static/js/2.4f08d37a.chunk.js": "/codos-app-client/static/js/2.4f08d37a.chunk.js",
-    "static/js/2.4f08d37a.chunk.js.map": "/codos-app-client/static/js/2.4f08d37a.chunk.js.map",
+    "static/js/2.4df623df.chunk.js": "/codos-app-client/static/js/2.4df623df.chunk.js",
+    "static/js/2.4df623df.chunk.js.map": "/codos-app-client/static/js/2.4df623df.chunk.js.map",
     "index.html": "/codos-app-client/index.html",
-    "precache-manifest.2f788138edcc3c0578f4658f57b310e6.js": "/codos-app-client/precache-manifest.2f788138edcc3c0578f4658f57b310e6.js",
+    "precache-manifest.dd62392e6407dd3487b2eea09deceb00.js": "/codos-app-client/precache-manifest.dd62392e6407dd3487b2eea09deceb00.js",
     "service-worker.js": "/codos-app-client/service-worker.js",
     "static/css/main.684c8e69.chunk.css.map": "/codos-app-client/static/css/main.684c8e69.chunk.css.map",
-    "static/js/2.4f08d37a.chunk.js.LICENSE.txt": "/codos-app-client/static/js/2.4f08d37a.chunk.js.LICENSE.txt",
+    "static/js/2.4df623df.chunk.js.LICENSE.txt": "/codos-app-client/static/js/2.4df623df.chunk.js.LICENSE.txt",
     "static/media/CurrentCo2.scss": "/codos-app-client/static/media/decoration.d09098d2.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.44dc28e9.js",
-    "static/js/2.4f08d37a.chunk.js",
+    "static/js/2.4df623df.chunk.js",
     "static/css/main.684c8e69.chunk.css",
-    "static/js/main.7f9cf474.chunk.js"
+    "static/js/main.2f2780d9.chunk.js"
   ]
 }
