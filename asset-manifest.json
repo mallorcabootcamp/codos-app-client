@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/codos-app-client/static/css/main.684c8e69.chunk.css",
+    "main.css": "/codos-app-client/static/css/main.db99ca47.chunk.css",
     "main.js": "/codos-app-client/static/js/main.2f2780d9.chunk.js",
     "main.js.map": "/codos-app-client/static/js/main.2f2780d9.chunk.js.map",
     "runtime-main.js": "/codos-app-client/static/js/runtime-main.44dc28e9.js",
@@ -8,16 +8,16 @@
     "static/js/2.4df623df.chunk.js": "/codos-app-client/static/js/2.4df623df.chunk.js",
     "static/js/2.4df623df.chunk.js.map": "/codos-app-client/static/js/2.4df623df.chunk.js.map",
     "index.html": "/codos-app-client/index.html",
-    "precache-manifest.dd62392e6407dd3487b2eea09deceb00.js": "/codos-app-client/precache-manifest.dd62392e6407dd3487b2eea09deceb00.js",
+    "precache-manifest.403680e87abb99ccc3fdbf4ee2261834.js": "/codos-app-client/precache-manifest.403680e87abb99ccc3fdbf4ee2261834.js",
     "service-worker.js": "/codos-app-client/service-worker.js",
-    "static/css/main.684c8e69.chunk.css.map": "/codos-app-client/static/css/main.684c8e69.chunk.css.map",
+    "static/css/main.db99ca47.chunk.css.map": "/codos-app-client/static/css/main.db99ca47.chunk.css.map",
     "static/js/2.4df623df.chunk.js.LICENSE.txt": "/codos-app-client/static/js/2.4df623df.chunk.js.LICENSE.txt",
     "static/media/CurrentCo2.scss": "/codos-app-client/static/media/decoration.d09098d2.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.44dc28e9.js",
     "static/js/2.4df623df.chunk.js",
-    "static/css/main.684c8e69.chunk.css",
+    "static/css/main.db99ca47.chunk.css",
     "static/js/main.2f2780d9.chunk.js"
   ]
 }
