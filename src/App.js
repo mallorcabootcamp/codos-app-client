@@ -2,7 +2,7 @@ import React from 'react';
 import { HashRouter, Switch, Route } from "react-router-dom";
 import Main from './screens/Main/Main';
 import History from './screens/History/History';
-import { ScrollToTop } from '../src/components/ScrollToTop';
+import { ScrollToTop } from '../src/components/ScrollToTop/ScrollToTop';
 import "./index.scss";
 
 function App() {
