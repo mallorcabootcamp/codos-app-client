@@ -17,7 +17,7 @@ export const CurrentCo2 = ({ eCoValue }) => {
 
     return (
         <div className='container pt-0 pb-4 mb-2 current-co2-elem'>
-            <div className='text-center m-auto py-3 shadow rounded-circle outer-circle' style={{ backgroundColor: borderColor }}>
+            <div className='text-center m-auto py-3 rounded-circle outer-circle' style={{ backgroundColor: borderColor }}>
                 <div className='text-center m-auto py-3 shadow rounded-circle inner-circle' style={{ backgroundColor }}>
                     <p className='h5 p-0 m-0 text-white pt-5 mt-2 eco-elem'>eCO²</p>
                     <p className='h3 p-0 m-0 text-white mt-1'><span>{eCoValue}</span> ppm</p>

@@ -24,7 +24,7 @@ const Main = () => {
                 </div>
             </div>
             <CurrentCo2 eCoValue={0} />
-            <div className='container px-5'>
+            <div className='container px-5 text-center'>
                 <Card>
                     <div className='row icon-with-value-elem'>
                         <div className='col'>

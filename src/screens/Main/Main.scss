@@ -5,7 +5,7 @@
 }
 
 .icon-with-value-elem{
-    padding: 25px 25px 5px 60px;
+    padding: 25px 25px 7px 25px;
     color: $darkGreyColor;
 }
 
@@ -14,13 +14,20 @@
     width: 75px;
     background-color: $darkGreyColor;
     font-size: 26px;
-    padding-top: 16px;
+    padding-top: 18px;
     a {
         color: $whiteColor;
     }
     a:visited{
         color: $whiteColor;
     }
+    a:hover{
+        color: $whiteColor;
+    }
+    a:active{
+        color: $whiteColor;
+    }
+
 }
 
 
