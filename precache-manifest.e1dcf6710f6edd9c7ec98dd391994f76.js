@@ -1,23 +1,23 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "d0a9071017d1983cd07c06040f41515f",
+    "revision": "1bd350797acb8fd891ff1a21ff9a2371",
     "url": "/codos-app-client/index.html"
   },
   {
-    "revision": "354f43f2a69f133e323e",
+    "revision": "e7d85532b589fa56b394",
     "url": "/codos-app-client/static/css/main.4c7b22b4.chunk.css"
   },
   {
-    "revision": "e983298c93582689bf60",
-    "url": "/codos-app-client/static/js/2.4df623df.chunk.js"
+    "revision": "4eac1dde9d8f70eccfdc",
+    "url": "/codos-app-client/static/js/2.13fccdbc.chunk.js"
   },
   {
     "revision": "863e5dfaa7783b08dc1d03326e06085a",
-    "url": "/codos-app-client/static/js/2.4df623df.chunk.js.LICENSE.txt"
+    "url": "/codos-app-client/static/js/2.13fccdbc.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "354f43f2a69f133e323e",
-    "url": "/codos-app-client/static/js/main.a5af01ee.chunk.js"
+    "revision": "e7d85532b589fa56b394",
+    "url": "/codos-app-client/static/js/main.dce47f16.chunk.js"
   },
   {
     "revision": "28e52db1387f1e0ac86d",

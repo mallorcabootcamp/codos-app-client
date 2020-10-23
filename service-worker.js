@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/codos-app-client/precache-manifest.bae56b051b773667a551f239fa790725.js"
+  "/codos-app-client/precache-manifest.e1dcf6710f6edd9c7ec98dd391994f76.js"
 );
 
 self.addEventListener('message', (event) => {
