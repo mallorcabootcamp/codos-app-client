@@ -10,12 +10,14 @@ function App() {
     <HashRouter>
       <Switch>
         <Route path='/History'>
-          <ScrollToTop />
-          <History />
+          <ScrollToTop>
+            <History />
+          </ScrollToTop>
         </Route>
         <Route path='/' exact>
-          <ScrollToTop />
-          <Main />
+          <ScrollToTop>
+            <Main />
+          </ScrollToTop>
         </Route>
       </Switch>
     </HashRouter>
