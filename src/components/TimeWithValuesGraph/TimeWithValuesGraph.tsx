@@ -40,7 +40,18 @@ const axisLeftTickLabelProps = {
  */
 
 // Graph setup
-export const TimeWithValuesGraph = ({ endTimeValue, width, historicalValues, uom, marginY, marginX, height, timeFormat }: any) => {
+export const TimeWithValuesGraph = ({ endTimeValue, width, historicalValues, uom, marginY, marginX, height, timeFormat }:
+  {
+    endTimeValue: number,
+    width: number,
+    historicalValues: HistoricalValues[],
+    uom: string,
+    marginY: number,
+    marginX: number,
+    height: number,
+    timeFormat: string
+  }):JSX.Element => {
+
   const timeRank = {
     startTime: 0,
     endTime: endTimeValue
@@ -128,31 +139,31 @@ export const TimeWithValuesGraph = ({ endTimeValue, width, historicalValues, uom
           stroke={axisColor}
           strokeWidth={1.5}
         />
-        
-          <AxisBottom
-            top={yMax}
-            scale={scaleAxisBottom}
-            numTicks={timeRank.endTime}
-            stroke={axisColor}
-            hideTicks={true}
-            tickStroke={axisColor}
-            tickLabelProps={() => axisBottomTickLabelProps}
-            tickFormat={(value: any) => {
-              return moment(value as Date).format(timeFormat)
-            }}
-          />
-      
-          <AxisLeft
-            top={marginY}
-            left={marginX}
-            scale={scaleAxisLeft}
-            numTicks={3}
-            hideTicks={true}
-            stroke={axisColor}
-            tickStroke={axisColor}
-            tickLabelProps={() => axisLeftTickLabelProps}
-            tickFormat={(e) => `${e} ${uom}`}
-          />
+
+        <AxisBottom
+          top={yMax}
+          scale={scaleAxisBottom}
+          numTicks={timeRank.endTime}
+          stroke={axisColor}
+          hideTicks={true}
+          tickStroke={axisColor}
+          tickLabelProps={() => axisBottomTickLabelProps}
+          tickFormat={(value: any) => {
+            return moment(value as Date).format(timeFormat)
+          }}
+        />
+
+        <AxisLeft
+          top={marginY}
+          left={marginX}
+          scale={scaleAxisLeft}
+          numTicks={3}
+          hideTicks={true}
+          stroke={axisColor}
+          tickStroke={axisColor}
+          tickLabelProps={() => axisLeftTickLabelProps}
+          tickFormat={(e) => `${e} ${uom}`}
+        />
 
       </svg>
     </div>

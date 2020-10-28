@@ -1,8 +1,8 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faSearch } from '@fortawesome/free-solid-svg-icons';
-import { CurrentCo2 } from '../../components/CurrentCo2/CurrentCo2.jsx';
-import { IconWithValue } from '../../components/IconWithValue/IconWithValue.jsx';
+import { CurrentCo2 } from '../../components/CurrentCo2/CurrentCo2';
+import { IconWithValue } from '../../components/IconWithValue/IconWithValue';
 import { Icon } from '../../components/IconWithValue/Icon';
 import ParentSize from "@visx/responsive/lib/components/ParentSize";
 import { TimeWithValuesGraph } from "../../components/TimeWithValuesGraph/TimeWithValuesGraph";
