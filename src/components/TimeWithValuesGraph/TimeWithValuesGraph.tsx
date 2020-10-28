@@ -33,12 +33,6 @@ const axisLeftTickLabelProps = {
   fill: axisColor,
 };
 
-/**
- * data [{date: Date, value: number}] - Done
- * uom ºC ppm Done
- * Added also timeFormat. This could be usefull if we want to show our bottom axis with diferent time values.
- */
-
 // Graph setup
 export const TimeWithValuesGraph = ({ endTimeValue, width, historicalValues, uom, marginY, marginX, height, timeFormat }:
   {
