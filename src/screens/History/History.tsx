@@ -9,9 +9,9 @@ import historicalValues from "../../components/TimeWithValuesGraph/HistoricalVal
 import { CardWithTextTab } from '../../components/CardWithTextTab/CardWithTextTab'
 import './History.scss'
 
-const History = () => {
-    const [fromDate, setFromDate] = useState();
-    const [toDate, setToDate] = useState();
+const History = ():JSX.Element => {
+    const [fromDate, setFromDate] = useState('');
+    const [toDate, setToDate] = useState('');
 
     return (
         <div className='container history-elem-container'>
@@ -23,8 +23,8 @@ const History = () => {
             </div>
             <div className='row date-range-pickers-container pt-3 mt-3'>
                 <div className="col mx-4 my-3">
-                    <DatePicker date={fromDate} onDateChanged={(value) => setFromDate(value)} text='Desde' />
-                    <DatePicker date={toDate} onDateChanged={(value) => setToDate(value)} text='Hasta' />
+                    <DatePicker date={fromDate} onDateChanged={(value:string) => setFromDate(value)} text='Desde' />
+                    <DatePicker date={toDate} onDateChanged={(value:string) => setToDate(value)} text='Hasta' />
                 </div>
             </div>
             <div className='row'>

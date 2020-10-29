@@ -8,6 +8,8 @@
     "@fortawesome/free-solid-svg-icons": "^5.15.1",
     "@fortawesome/react-fontawesome": "^0.1.11",
     "@types/d3-array": "^2.1.0",
+    "@types/react-router-dom": "^5.1.6",
+    "@types/shortid": "0.0.29",
     "@typescript-eslint/eslint-plugin": "^4.4.1",
     "@typescript-eslint/parser": "^4.4.1",
     "@visx/axis": "^1.0.0",
