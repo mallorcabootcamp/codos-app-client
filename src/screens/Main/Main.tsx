@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars, faSearch } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faCheck, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { CurrentCo2 } from '../../components/CurrentCo2/CurrentCo2';
 import { IconWithValue } from '../../components/IconWithValue/IconWithValue';
 import { Icon } from '../../components/IconWithValue/Icon';
@@ -10,10 +10,21 @@ import historicalValues from "../../components/TimeWithValuesGraph/HistoricalVal
 import { Link } from 'react-router-dom';
 import { Card } from '../../components/Card/Card';
 import './Main.scss';
+import { ConnectToApiToGetData } from '../../components/ConnectToApiToGetData/ConnectToApiToGetData';
 
 const hours = 8;
 
 const Main = () => {
+    
+    const [theTry, setTheTry] = useState(0);
+
+    useMemo(() => {
+        async function paco() {
+            setTheTry(await ConnectToApiToGetData('http://localhost:3000/data/co2'))
+        }
+        paco()
+    }, [])
+
     return (
         <div>
             <div className='container'>
@@ -23,7 +34,7 @@ const Main = () => {
                     </div>
                 </div>
             </div>
-            <CurrentCo2 eCoValue={0} />
+            <CurrentCo2 eCoValue={theTry} />
             <div className='container px-5 text-center'>
                 <Card>
                     <div className='row icon-with-value-elem'>
@@ -44,7 +55,7 @@ const Main = () => {
                             <ParentSize className='graph-elem'>
                                 {({ width }) => <TimeWithValuesGraph endTimeValue={8} uom={'ppm'} timeFormat={'HH:mm'} marginY={20} marginX={50} historicalValues={historicalValues} width={width - 25} height={160} />}
                             </ParentSize>
-                    </div>
+                        </div>
                     </div>
                 </Card>
             </div>

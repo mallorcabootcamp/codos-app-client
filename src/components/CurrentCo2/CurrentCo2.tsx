@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import "./CurrentCo2.scss";
 
 const maximumColorRange = 145;
-const maximumECoValue = 100;
+const maximumECoValue = 1000;
 const redColorValue = 0;
 
 export const CurrentCo2 = ({ eCoValue }:{eCoValue:any}):JSX.Element => {
