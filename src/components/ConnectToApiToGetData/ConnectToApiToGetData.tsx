@@ -1,14 +1,14 @@
 import axios from 'axios';
 
-export async function ConnectToApiToGetData(url: string) {
+export async function ConnectToApiToGetData(url: string, fromDate: Date, toDate: Date) {
   try {
     const response = await axios({
       method: 'GET',
       url: url,
       timeout: 1000,
       params: {
-          fromDate: 1234,
-          toDate: 1234
+          fromDate: fromDate,
+          toDate: toDate
       },
     })
 
