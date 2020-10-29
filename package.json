@@ -17,6 +17,7 @@
     "@visx/responsive": "^1.0.0",
     "@visx/scale": "^1.0.0",
     "@visx/shape": "^1.0.0",
+    "axios": "^0.21.0",
     "bootstrap": "^4.5.2",
     "d3-array": "^2.8.0",
     "moment": "^2.29.1",

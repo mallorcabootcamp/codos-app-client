@@ -5,7 +5,7 @@ const maximumColorRange = 145;
 const maximumECoValue = 100;
 const redColorValue = 0;
 
-export const CurrentCo2 = ({ eCoValue }:{eCoValue:number}):JSX.Element => {
+export const CurrentCo2 = ({ eCoValue }:{eCoValue:any}):JSX.Element => {
 
     const backgroundColor = useMemo(() => {
         return getBackgroundColor(eCoValue);
