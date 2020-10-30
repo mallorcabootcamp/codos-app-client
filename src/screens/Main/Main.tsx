@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { CurrentCo2 } from '../../components/CurrentCo2/CurrentCo2';
@@ -10,10 +10,21 @@ import historicalValues from "../../components/TimeWithValuesGraph/HistoricalVal
 import { Link } from 'react-router-dom';
 import { Card } from '../../components/Card/Card';
 import './Main.scss';
+import { ApiService } from '../../services/ApiService';
+import { ApiResponse } from '../../types/api';
 
 const hours = 8;
 
 const Main = () => {
+
+    const [currentCo2, setCurrentCo2] = useState<number>(0)
+
+    useEffect(() => {
+        ApiService.getCurrentCo2().then((apiResponse: ApiResponse) => {
+            setCurrentCo2(apiResponse.value);
+        })
+    }, [])
+
     return (
         <div>
             <div className='container'>
@@ -23,7 +34,7 @@ const Main = () => {
                     </div>
                 </div>
             </div>
-            <CurrentCo2 eCoValue={0} />
+            <CurrentCo2 eCoValue={currentCo2} />
             <div className='container px-5 text-center'>
                 <Card>
                     <div className='row icon-with-value-elem'>
@@ -44,7 +55,7 @@ const Main = () => {
                             <ParentSize className='graph-elem'>
                                 {({ width }) => <TimeWithValuesGraph endTimeValue={8} uom={'ppm'} timeFormat={'HH:mm'} marginY={20} marginX={50} historicalValues={historicalValues} width={width - 25} height={160} />}
                             </ParentSize>
-                    </div>
+                        </div>
                     </div>
                 </Card>
             </div>

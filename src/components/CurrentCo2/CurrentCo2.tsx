@@ -5,7 +5,9 @@ const maximumColorRange = 145;
 const maximumECoValue = 100;
 const redColorValue = 0;
 
-export const CurrentCo2 = ({ eCoValue }:{eCoValue:any}):JSX.Element => {
+interface Props { eCoValue: any }
+
+export const CurrentCo2 = ({ eCoValue }: Props): JSX.Element => {
 
     const backgroundColor = useMemo(() => {
         return getBackgroundColor(eCoValue);
@@ -32,7 +34,7 @@ const getBackgroundColor = (eCoValue: number) => {
     return `hsl(${eCoValue <= maximumECoValue ? hue : redColorValue},63%,49%)`;
 }
 
-const getBorderColor = (eCoValue : number) => {
+const getBorderColor = (eCoValue: number) => {
     const hue = ((1 - eCoValue / maximumECoValue) * maximumColorRange);
     return `hsl(${eCoValue <= maximumECoValue ? hue : redColorValue},62%,59%)`;
 }

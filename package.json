@@ -19,6 +19,7 @@
     "@visx/shape": "^1.0.0",
     "axios": "^0.21.0",
     "bootstrap": "^4.5.2",
+    "classnames": "^2.2.6",
     "d3-array": "^2.8.0",
     "moment": "^2.29.1",
     "react": "^16.13.1",

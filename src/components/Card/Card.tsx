@@ -1,9 +1,16 @@
-import React from 'react'
+import React from 'react';
+import classnames from 'classnames';
 import './Card.scss'
 
-export const Card = ({children} :{children: JSX.Element | JSX.Element[], className?: string}) => {
+interface Props {
+    children: JSX.Element | JSX.Element[],
+    className?: string
+}
+
+export const Card = ({ children, className }: Props) => {
+    const classes = classnames(`card-elem`, className);
     return (
-        <div className='card-elem'>
+        <div className={classes}>
             {children}
         </div>
     )

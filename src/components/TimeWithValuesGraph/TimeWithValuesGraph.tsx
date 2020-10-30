@@ -33,18 +33,19 @@ const axisLeftTickLabelProps = {
   fill: axisColor,
 };
 
+interface Props {
+  endTimeValue: number,
+  width: number,
+  historicalValues: HistoricalValues[],
+  uom: string,
+  marginY: number,
+  marginX: number,
+  height: number,
+  timeFormat: string
+}
+
 // Graph setup
-export const TimeWithValuesGraph = ({ endTimeValue, width, historicalValues, uom, marginY, marginX, height, timeFormat }:
-  {
-    endTimeValue: number,
-    width: number,
-    historicalValues: HistoricalValues[],
-    uom: string,
-    marginY: number,
-    marginX: number,
-    height: number,
-    timeFormat: string
-  }):JSX.Element => {
+export const TimeWithValuesGraph = ({ endTimeValue, width, historicalValues, uom, marginY, marginX, height, timeFormat }: Props): JSX.Element => {
 
   const timeRank = {
     startTime: 0,
