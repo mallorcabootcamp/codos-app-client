@@ -1,18 +1,18 @@
 import axios from 'axios';
 
-export async function ConnectToApiToGetData(url: string) {
+export async function ConnectToApiToGetData(url: string, fromDate: Date, toDate: Date) {
   try {
     const response = await axios({
       method: 'GET',
       url: url,
       timeout: 1000,
       params: {
-          fromDate: 123,
-          toDate: 321
+          fromDate: fromDate,
+          toDate: toDate
       },
     })
-    console.log(5)
-    return response.data.data[0].eCo2
+
+    return response
 
   } catch (error){
     console.log(error);
