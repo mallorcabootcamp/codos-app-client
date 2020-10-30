@@ -17,13 +17,31 @@ const hours = 8;
 
 const Main = () => {
 
-    const [currentCo2, setCurrentCo2] = useState<number>(0)
+    const [currentCo2, setCurrentCo2] = useState<number>(0);
+    const [currentTemperature, setCurrentTemperature] = useState<number>(0);
+    const [currentHumidity, setCurrentHumidity] = useState<number>(0)
+    const [co2Data, setCo2Data] = useState<ApiResponse[]>([{ time: "2020-04-24T00:00:00.000Z", value: 5 }]);
 
     useEffect(() => {
         ApiService.getCurrentCo2().then((apiResponse: ApiResponse) => {
             setCurrentCo2(apiResponse.value);
         })
-    }, [])
+    }, []);
+    useEffect(() => {
+        ApiService.getCurrentTemperature().then((apiResponse: ApiResponse) => {
+            setCurrentTemperature(apiResponse.value);
+        })
+    }, []);
+    useEffect(() => {
+        ApiService.getCurrentHumidity().then((apiResponse: ApiResponse) => {
+            setCurrentHumidity(apiResponse.value);
+        })
+    }, []);
+    useEffect(() => {
+        ApiService.getCo2Data('fromDate', 'toDate').then((apiResponse: ApiResponse[]) => {
+            setCo2Data(apiResponse);
+        })
+    }, []);
 
     return (
         <div>
@@ -39,10 +57,10 @@ const Main = () => {
                 <Card>
                     <div className='row icon-with-value-elem'>
                         <div className='col'>
-                            <IconWithValue value='23º' icon={Icon.thermometer} />
+                            <IconWithValue value={`${currentTemperature}º`} icon={Icon.thermometer} />
                         </div>
                         <div className='col'>
-                            <IconWithValue value='85%' icon={Icon.humidity} />
+                            <IconWithValue value={`${currentHumidity}%`} icon={Icon.humidity} />
                         </div>
                     </div>
                 </Card>
@@ -53,7 +71,7 @@ const Main = () => {
                     <div className='row'>
                         <div className='col text-center'>
                             <ParentSize className='graph-elem'>
-                                {({ width }) => <TimeWithValuesGraph endTimeValue={8} uom={'ppm'} timeFormat={'HH:mm'} marginY={20} marginX={50} historicalValues={historicalValues} width={width - 25} height={160} />}
+                                {({ width }) => <TimeWithValuesGraph endTimeValue={8} uom={'ppm'} timeFormat={'HH:mm'} marginY={20} marginX={50} historicalValues={co2Data} width={width - 25} height={160} />}
                             </ParentSize>
                         </div>
                     </div>

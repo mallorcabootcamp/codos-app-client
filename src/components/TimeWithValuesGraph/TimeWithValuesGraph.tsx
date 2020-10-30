@@ -7,12 +7,9 @@ import { extent } from "d3-array";
 import { GridColumns } from '@visx/grid';
 import moment from 'moment';
 import "./TimeWithValuesGraph.scss";
+import { ApiResponse } from '../../types/api';
 
 
-interface HistoricalValues {
-  date: string;
-  close: number;
-}
 const graphColor = '#bdc3c7';
 const bgColor = '#ecf0f1';
 const axisColor = '#878a8c';
@@ -36,7 +33,7 @@ const axisLeftTickLabelProps = {
 interface Props {
   endTimeValue: number,
   width: number,
-  historicalValues: HistoricalValues[],
+  historicalValues: ApiResponse[],
   uom: string,
   marginY: number,
   marginX: number,
@@ -52,8 +49,8 @@ export const TimeWithValuesGraph = ({ endTimeValue, width, historicalValues, uom
     endTime: endTimeValue
   }
   const stock = historicalValues.slice(timeRank.startTime, timeRank.endTime);
-  const getDate = (d: HistoricalValues) => new Date(d.date);
-  const getStockValue = (d: HistoricalValues) => d.close;
+  const getDate = (d: ApiResponse) => new Date(d.time);
+  const getStockValue = (d: ApiResponse) => d.value;
   const xMax = width - marginX;
   const yMax = height - marginY;
 
@@ -71,8 +68,8 @@ export const TimeWithValuesGraph = ({ endTimeValue, width, historicalValues, uom
     () =>
       scaleLinear({
         domain: [
-          Math.max(...stock.map((d: HistoricalValues) => d.close)),
-          Math.min(...stock.map((d: HistoricalValues) => d.close))
+          Math.max(...stock.map((d: ApiResponse) => d.value)),
+          Math.min(...stock.map((d: ApiResponse) => d.value))
         ],
         range: [0, yMax - marginY],
       }),
@@ -101,8 +98,8 @@ export const TimeWithValuesGraph = ({ endTimeValue, width, historicalValues, uom
       scaleLinear({
         range: [marginY, yMax],
         domain: [
-          Math.min(...stock.map((d: HistoricalValues) => Math.min(d.close))),
-          Math.max(...stock.map((d: HistoricalValues) => Math.max(d.close)))
+          Math.min(...stock.map((d: ApiResponse) => Math.min(d.value))),
+          Math.max(...stock.map((d: ApiResponse) => Math.max(d.value)))
         ],
         reverse: true
       }),
@@ -121,8 +118,8 @@ export const TimeWithValuesGraph = ({ endTimeValue, width, historicalValues, uom
         ></rect>
         <AreaClosed
           data={stock}
-          x={(d: HistoricalValues) => dateScale(getDate(d)) ?? 0}
-          y={(d: HistoricalValues) => stockValueScale(getStockValue(d)) ?? 0}
+          x={(d: ApiResponse) => dateScale(getDate(d)) ?? 0}
+          y={(d: ApiResponse) => stockValueScale(getStockValue(d)) ?? 0}
           yScale={stockValueScale}
           fill={graphColor}
         />
