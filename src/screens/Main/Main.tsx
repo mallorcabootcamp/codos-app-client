@@ -6,7 +6,6 @@ import { IconWithValue } from '../../components/IconWithValue/IconWithValue';
 import { Icon } from '../../components/IconWithValue/Icon';
 import ParentSize from "@visx/responsive/lib/components/ParentSize";
 import { TimeWithValuesGraph } from "../../components/TimeWithValuesGraph/TimeWithValuesGraph";
-import historicalValues from "../../components/TimeWithValuesGraph/HistoricalValues";
 import { Link } from 'react-router-dom';
 import { Card } from '../../components/Card/Card';
 import './Main.scss';
