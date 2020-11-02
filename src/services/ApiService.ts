@@ -31,7 +31,7 @@ export class ApiService {
     }
     static async getCurrentCo2(): Promise<ApiResponse> {
         //return ApiService.makeGetRequest('/current/co2');
-        return Promise.resolve({value: 65, time: `82827277663`});
+        return Promise.resolve({value: 29, time: `82827277663`});
     }
     static async getCurrentTemperature(): Promise<ApiResponse> {
         //return ApiService.makeGetRequest('/current/temperature');

@@ -1,10 +1,6 @@
 @import "bootstrap/scss/bootstrap.scss";
 @import "Vars.scss";
 
-#root {
-    background-color: $whiteColor;
-    height: 100%;
-}
 
 body {
     font-family: "Montserrat";
@@ -12,5 +8,6 @@ body {
 }
 
 body, html {
+    min-height: 100vh;
     height: 100%;
 }
