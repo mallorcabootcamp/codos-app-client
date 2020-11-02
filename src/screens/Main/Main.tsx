@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { CurrentCo2 } from '../../components/CurrentCo2/CurrentCo2';
@@ -6,14 +6,37 @@ import { IconWithValue } from '../../components/IconWithValue/IconWithValue';
 import { Icon } from '../../components/IconWithValue/Icon';
 import ParentSize from "@visx/responsive/lib/components/ParentSize";
 import { TimeWithValuesGraph } from "../../components/TimeWithValuesGraph/TimeWithValuesGraph";
-import historicalValues from "../../components/TimeWithValuesGraph/HistoricalValues";
 import { Link } from 'react-router-dom';
 import { Card } from '../../components/Card/Card';
 import './Main.scss';
+import { ApiService } from '../../services/ApiService';
+import { ApiResponse } from '../../types/api';
 
 const hours = 8;
 
 const Main = () => {
+    const fromDate = 0;
+    const toDate = 0;
+    const [currentCo2, setCurrentCo2] = useState<number>(0);
+    const [currentTemperature, setCurrentTemperature] = useState<number>(0);
+    const [currentHumidity, setCurrentHumidity] = useState<number>(0)
+    const [co2Data, setCo2Data] = useState<ApiResponse[]>([{ time: 1587726000000, value: 5 }]);
+
+    useEffect(() => {
+        ApiService.getCurrentCo2().then((apiResponse: ApiResponse) => {
+            setCurrentCo2(apiResponse.value);
+        })
+        ApiService.getCurrentTemperature().then((apiResponse: ApiResponse) => {
+            setCurrentTemperature(apiResponse.value);
+        })
+        ApiService.getCurrentHumidity().then((apiResponse: ApiResponse) => {
+            setCurrentHumidity(apiResponse.value);
+        })
+        ApiService.getCo2Data(fromDate, toDate).then((apiResponse: ApiResponse[]) => {
+            setCo2Data(apiResponse);
+        })
+    }, []);
+
     return (
         <div>
             <div className='container'>
@@ -23,15 +46,15 @@ const Main = () => {
                     </div>
                 </div>
             </div>
-            <CurrentCo2 eCoValue={0} />
+            <CurrentCo2 eCoValue={currentCo2} />
             <div className='container px-5 text-center'>
                 <Card>
                     <div className='row icon-with-value-elem'>
                         <div className='col'>
-                            <IconWithValue value='23º' icon={Icon.thermometer} />
+                            <IconWithValue value={`${currentTemperature}º`} icon={Icon.thermometer} />
                         </div>
                         <div className='col'>
-                            <IconWithValue value='85%' icon={Icon.humidity} />
+                            <IconWithValue value={`${currentHumidity}%`} icon={Icon.humidity} />
                         </div>
                     </div>
                 </Card>
@@ -42,9 +65,9 @@ const Main = () => {
                     <div className='row'>
                         <div className='col text-center'>
                             <ParentSize className='graph-elem'>
-                                {({ width }) => <TimeWithValuesGraph endTimeValue={8} uom={'ppm'} timeFormat={'HH:mm'} marginY={20} marginX={50} historicalValues={historicalValues} width={width - 25} height={160} />}
+                                {({ width }) => <TimeWithValuesGraph endTimeValue={8} uom={'ppm'} timeFormat={'HH:mm'} marginY={20} marginX={50} historicalValues={co2Data} width={width - 25} height={160} />}
                             </ParentSize>
-                    </div>
+                        </div>
                     </div>
                 </Card>
             </div>
