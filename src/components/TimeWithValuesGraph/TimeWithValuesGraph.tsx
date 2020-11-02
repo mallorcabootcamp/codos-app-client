@@ -78,7 +78,7 @@ export const TimeWithValuesGraph = ({ endTimeValue, width, historicalValues, uom
 
   const scaleAxisBottom = useMemo(
     () =>
-      scaleUtc({
+      scaleTime({
         range: [marginX, xMax + marginX],
         domain: extent(stock, getDate) as [Date, Date]
       }),

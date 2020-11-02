@@ -15,29 +15,24 @@ import { ApiResponse } from '../../types/api';
 const hours = 8;
 
 const Main = () => {
-
+    const fromDate = 0;
+    const toDate = 0;
     const [currentCo2, setCurrentCo2] = useState<number>(0);
     const [currentTemperature, setCurrentTemperature] = useState<number>(0);
     const [currentHumidity, setCurrentHumidity] = useState<number>(0)
-    const [co2Data, setCo2Data] = useState<ApiResponse[]>([{ time: "2020-04-24T00:00:00.000Z", value: 5 }]);
+    const [co2Data, setCo2Data] = useState<ApiResponse[]>([{ time: 1587726000000, value: 5 }]);
 
     useEffect(() => {
         ApiService.getCurrentCo2().then((apiResponse: ApiResponse) => {
             setCurrentCo2(apiResponse.value);
         })
-    }, []);
-    useEffect(() => {
         ApiService.getCurrentTemperature().then((apiResponse: ApiResponse) => {
             setCurrentTemperature(apiResponse.value);
         })
-    }, []);
-    useEffect(() => {
         ApiService.getCurrentHumidity().then((apiResponse: ApiResponse) => {
             setCurrentHumidity(apiResponse.value);
         })
-    }, []);
-    useEffect(() => {
-        ApiService.getCo2Data('fromDate', 'toDate').then((apiResponse: ApiResponse[]) => {
+        ApiService.getCo2Data(fromDate, toDate).then((apiResponse: ApiResponse[]) => {
             setCo2Data(apiResponse);
         })
     }, []);
