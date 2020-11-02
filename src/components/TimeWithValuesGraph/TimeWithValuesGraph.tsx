@@ -1,7 +1,7 @@
 //eslint-disable-next-line
 import React, { useMemo } from "react";
 import { AreaClosed } from "@visx/shape";
-import { scaleUtc, scaleLinear, scaleTime } from '@visx/scale'
+import {  scaleLinear, scaleTime } from '@visx/scale'
 import { AxisBottom, AxisLeft } from '@visx/axis';
 import { extent } from "d3-array";
 import { GridColumns } from '@visx/grid';
@@ -49,7 +49,7 @@ export const TimeWithValuesGraph = ({ endTimeValue, width, historicalValues, uom
     endTime: endTimeValue
   }
   const stock = historicalValues.slice(timeRank.startTime, timeRank.endTime);
-  const getDate = (d: ApiResponse) => new Date(d.time);
+  const getDate = (d: ApiResponse) => new Date(parseInt(d.time));
   const getStockValue = (d: ApiResponse) => d.value;
   const xMax = width - marginX;
   const yMax = height - marginY;

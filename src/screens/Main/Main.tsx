@@ -20,7 +20,7 @@ const Main = () => {
     const [currentCo2, setCurrentCo2] = useState<number>(0);
     const [currentTemperature, setCurrentTemperature] = useState<number>(0);
     const [currentHumidity, setCurrentHumidity] = useState<number>(0)
-    const [co2Data, setCo2Data] = useState<ApiResponse[]>([{ time: 1587726000000, value: 5 }]);
+    const [co2Data, setCo2Data] = useState<ApiResponse[]>([{ time: "1587726000000", value: 5 }]);
 
     useEffect(() => {
         ApiService.getCurrentCo2().then((apiResponse: ApiResponse) => {
