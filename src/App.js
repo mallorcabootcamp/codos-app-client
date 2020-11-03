@@ -5,6 +5,8 @@ import History from './screens/History/History';
 import { ScrollToTop } from '../src/components/ScrollToTop/ScrollToTop';
 import "./index.scss";
 import { SelectADevice } from './screens/SelectADevice/SelectADevice';
+import { ApiService } from './services/ApiService';
+
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
