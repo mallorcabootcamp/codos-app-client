@@ -10,13 +10,13 @@
     
 }
 
-.menu-position{
+.aside-menu{
     left: -100%;
     position: absolute;
     z-index: 3;
     transition: left 0.5s ease 0s;
 }
-.menu-open {
+.aside-menu-open {
     left: 0%;
 }
 

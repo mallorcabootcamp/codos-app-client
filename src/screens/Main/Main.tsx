@@ -12,6 +12,7 @@ import './Main.scss';
 import { ApiService } from '../../services/ApiService';
 import { ApiResponse } from '../../types/api';
 import { LateralBar } from '../LateralBar/LateralBar';
+import ReactCSSTransitionGroup from 'react-transition-group';
 
 const hours = 8;
 
@@ -41,8 +42,10 @@ const Main = () => {
 
     return (
         <div>
-            <div className={`menu-position ${menuActived && 'menu-open'}`}>
-                <LateralBar onClick={() => setMenuActived(false)} />
+            <div className={`aside-menu ${menuActived && 'aside-menu-open'}`}>
+                <ReactCSSTransitionGroup transitionName="aside-menu" transitionEnterTimeout={500} transitionLeaveTimeout={300}>
+                    <LateralBar onClick={() => setMenuActived(false)} />
+                </ReactCSSTransitionGroup>
             </div>
             <div className='container'>
                 <div className='row'>
@@ -80,7 +83,7 @@ const Main = () => {
                 <div className='text-center m-auto rounded-circle search-elem'>
                     <Link to='/History' className='search-link'><FontAwesomeIcon icon={faSearch} size="lg" /></Link>
                 </div>
-            </div>  
+            </div>
         </div >
     )
 }
