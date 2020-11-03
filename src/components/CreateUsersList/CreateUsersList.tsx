@@ -3,18 +3,17 @@ import { ApiService } from '../../services/ApiService';
 
 export const CreateUsersList = () => {
 
-    const [options, setOptions] = useState<JSX.Element[]>();
+    const [usersList, setUsersList] = useState<JSX.Element[]>();
 
     useEffect(() => {
         ApiService.getUsersList().then((response) => {
-            const optionList = response.map((opt) => <option value={opt}>{opt}</option>)
-            setOptions(optionList);
+            setUsersList(response.map((user) => <option value={user}>{user}</option>));
         })}
     , []);
 
     return (
         <>
-            {options}
+            {usersList}
         </>
     )
 }

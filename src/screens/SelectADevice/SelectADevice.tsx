@@ -6,7 +6,7 @@ export const SelectADevice = (props: any) => {
     return (
         <div className='container'>
             <div className='row'>
-                <div className='col px-5 py-4'>
+                <div className='col px-5 py-3 pt-5'>
                     <h2>Seleccione un dispositivo</h2>
                 </div>
             </div>
