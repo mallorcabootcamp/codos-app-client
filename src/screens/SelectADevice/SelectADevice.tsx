@@ -1,19 +1,8 @@
-import React, {useEffect , useState} from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom';
-import { ApiService } from '../../services/ApiService'
-
+import { CreateUsersList } from '../../components/CreateUsersList/CreateUsersList';
 
 export const SelectADevice = (props: any) => {
-    const [options, setOptions] = useState<JSX.Element[]>();
-
-    useEffect(() => {
-        ApiService.getUsersList().then((response) => {
-            const optionList = response.map((opt) => <option value={opt}>{opt}</option>)
-            setOptions(optionList);
-        })}
-    , []);
-    
-
     return (
         <div className='container'>
             <div className='row'>
@@ -24,7 +13,7 @@ export const SelectADevice = (props: any) => {
             <div className='row'>
                 <div className='col px-5 py-4'>
                     <select className="prediction-input custom-select custom-select-lg">
-                        {options}
+                        <CreateUsersList/>
                     </select>
                 </div>
             </div>
