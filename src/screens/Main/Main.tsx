@@ -17,6 +17,7 @@ const hours = 8;
 const Main = () => {
     const fromDate = 0;
     const toDate = 0;
+    const [loggedIn, setLoggedIn] = useState(false);
     const [currentCo2, setCurrentCo2] = useState<number>(0);
     const [currentTemperature, setCurrentTemperature] = useState<number>(0);
     const [currentHumidity, setCurrentHumidity] = useState<number>(0)
@@ -39,6 +40,9 @@ const Main = () => {
 
     return (
         <div>
+
+
+
             <div className='container'>
                 <div className='row'>
                     <div className='col ml-4 pt-4 mt-3 h4 mb-0 d-inline menu-elem' >
@@ -46,36 +50,48 @@ const Main = () => {
                     </div>
                 </div>
             </div>
-            <CurrentCo2 eCoValue={currentCo2} />
-            <div className='container px-5 text-center'>
-                <Card>
-                    <div className='row icon-with-value-elem'>
-                        <div className='col'>
-                            <IconWithValue value={`${currentTemperature}º`} icon={Icon.thermometer} />
-                        </div>
-                        <div className='col'>
-                            <IconWithValue value={`${currentHumidity}%`} icon={Icon.humidity} />
-                        </div>
-                    </div>
-                </Card>
-            </div>
-            <div className='container px-5 pt-1 mt-4 mb-4 pb-2'>
-                <Card className='graph-elem'>
-                    <p className='text-elem pt-3 pl-2 mb-3'>Últimas {hours} horas</p>
+            {loggedIn &&
+                <div className='container'>
                     <div className='row'>
-                        <div className='col text-center'>
-                            <ParentSize className='graph-elem'>
-                                {({ width }) => <TimeWithValuesGraph endTimeValue={8} uom={'ppm'} timeFormat={'HH:mm'} marginY={20} marginX={50} historicalValues={co2Data} width={width - 25} height={160} />}
-                            </ParentSize>
+                        <div className='col px-5 py-3 pt-5 mt-3'>
+                            <h2>Seleccione un dispositivo</h2>
                         </div>
                     </div>
-                </Card>
-            </div>
-            <div className='container pt-1 pb-5'>
-                <div className='text-center m-auto rounded-circle search-elem'>
-                    <Link to='/History' className='search-link'><FontAwesomeIcon icon={faSearch} size="lg" /></Link>
-                </div>
-            </div>
+                </div>}
+            {!loggedIn &&
+                <>
+                    <CurrentCo2 eCoValue={currentCo2} />
+                    <div className='container px-5 text-center'>
+                        <Card>
+                            <div className='row icon-with-value-elem'>
+                                <div className='col'>
+                                    <IconWithValue value={`${currentTemperature}º`} icon={Icon.thermometer} />
+                                </div>
+                                <div className='col'>
+                                    <IconWithValue value={`${currentHumidity}%`} icon={Icon.humidity} />
+                                </div>
+                            </div>
+                        </Card>
+                    </div>
+                    <div className='container px-5 pt-1 mt-4 mb-4 pb-2'>
+                        <Card className='graph-elem'>
+                            <p className='text-elem pt-3 pl-2 mb-3'>Últimas {hours} horas</p>
+                            <div className='row'>
+                                <div className='col text-center'>
+                                    <ParentSize className='graph-elem'>
+                                        {({ width }) => <TimeWithValuesGraph endTimeValue={8} uom={'ppm'} timeFormat={'HH:mm'} marginY={20} marginX={50} historicalValues={co2Data} width={width - 25} height={160} />}
+                                    </ParentSize>
+                                </div>
+                            </div>
+                        </Card>
+                    </div>
+                    <div className='container pt-1 pb-5'>
+                        <div className='text-center m-auto rounded-circle search-elem'>
+                            <Link to='/History' className='search-link'><FontAwesomeIcon icon={faSearch} size="lg" /></Link>
+                        </div>
+                    </div>
+                </>
+            }
         </div>
     )
 }

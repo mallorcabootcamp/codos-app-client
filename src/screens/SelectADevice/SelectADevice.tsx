@@ -1,11 +1,18 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import { Link } from 'react-router-dom';
-import { CreateUsersList } from '../../components/CreateUsersList/CreateUsersList';
 import { ApiService } from '../../services/ApiService';
 import './SelectADevice.scss';
 
 export const SelectADevice = (props: any) => {
     // reparar undefined 
+    const [usersList, setUsersList] = useState<JSX.Element[]>();
+
+    useEffect(() => {
+        ApiService.getUsersList().then((response) => {
+            setUsersList(response.map((user) => <option value={user}>{user}</option>));
+        })}
+    , []);
+
 
     return (
         <div className='container select-a-device'>
@@ -18,7 +25,7 @@ export const SelectADevice = (props: any) => {
                 <div className='col px-5 py-4'>
                     <select name='users' className="prediction-input custom-select custom-select-lg" onClick={() => props.onClick()} onChange={({target}) => ApiService.setUser(target.value)}>
                         <option style={{display: 'none'}}></option>
-                        <CreateUsersList />
+                        {usersList}
                     </select>
                 </div>
             </div>
