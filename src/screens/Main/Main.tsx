@@ -11,12 +11,14 @@ import { Card } from '../../components/Card/Card';
 import './Main.scss';
 import { ApiService } from '../../services/ApiService';
 import { ApiResponse } from '../../types/api';
+import { LateralBar } from '../LateralBar/LateralBar';
 
 const hours = 8;
 
 const Main = () => {
     const fromDate = 0;
     const toDate = 0;
+    const [menuActived, setMenuActived] = useState<boolean>(false);
     const [currentCo2, setCurrentCo2] = useState<number>(0);
     const [currentTemperature, setCurrentTemperature] = useState<number>(0);
     const [currentHumidity, setCurrentHumidity] = useState<number>(0)
@@ -39,10 +41,13 @@ const Main = () => {
 
     return (
         <div>
+            <div className={`menu-position ${menuActived && 'menu-open'}`}>
+                <LateralBar onClick={() => setMenuActived(false)} />
+            </div>
             <div className='container'>
                 <div className='row'>
                     <div className='col ml-4 pt-4 mt-3 h4 mb-0 d-inline menu-elem' >
-                        <p className='mb-0'><FontAwesomeIcon icon={faBars} size="lg" /></p>
+                        <p className='mb-0 d-inline' onClick={() => setMenuActived(true)}><FontAwesomeIcon icon={faBars} size="lg" /></p>
                     </div>
                 </div>
             </div>
@@ -75,8 +80,8 @@ const Main = () => {
                 <div className='text-center m-auto rounded-circle search-elem'>
                     <Link to='/History' className='search-link'><FontAwesomeIcon icon={faSearch} size="lg" /></Link>
                 </div>
-            </div>
-        </div>
+            </div>  
+        </div >
     )
 }
 
