@@ -9,7 +9,7 @@ interface Props { onClick: any}
 export const LateralBar = ({onClick}: Props):JSX.Element => {
 
     return (
-        <aside className="side-menu container">
+        <aside className="side-menu">
             <header className='row px-5'>
                 {/* <i className="fas fa-bars"></i> */}
                 <FontAwesomeIcon icon={faBars} size="lg" />

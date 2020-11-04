@@ -14,13 +14,13 @@ export const LateralMenuTransition = ({ children, isVisible }: Props) => {
         <div>
             <CSSTransition
                 in={isVisible}
-                timeout={300}
+                timeout={1000}
                 classNames='lateral'
                 unmountOnExit
             >
-                <div>
-                    <p>Hola</p>
-                </div>
+
+                {children}
+
             </CSSTransition>
         </div>
     )

@@ -42,9 +42,11 @@ const Main = () => {
 
     return (
         <div>
-            <LateralMenuTransition isVisible={menuActived}>
+            
+                <LateralMenuTransition isVisible={menuActived}>
                     <LateralBar onClick={() => setMenuActived(!menuActived)} />
-            </LateralMenuTransition>
+                </LateralMenuTransition>
+            
             <div className='container'>
                 <div className='row'>
                     <div className='col ml-4 pt-4 mt-3 h4 mb-0 d-inline menu-elem' >
