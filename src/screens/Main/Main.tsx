@@ -17,7 +17,7 @@ const hours = 8;
 const Main = () => {
     const fromDate = 0;
     const toDate = 0;
-    const [loggedIn, setLoggedIn] = useState(false);
+    const [loggedIn, setLoggedIn] = useState(true);
     const [currentCo2, setCurrentCo2] = useState<number>(0);
     const [currentTemperature, setCurrentTemperature] = useState<number>(0);
     const [currentHumidity, setCurrentHumidity] = useState<number>(0)
@@ -40,9 +40,6 @@ const Main = () => {
 
     return (
         <div>
-
-
-
             <div className='container'>
                 <div className='row'>
                     <div className='col ml-4 pt-4 mt-3 h4 mb-0 d-inline menu-elem' >
@@ -54,7 +51,7 @@ const Main = () => {
                 <div className='container'>
                     <div className='row'>
                         <div className='col px-5 py-3 pt-5 mt-3'>
-                            <h2>Seleccione un dispositivo</h2>
+                            <h4>Seleccione un dispositivo</h4>
                         </div>
                     </div>
                 </div>}
