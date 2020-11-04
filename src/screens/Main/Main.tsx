@@ -42,7 +42,7 @@ const Main = () => {
 
     return (
         <div>
-            <LateralMenuTransition in={menuActived}>
+            <LateralMenuTransition isVisible={menuActived}>
                     <LateralBar onClick={() => setMenuActived(!menuActived)} />
             </LateralMenuTransition>
             <div className='container'>

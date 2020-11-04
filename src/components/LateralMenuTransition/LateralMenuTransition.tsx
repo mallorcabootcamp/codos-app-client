@@ -4,22 +4,24 @@ import './LateralMenuTransition.scss';
 
 interface Props {
     children: any,
-    in: any,
+    isVisible: any,
 }
 
 
 
-export const LateralMenuTransition = ({ children, in: inProps }: Props) => {
+export const LateralMenuTransition = ({ children, isVisible }: Props) => {
     return (
-        <CSSTransition
-            unmountOnExit
-            in={inProps}
-            timeout={300}
-            classNames='lateral'
-        >
-            <div>
-                {children}
-            </div>
-        </CSSTransition>
+        <div>
+            <CSSTransition
+                in={isVisible}
+                timeout={300}
+                classNames='lateral'
+                unmountOnExit
+            >
+                <div>
+                    <p>Hola</p>
+                </div>
+            </CSSTransition>
+        </div>
     )
 };
