@@ -1,0 +1,43 @@
+@import '../../Vars.scss';
+
+.side-menu {
+    color: $whiteColor;
+    background-color: $darkGreyColor;
+    height: 100%;
+    width: 90%;
+    position: absolute;
+    .about {
+        font-size: 1.2rem;
+    }
+    hr {
+        border-top: 1px solid $lightGreyColor;
+        width: 150px;
+    }
+    
+    .menu-button {
+        width: fit-content;
+        color: $lightGreyColor;
+        background-color: $darkGreyColor;
+        font-size: 1.1rem;
+    }
+    
+    .menu-button:focus {
+        color: #2ECA70;
+        outline: 0;
+        font-weight: 700 !important;
+    }
+    
+    .fa-bars {
+        font-size: 2rem;
+    }
+    
+    
+    .fa-times-circle{
+        font-size: 2.8rem;
+        color: $whiteColor;
+    }
+    
+    
+}
+
+
