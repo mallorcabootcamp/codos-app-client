@@ -7,7 +7,7 @@ export const DatePicker = ({ text, date, onDateChanged }: {text:string,date:numb
   return (
     <>
         <label className='pt-2 date-picker-text' htmlFor={idValue}>{text}:</label>
-        <input value={date} className='date-picker-input' onChange={({ target }) => { onDateChanged(target.value) }} name={text} type="date" id={idValue} />
+        <input value={date} className='date-picker-input' onChange={({ target }) => onDateChanged(target.value)} name={text} type="date" id={idValue} />
     </>
   )
 }

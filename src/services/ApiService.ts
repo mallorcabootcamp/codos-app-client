@@ -21,7 +21,7 @@ export class ApiService {
         })
     }
 
-    static setUser(name:any){
+    static async setDevice(name:any){
         this.user = name;
     }
 
@@ -45,20 +45,21 @@ export class ApiService {
     }
 
     static async getUsersList(): Promise<Array<string>> {
-        //return ApiService.makeGetRequest('/users', ApiService.user);
+        //return ApiService.makeGetRequest('/users');
         return Promise.resolve(['Paco', 'Pepe', 'Pili']);
     }
 
-    static async getCurrentCo2(device: string): Promise<ApiResponse> {
-        //return ApiService.makeGetRequest('/current/co2');
+    static async getCurrentCo2(): Promise<ApiResponse> {
+        //return ApiService.makeGetRequest('/current/co2', this.user);
         return Promise.resolve({value: 29, time: "1587726000000"});
+        
     }
-    static async getCurrentTemperature(device: string): Promise<ApiResponse> {
-        //return ApiService.makeGetRequest('/current/temperature');
+    static async getCurrentTemperature(): Promise<ApiResponse> {
+        //return ApiService.makeGetRequest('/current/temperature', this.user);
         return Promise.resolve({value: 22, time: "1587726000000"});
     }
-    static async getCurrentHumidity(device: string): Promise<ApiResponse> {
-        //return ApiService.makeGetRequest('/current/humidity');
+    static async getCurrentHumidity(): Promise<ApiResponse> {
+        //return ApiService.makeGetRequest('/current/humidity', this.user);
         return Promise.resolve({value: 85, time: "1587726000000"});
     }
     

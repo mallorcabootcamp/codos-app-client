@@ -19,7 +19,6 @@ const hours = 8;
 const Main = () => {
     const fromDate = 0;
     const toDate = 0;
-    const [loggedIn, setLoggedIn] = useState(true);
     const [device, setDevice] = useState('');
     const [menuActived, setMenuActived] = useState<boolean>(false);
     const [currentCo2, setCurrentCo2] = useState<number>(0);
@@ -28,25 +27,27 @@ const Main = () => {
     const [co2Data, setCo2Data] = useState<ApiResponse[]>([{ time: "1587726000000", value: 5 }]);
 
     useEffect(() => {
-        ApiService.getCurrentCo2(device).then((apiResponse: ApiResponse) => {
-            setCurrentCo2(apiResponse.value);
-        })
-        ApiService.getCurrentTemperature(device).then((apiResponse: ApiResponse) => {
-            setCurrentTemperature(apiResponse.value);
-        })
-        ApiService.getCurrentHumidity(device).then((apiResponse: ApiResponse) => {
-            setCurrentHumidity(apiResponse.value);
-        })
-        ApiService.getCo2Data(fromDate, toDate).then((apiResponse: ApiResponse[]) => {
-            setCo2Data(apiResponse);
-        })
-    }, []);
+        if (device) {
+            ApiService.getCurrentCo2().then((apiResponse: ApiResponse) => {
+                setCurrentCo2(apiResponse.value);
+            })
+            ApiService.getCurrentTemperature().then((apiResponse: ApiResponse) => {
+                setCurrentTemperature(apiResponse.value);
+            })
+            ApiService.getCurrentHumidity().then((apiResponse: ApiResponse) => {
+                setCurrentHumidity(apiResponse.value);
+            })
+            ApiService.getCo2Data(fromDate, toDate).then((apiResponse: ApiResponse[]) => {
+                setCo2Data(apiResponse);
+            })
+        }
+    }, [device]);
 
     return (
         <div>
             <div className='container'>
                 <LateralMenuTransition isVisible={menuActived}>
-                    <LateralBar onClick={() => setMenuActived(!menuActived)} onSelect={({target}: any) => setDevice(target.value)}/>
+                    <LateralBar onClick={() => setMenuActived(!menuActived)} onSelect={(e: any) => setDevice(e)} />
                 </LateralMenuTransition>
                 <div className='row'>
                     <div className='col ml-4 pt-4 mt-3 h4 mb-0 d-inline menu-elem' >
@@ -54,7 +55,7 @@ const Main = () => {
                     </div>
                 </div>
             </div>
-            {loggedIn &&
+            {!device &&
                 <div className='container'>
                     <div className='row'>
                         <div className='col px-5 py-3 pt-5 mt-3'>
@@ -62,7 +63,7 @@ const Main = () => {
                         </div>
                     </div>
                 </div>}
-            {!loggedIn &&
+            {device &&
                 <>
                     <CurrentCo2 eCoValue={currentCo2} />
                     <div className='container px-5 text-center'>
