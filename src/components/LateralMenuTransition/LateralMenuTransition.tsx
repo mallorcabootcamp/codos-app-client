@@ -18,7 +18,7 @@ export const LateralMenuTransition = ({ children, in: inProps }: Props) => {
             classNames='lateral'
         >
             <div>
-                <p>Hola mundo</p>
+                {children}
             </div>
         </CSSTransition>
     )
