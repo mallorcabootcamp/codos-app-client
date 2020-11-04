@@ -11,25 +11,29 @@ import { Card } from '../../components/Card/Card';
 import './Main.scss';
 import { ApiService } from '../../services/ApiService';
 import { ApiResponse } from '../../types/api';
+import { LateralBar } from '../LateralBar/LateralBar';
+import { LateralMenuTransition } from '../../components/LateralMenuTransition/LateralMenuTransition';
 
 const hours = 8;
 
 const Main = () => {
     const fromDate = 0;
     const toDate = 0;
+    const [device, setDevice] = useState('');
+    const [menuActived, setMenuActived] = useState<boolean>(false);
     const [currentCo2, setCurrentCo2] = useState<number>(0);
     const [currentTemperature, setCurrentTemperature] = useState<number>(0);
     const [currentHumidity, setCurrentHumidity] = useState<number>(0)
     const [co2Data, setCo2Data] = useState<ApiResponse[]>([{ time: 1587726000000, value: 5 }]);
 
     useEffect(() => {
-        ApiService.getCurrentCo2().then((apiResponse: ApiResponse) => {
+        ApiService.getCurrentCo2(device).then((apiResponse: ApiResponse) => {
             setCurrentCo2(apiResponse.value);
         })
-        ApiService.getCurrentTemperature().then((apiResponse: ApiResponse) => {
+        ApiService.getCurrentTemperature(device).then((apiResponse: ApiResponse) => {
             setCurrentTemperature(apiResponse.value);
         })
-        ApiService.getCurrentHumidity().then((apiResponse: ApiResponse) => {
+        ApiService.getCurrentHumidity(device).then((apiResponse: ApiResponse) => {
             setCurrentHumidity(apiResponse.value);
         })
         ApiService.getCo2Data(fromDate, toDate).then((apiResponse: ApiResponse[]) => {
@@ -40,9 +44,12 @@ const Main = () => {
     return (
         <div>
             <div className='container'>
+                <LateralMenuTransition isVisible={menuActived}>
+                    <LateralBar onClick={() => setMenuActived(!menuActived)} onSelect={({target}: any) => setDevice(target.value)}/>
+                </LateralMenuTransition>
                 <div className='row'>
                     <div className='col ml-4 pt-4 mt-3 h4 mb-0 d-inline menu-elem' >
-                        <p className='mb-0'><FontAwesomeIcon icon={faBars} size="lg" /></p>
+                        <p className='mb-0 d-inline' onClick={() => setMenuActived(!menuActived)}><FontAwesomeIcon icon={faBars} size="lg" /></p>
                     </div>
                 </div>
             </div>
@@ -76,7 +83,7 @@ const Main = () => {
                     <Link to='/History' className='search-link'><FontAwesomeIcon icon={faSearch} size="lg" /></Link>
                 </div>
             </div>
-        </div>
+        </div >
     )
 }
 

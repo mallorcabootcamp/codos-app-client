@@ -36,15 +36,15 @@ export class ApiService {
         //return ApiService.makeGetRequest('/humidity', fromDateTs, toDateTs);
         return Promise.resolve(historicalValues);
     }
-    static async getCurrentCo2(): Promise<ApiResponse> {
+    static async getCurrentCo2(device: string): Promise<ApiResponse> {
         //return ApiService.makeGetRequest('/current/co2');
         return Promise.resolve({value: 29, time: 1587726000000});
     }
-    static async getCurrentTemperature(): Promise<ApiResponse> {
+    static async getCurrentTemperature(device: string): Promise<ApiResponse> {
         //return ApiService.makeGetRequest('/current/temperature');
         return Promise.resolve({value: 22, time: 1587726000000});
     }
-    static async getCurrentHumidity(): Promise<ApiResponse> {
+    static async getCurrentHumidity(device: string): Promise<ApiResponse> {
         //return ApiService.makeGetRequest('/current/humidity');
         return Promise.resolve({value: 85, time: 1587726000000});
     }
