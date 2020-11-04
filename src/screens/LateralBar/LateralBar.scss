@@ -3,7 +3,7 @@
 .side-menu {
     color: $whiteColor;
     background-color: $darkGreyColor;
-    height: 100vh;
+    height: 100%;
     width: 90%;
     position: absolute;
     .about {
@@ -18,7 +18,7 @@
         width: fit-content;
         color: $lightGreyColor;
         background-color: $darkGreyColor;
-        font-size: 1rem;
+        font-size: 1.1rem;
     }
     
     .menu-button:focus {
