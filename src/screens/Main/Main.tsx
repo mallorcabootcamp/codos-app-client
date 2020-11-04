@@ -12,7 +12,7 @@ import './Main.scss';
 import { ApiService } from '../../services/ApiService';
 import { ApiResponse } from '../../types/api';
 import { LateralBar } from '../LateralBar/LateralBar';
-import ReactCSSTransitionGroup from 'react-transition-group';
+import { LateralMenuTransition } from '../../components/LateralMenuTransition/LateralMenuTransition';
 
 const hours = 8;
 
@@ -42,15 +42,13 @@ const Main = () => {
 
     return (
         <div>
-            <div className={`aside-menu ${menuActived && 'aside-menu-open'}`}>
-                <ReactCSSTransitionGroup transitionName="aside-menu" transitionEnterTimeout={500} transitionLeaveTimeout={300}>
-                    <LateralBar onClick={() => setMenuActived(false)} />
-                </ReactCSSTransitionGroup>
-            </div>
+            <LateralMenuTransition in={menuActived}>
+                    <LateralBar onClick={() => setMenuActived(!menuActived)} />
+            </LateralMenuTransition>
             <div className='container'>
                 <div className='row'>
                     <div className='col ml-4 pt-4 mt-3 h4 mb-0 d-inline menu-elem' >
-                        <p className='mb-0 d-inline' onClick={() => setMenuActived(true)}><FontAwesomeIcon icon={faBars} size="lg" /></p>
+                        <p className='mb-0 d-inline' onClick={() => setMenuActived(!menuActived)}><FontAwesomeIcon icon={faBars} size="lg" /></p>
                     </div>
                 </div>
             </div>

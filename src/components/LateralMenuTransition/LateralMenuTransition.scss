@@ -1,0 +1,21 @@
+
+.lateral-enter{
+    left: 0%;
+    position: absolute;
+}
+.lateral-enter-active{
+    left: 0%;
+    position: absolute;
+    z-index: 3;
+    transition: left 300ms;
+}
+.lateral-exit{
+    left: -100%;
+    position: absolute;
+}
+.lateral-exit-active{
+    left: -100%;
+    position: absolute;
+    z-index: 3;
+    transition: left 300ms;
+}
