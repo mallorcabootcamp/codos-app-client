@@ -16,17 +16,25 @@ import { LateralMenuTransition } from '../../components/LateralMenuTransition/La
 
 const hours = 8;
 
+
 const Main = () => {
     const fromDate = 0;
     const toDate = 0;
-    const [device, setDevice] = useState(ApiService.user);
+    const [device, setDevice] = useState(localStorage.getItem('localStorageKey') || '');
     const [menuActived, setMenuActived] = useState<boolean>(false);
     const [currentCo2, setCurrentCo2] = useState<number>(0);
     const [currentTemperature, setCurrentTemperature] = useState<number>(0);
     const [currentHumidity, setCurrentHumidity] = useState<number>(0)
     const [co2Data, setCo2Data] = useState<ApiResponse[]>([{ time: "1587726000000", value: 5 }]);
 
+    
+
     useEffect(() => {
+        const cachedHits = localStorage.getItem(device);
+        if (cachedHits) {
+            setDevice(cachedHits);
+          }
+        localStorage.setItem('localStorageKey', device);
         if (device) {
             ApiService.getCurrentCo2().then((apiResponse: ApiResponse) => {
                 setCurrentCo2(apiResponse.value);

@@ -3,11 +3,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import './LateralBar.scss';
 import { ApiService } from '../../services/ApiService';
- 
+
 interface Props { onClick: any, onSelect: any }
 
 export const LateralBar = ({ onClick, onSelect }: Props): JSX.Element => {
-    const [device, setDevice] = useState(ApiService.user);
+    const [device, setDevice] = useState(localStorage.getItem('localStorageKey') || '');
     const [deviceList, setDeviceList] = useState([]);
 
     const handleOnClick = (target: any) => {
@@ -16,11 +16,26 @@ export const LateralBar = ({ onClick, onSelect }: Props): JSX.Element => {
         onClick()
     };
 
-   
+    const createLiElement = (value: string) => {
+        return (
+            <li>
+                <button className={`border-0 my-2 ${device === value && 'menu-button-actived'} menu-button`} value={value} onClick={({ target }: any) => handleOnClick(target)}>
+                    {value}
+                </button>
+            </li>)
+    };
+
+
+
     useEffect((): any => {
+        const cachedHits = localStorage.getItem(device);
+        if (cachedHits) {
+            setDevice(cachedHits);
+          }
+        localStorage.setItem('localStorageKey', device);
         ApiService.setDevice(device);
         ApiService.getUsersList().then((apiResponse: any) => {
-            setDeviceList(apiResponse.map((value: string) => <li><button  className={`border-0 my-2 ${device === value && 'menu-button-actived'} menu-button }`} p-0 value={value} onClick={({ target }: any) => handleOnClick(target)}>{value}</button></li>))
+            setDeviceList(apiResponse.map((value: string) => createLiElement(value)))
         });
     }, [device]);
 
@@ -33,7 +48,7 @@ export const LateralBar = ({ onClick, onSelect }: Props): JSX.Element => {
                     <FontAwesomeIcon icon={faTimesCircle} size="lg" />
                 </div>
             </header>
-            
+
             <main className="menu my-5 ml-5 d-flex flex-column ">
                 <p className="font-weight-bold pb-4 h5">Listado de dispositivos</p>
                 <ul className='list-unstyled'>
