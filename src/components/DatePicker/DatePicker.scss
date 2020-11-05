@@ -2,14 +2,14 @@
 
 .date-picker-text{
     font-weight: 700;
-    font-size: 0.9em;
+    font-size: $fontSizeSmall;
     color: $whiteColor;
     display: block;
 }
 
 .date-picker-input{
     color:  $lightGreyColor;
-    font-size: 0.9em;
+    font-size: $fontSizeSmall;
     padding: 10px 10px;
     width: 100%;
     border-radius: 10px;
