@@ -11,7 +11,6 @@ import { ApiResponse } from '../../types/api';
 
 
 const graphColor = '#bdc3c7';
-const bgColor = '#ecf0f1';
 const axisColor = '#878a8c';
 
 // axis config
@@ -109,13 +108,6 @@ export const TimeWithValuesGraph = ({ endTimeValue, width, historicalValues, uom
   return (
     <div className='text-left time-with-values-graph-elem'>
       <svg width={width + marginY} height={height}>
-        <rect
-          x={marginX}
-          y={marginY}
-          width={xMax}
-          height={height - marginY * 2}
-          fill={bgColor}
-        ></rect>
         <AreaClosed
           data={stock}
           x={(d: ApiResponse) => dateScale(getDate(d)) ?? 0}
