@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { setSourceMapRange } from 'typescript';
 // This import is only to check the app while we wait for the api work.
 import historicalValues from '../components/TimeWithValuesGraph/HistoricalValues';
 import { config } from '../config';

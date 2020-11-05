@@ -11,7 +11,7 @@ import { Card } from '../../components/Card/Card';
 import './Main.scss';
 import { ApiService } from '../../services/ApiService';
 import { ApiResponse } from '../../types/api';
-import { LateralBar } from '../LateralBar/LateralBar';
+import { LateralBar } from '../../components/LateralBar/LateralBar';
 import { LateralMenuTransition } from '../../components/LateralMenuTransition/LateralMenuTransition';
 
 const hours = 8;
@@ -19,7 +19,7 @@ const hours = 8;
 const Main = () => {
     const fromDate = 0;
     const toDate = 0;
-    const [device, setDevice] = useState('');
+    const [device, setDevice] = useState(ApiService.user);
     const [menuActived, setMenuActived] = useState<boolean>(false);
     const [currentCo2, setCurrentCo2] = useState<number>(0);
     const [currentTemperature, setCurrentTemperature] = useState<number>(0);
@@ -59,7 +59,7 @@ const Main = () => {
                 <div className='container'>
                     <div className='row'>
                         <div className='col px-5 py-3 pt-5 mt-3'>
-                            <h4>Seleccione un dispositivo</h4>
+                            <h4 className='select-a-device'>Acceda al menú lateral y seleccione un dispositivo</h4>
                         </div>
                     </div>
                 </div>}
@@ -84,7 +84,7 @@ const Main = () => {
                             <div className='row'>
                                 <div className='col text-center'>
                                     <ParentSize className='graph-elem'>
-                                        {({ width }) => <TimeWithValuesGraph endTimeValue={8} uom={'ppm'} timeFormat={'HH:mm'} marginY={20} marginX={50} historicalValues={co2Data} width={width - 25} height={160} />}
+                                        {({ width }) => <TimeWithValuesGraph endTimeValue={8} uom={'ppm'} timeFormat={'HH:mm'} marginY={25} marginX={50} historicalValues={co2Data} width={width - 25} height={160} />}
                                     </ParentSize>
                                 </div>
                             </div>

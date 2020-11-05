@@ -3,20 +3,26 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import './LateralBar.scss';
 import { ApiService } from '../../services/ApiService';
-
+ 
 interface Props { onClick: any, onSelect: any }
 
 export const LateralBar = ({ onClick, onSelect }: Props): JSX.Element => {
-    const [device, setDevice] = useState('');
+    const [device, setDevice] = useState(ApiService.user);
+    const [deviceList, setDeviceList] = useState([]);
 
     const handleOnClick = (target: any) => {
         onSelect(target.value);
         setDevice(target.value);
+        onClick()
     };
 
-    useEffect(() => {
-        ApiService.setDevice(device)
-        },[device]);
+   
+    useEffect((): any => {
+        ApiService.setDevice(device);
+        ApiService.getUsersList().then((apiResponse: any) => {
+            setDeviceList(apiResponse.map((value: string) => <li><button  className={`border-0 my-2 ${device === value && 'menu-button-actived'} menu-button }`} p-0 value={value} onClick={({ target }: any) => handleOnClick(target)}>{value}</button></li>))
+        });
+    }, [device]);
 
     return (
         <div className="side-menu">
@@ -27,12 +33,12 @@ export const LateralBar = ({ onClick, onSelect }: Props): JSX.Element => {
                     <FontAwesomeIcon icon={faTimesCircle} size="lg" />
                 </div>
             </header>
-
+            
             <main className="menu my-5 ml-5 d-flex flex-column ">
                 <p className="font-weight-bold pb-4 h5">Listado de dispositivos</p>
-                <button className="menu-button border-0 my-2 p-0" value='pepe' onClick={({target}:any) => handleOnClick(target)}>Dispositivo 1</button>
-                <button className="menu-button border-0 my-2 p-0" value='pili' onClick={({target}:any) => handleOnClick(target)}>Dispositivo 2</button>
-                <button className="menu-button border-0 my-2 p-0" value='oscar' onClick={({target}:any) => handleOnClick(target)}>Dispositivo 3</button>
+                <ul className='list-unstyled'>
+                    {deviceList}
+                </ul>
             </main>
 
             <hr className="ml-5 text-left font-weight-bold" />

@@ -112,7 +112,7 @@ export const TimeWithValuesGraph = ({ endTimeValue, width, historicalValues, uom
         <rect
           x={marginX}
           y={marginY}
-          width={width - marginX}
+          width={xMax}
           height={height - marginY * 2}
           fill={bgColor}
         ></rect>
