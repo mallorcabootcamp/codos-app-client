@@ -7,7 +7,7 @@
     width: 90%;
     position: absolute;
     .about {
-        font-size: 1.2rem;
+        font-size: $fontSizeNormal;
     }
     hr {
         border-top: 1px solid $lightGreyColor;
@@ -18,26 +18,25 @@
         width: fit-content;
         color: $lightGreyColor;
         background-color: $darkGreyColor;
-        font-size: 1.1rem;
+        font-size: $fontSizeNormal;
     }
-    
-    .menu-button:focus {
-        color: #2ECA70;
+    .menu-button-actived {
+        color: $greenSelected;
         outline: 0;
-        font-weight: 700 !important;
+        font-weight: 700;
     }
     
     .fa-bars {
-        font-size: 2rem;
+        font-size: $fontSizeLarge;
     }
     
     
     .fa-times-circle{
-        font-size: 2.8rem;
+        font-size: $fontSizeExtraLarge;
         color: $whiteColor;
     }
-    
-    
 }
+
+
 
 

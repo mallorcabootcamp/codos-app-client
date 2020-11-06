@@ -3,8 +3,8 @@ import { CSSTransition } from 'react-transition-group';
 import './LateralMenuTransition.scss';
 
 interface Props {
-    children: any,
-    isVisible: any,
+    children: JSX.Element,
+    isVisible: boolean,
 }
 
 
