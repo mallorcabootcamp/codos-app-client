@@ -5,7 +5,7 @@ const maximumColorRange = 145;
 const maximumECoValue = 1000;
 const redColorValue = 0;
 
-interface Props { eCoValue: any }
+interface Props { eCoValue: number }
 
 export const CurrentCo2 = ({ eCoValue }: Props): JSX.Element => {
 

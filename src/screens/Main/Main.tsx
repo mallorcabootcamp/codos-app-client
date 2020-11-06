@@ -13,13 +13,15 @@ import { ApiService } from '../../services/ApiService';
 import { ApiResponse } from '../../types/api';
 import { LateralBar } from '../../components/LateralBar/LateralBar';
 import { LateralMenuTransition } from '../../components/LateralMenuTransition/LateralMenuTransition';
+import { useStateWithLocalStorage } from '../../hooks/useStateWithLocalStorage';
+
 
 const hours = 8;
 
 const Main = () => {
     const fromDate = 0;
     const toDate = 0;
-    const [selectedDevice, setSelectedDevice] = useState('');
+    const [selectedDevice, setSelectedDevice] = useStateWithLocalStorage('deviceSelected');
     const [menuActived, setMenuActived] = useState<boolean>(false);
     const [currentCo2, setCurrentCo2] = useState<number>(0);
     const [currentTemperature, setCurrentTemperature] = useState<number>(0);
@@ -34,22 +36,17 @@ const Main = () => {
     }, [])
 
     useEffect(() => {
-        /*const cachedHits = localStorage.getItem(device);
-        if (cachedHits) {
-            setDevice(cachedHits);
-          }
-        localStorage.setItem('localStorageKey', device);*/
         if (selectedDevice) {
-            ApiService.getCurrentCo2().then((apiResponse: ApiResponse) => {
+            ApiService.getCurrentCo2(selectedDevice).then((apiResponse: ApiResponse) => {
                 setCurrentCo2(apiResponse.value);
             })
-            ApiService.getCurrentTemperature().then((apiResponse: ApiResponse) => {
+            ApiService.getCurrentTemperature(selectedDevice).then((apiResponse: ApiResponse) => {
                 setCurrentTemperature(apiResponse.value);
             })
-            ApiService.getCurrentHumidity().then((apiResponse: ApiResponse) => {
+            ApiService.getCurrentHumidity(selectedDevice).then((apiResponse: ApiResponse) => {
                 setCurrentHumidity(apiResponse.value);
             })
-            ApiService.getCo2Data(fromDate, toDate).then((apiResponse: ApiResponse[]) => {
+            ApiService.getCo2Data(fromDate, toDate, selectedDevice).then((apiResponse: ApiResponse[]) => {
                 setCo2Data(apiResponse);
             })
         }

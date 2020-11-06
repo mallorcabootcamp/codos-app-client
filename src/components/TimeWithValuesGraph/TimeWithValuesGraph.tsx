@@ -132,7 +132,7 @@ export const TimeWithValuesGraph = ({ endTimeValue, width, historicalValues, uom
           hideTicks={true}
           tickStroke={axisColor}
           tickLabelProps={() => axisBottomTickLabelProps}
-          tickFormat={(value: any) => {
+          tickFormat={(value) => {
             return moment(value as Date).format(timeFormat)
           }}
         />
