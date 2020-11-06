@@ -14,9 +14,9 @@ const History = (): JSX.Element => {
     const [fromDate, setFromDate] = useState<number>(0);
     const [toDate, setToDate] = useState<number>(0);
     const [graphsOnScreen, setGraphsOnScreen] = useState<boolean>(false);
-    const [co2Data, setCo2Data] = useState<ApiResponse[]>([{ time: "1587726000000", value: 5 }]);
-    const [temperatureData, setTemperatureData] = useState<ApiResponse[]>([{ time: "1587726000000", value: 5 }]);
-    const [humidityData, setHumidityData] = useState<ApiResponse[]>([{ time: "1587726000000", value: 5 }]);
+    const [co2Data, setCo2Data] = useState<ApiResponse[]>([]);
+    const [temperatureData, setTemperatureData] = useState<ApiResponse[]>([]);
+    const [humidityData, setHumidityData] = useState<ApiResponse[]>([]);
 
     const handleSearchButtonClick = () => {
         ApiService.getCo2Data(fromDate, toDate).then((apiResponse: ApiResponse[]) => setCo2Data(apiResponse))

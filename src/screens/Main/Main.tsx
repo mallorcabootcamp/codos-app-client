@@ -16,26 +16,30 @@ import { LateralMenuTransition } from '../../components/LateralMenuTransition/La
 
 const hours = 8;
 
-
 const Main = () => {
     const fromDate = 0;
     const toDate = 0;
-    const [device, setDevice] = useState(localStorage.getItem('localStorageKey') || '');
+    const [selectedDevice, setSelectedDevice] = useState('');
     const [menuActived, setMenuActived] = useState<boolean>(false);
     const [currentCo2, setCurrentCo2] = useState<number>(0);
     const [currentTemperature, setCurrentTemperature] = useState<number>(0);
     const [currentHumidity, setCurrentHumidity] = useState<number>(0)
-    const [co2Data, setCo2Data] = useState<ApiResponse[]>([{ time: "1587726000000", value: 5 }]);
-
-    
+    const [co2Data, setCo2Data] = useState<ApiResponse[]>([]);
+    const [deviceList, setDeviceList] = useState<string[]>([]);
 
     useEffect(() => {
-        const cachedHits = localStorage.getItem(device);
+        ApiService.getUsersList().then((apiResponse: string[]) => {
+            setDeviceList(apiResponse)
+        });
+    }, [])
+
+    useEffect(() => {
+        /*const cachedHits = localStorage.getItem(device);
         if (cachedHits) {
             setDevice(cachedHits);
           }
-        localStorage.setItem('localStorageKey', device);
-        if (device) {
+        localStorage.setItem('localStorageKey', device);*/
+        if (selectedDevice) {
             ApiService.getCurrentCo2().then((apiResponse: ApiResponse) => {
                 setCurrentCo2(apiResponse.value);
             })
@@ -49,21 +53,26 @@ const Main = () => {
                 setCo2Data(apiResponse);
             })
         }
-    }, [device]);
+    }, [selectedDevice]);
+
+    const onClickOnDevice = (device: string) => {
+        setSelectedDevice(device);
+        setMenuActived(false);
+    }
 
     return (
         <div>
             <div className='container'>
                 <LateralMenuTransition isVisible={menuActived}>
-                    <LateralBar onClick={() => setMenuActived(!menuActived)} onSelect={(e: any) => setDevice(e)} />
+                    <LateralBar activeDevice={selectedDevice} devices={deviceList} onClickOnClose={() => setMenuActived(false)} onClickOnDevice={onClickOnDevice} />
                 </LateralMenuTransition>
                 <div className='row'>
                     <div className='col ml-4 pt-4 mt-3 h4 mb-0 d-inline menu-elem' >
-                        <p className='mb-0 d-inline' onClick={() => setMenuActived(!menuActived)}><FontAwesomeIcon icon={faBars} size="lg" /></p>
+                        <p className='mb-0 d-inline' onClick={() => setMenuActived(true)}><FontAwesomeIcon icon={faBars} size="lg" /></p>
                     </div>
                 </div>
             </div>
-            {!device &&
+            {!selectedDevice &&
                 <div className='container'>
                     <div className='row'>
                         <div className='col px-5 py-3 pt-5 mt-3'>
@@ -71,7 +80,7 @@ const Main = () => {
                         </div>
                     </div>
                 </div>}
-            {device &&
+            {selectedDevice &&
                 <>
                     <CurrentCo2 eCoValue={currentCo2} />
                     <div className='container px-5 text-center'>

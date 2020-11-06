@@ -20,10 +20,6 @@ export class ApiService {
         })
     }
 
-    static async setDevice(name:any){
-        this.user = name;
-    }
-
     static async getCo2Data(fromDate: number, toDate: number): Promise<ApiResponse[]> {
         const fromDateTs = new Date (fromDate).getTime();
         const toDateTs = new Date (toDate).getTime();
