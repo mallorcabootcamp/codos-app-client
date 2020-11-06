@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
@@ -20,12 +20,14 @@ const History = (): JSX.Element => {
     const [humidityData, setHumidityData] = useState<ApiResponse[]>([]);
     const [selectedDevice, setSelectedDevice] = useStateWithLocalStorage('deviceSelected');
 
-    const handleSearchButtonClick = () => {
-        ApiService.getCo2Data(fromDate, toDate, selectedDevice).then((apiResponse: ApiResponse[]) => setCo2Data(apiResponse))
-        ApiService.getTemperatureData(fromDate, toDate, selectedDevice).then((apiResponse: ApiResponse[]) => setTemperatureData(apiResponse))
-        ApiService.getHumidityData(fromDate, toDate, selectedDevice).then((apiResponse: ApiResponse[]) => setHumidityData(apiResponse))
-        setGraphsOnScreen(true);
-    }
+    useEffect(() => {
+        if (graphsOnScreen) {
+        ApiService.getCo2Data(fromDate, toDate, selectedDevice).then((apiResponse: ApiResponse[]) => setCo2Data(apiResponse));
+        ApiService.getTemperatureData(fromDate, toDate, selectedDevice).then((apiResponse: ApiResponse[]) => setTemperatureData(apiResponse));
+        ApiService.getHumidityData(fromDate, toDate, selectedDevice).then((apiResponse: ApiResponse[]) => setHumidityData(apiResponse));
+        }
+    }, [graphsOnScreen])
+
 
     return (
         <div className='container history-elem-container'>
@@ -43,7 +45,7 @@ const History = (): JSX.Element => {
             </div>
             <div className='row'>
                 <div className="col pl-4 ml-3 my-3">
-                    <button className='search-button btn' disabled={!fromDate || !toDate} onClick={handleSearchButtonClick}>Buscar </button>
+                    <button className='search-button btn' disabled={!fromDate || !toDate} onClick={() => setGraphsOnScreen(!graphsOnScreen)}>Buscar </button>
                 </div>
             </div>
             {graphsOnScreen &&

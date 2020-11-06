@@ -127,7 +127,7 @@ export const TimeWithValuesGraph = ({ endTimeValue, width, historicalValues, uom
         <AxisBottom
           top={yMax}
           scale={scaleAxisBottom}
-          numTicks={timeRank.endTime}
+          numTicks={timeRank.endTime / 2}
           stroke={axisColor}
           hideTicks={true}
           tickStroke={axisColor}
