@@ -9,6 +9,7 @@ import { CardWithTextTab } from '../../components/CardWithTextTab/CardWithTextTa
 import './History.scss'
 import { ApiService } from '../../services/ApiService';
 import { ApiResponse } from '../../types/api';
+import { useStateWithLocalStorage } from '../../hooks/useStateWithLocalStorage';
 
 const History = (): JSX.Element => {
     const [fromDate, setFromDate] = useState<number>(0);
@@ -17,11 +18,12 @@ const History = (): JSX.Element => {
     const [co2Data, setCo2Data] = useState<ApiResponse[]>([]);
     const [temperatureData, setTemperatureData] = useState<ApiResponse[]>([]);
     const [humidityData, setHumidityData] = useState<ApiResponse[]>([]);
+    const [selectedDevice, setSelectedDevice] = useStateWithLocalStorage('deviceSelected');
 
     const handleSearchButtonClick = () => {
-        ApiService.getCo2Data(fromDate, toDate).then((apiResponse: ApiResponse[]) => setCo2Data(apiResponse))
-        ApiService.getTemperatureData(fromDate, toDate).then((apiResponse: ApiResponse[]) => setTemperatureData(apiResponse))
-        ApiService.getHumidityData(fromDate, toDate).then((apiResponse: ApiResponse[]) => setHumidityData(apiResponse))
+        ApiService.getCo2Data(fromDate, toDate, selectedDevice).then((apiResponse: ApiResponse[]) => setCo2Data(apiResponse))
+        ApiService.getTemperatureData(fromDate, toDate, selectedDevice).then((apiResponse: ApiResponse[]) => setTemperatureData(apiResponse))
+        ApiService.getHumidityData(fromDate, toDate, selectedDevice).then((apiResponse: ApiResponse[]) => setHumidityData(apiResponse))
         setGraphsOnScreen(true);
     }
 
