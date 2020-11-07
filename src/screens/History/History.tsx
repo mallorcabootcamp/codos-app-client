@@ -53,21 +53,21 @@ const History = (): JSX.Element => {
                     <CardWithTextTab value='eCO²'>
                         <div className="row">
                             <ParentSize className='history-graph-elem'>
-                                {({ width }) => <TimeWithValuesGraph endTimeValue={10} uom={'ppm'} timeFormat={'H:mm'} marginY={20} marginX={50} historicalValues={co2Data} width={width - 20} height={118} />}
+                                {({ width }) => <TimeWithValuesGraph endTimeValue={10} uom={'ppm'} timeFormat={'H:mm'} marginY={20} marginX={55} historicalValues={co2Data} width={width - 20} height={118} />}
                             </ParentSize>
                         </div>
                     </CardWithTextTab>
                     <CardWithTextTab value='Temp.'>
                         <div className="row">
                             <ParentSize className='history-graph-elem'>
-                                {({ width }) => <TimeWithValuesGraph endTimeValue={10} uom={'ºC'} timeFormat={'H:mm'} marginY={20} marginX={50} historicalValues={temperatureData} width={width - 20} height={118} />}
+                                {({ width }) => <TimeWithValuesGraph endTimeValue={10} uom={'ºC'} timeFormat={'H:mm'} marginY={20} marginX={55} historicalValues={temperatureData} width={width - 20} height={118} />}
                             </ParentSize>
                         </div>
                     </CardWithTextTab>
                     <CardWithTextTab value='Humidity'>
                         <div className="row">
                             <ParentSize className='history-graph-elem'>
-                                {({ width }) => <TimeWithValuesGraph endTimeValue={10} uom={'%'} timeFormat={'H:mm'} marginY={20} marginX={50} historicalValues={humidityData} width={width - 20} height={118} />}
+                                {({ width }) => <TimeWithValuesGraph endTimeValue={10} uom={'%'} timeFormat={'H:mm'} marginY={20} marginX={55} historicalValues={humidityData} width={width - 20} height={118} />}
                             </ParentSize>
                         </div>
                     </CardWithTextTab>
