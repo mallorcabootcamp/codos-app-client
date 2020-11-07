@@ -95,7 +95,7 @@ const Main = () => {
                             </div>
                         </Card>
                     </div>
-                    <div className='container px-5 pt-1 mt-4 mb-4 pb-2'>
+                    <div className='container px-5 pt-3 mt-4 mb-4 pb-2'>
                         <Card className='graph-elem'>
                             <p className='text-elem pt-3 pl-2 mb-3'>Últimas {hours} horas</p>
                             <div className='row'>
