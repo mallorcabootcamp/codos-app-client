@@ -101,7 +101,7 @@ const Main = () => {
                             <div className='row'>
                                 <div className='col text-center'>
                                     <ParentSize className='graph-elem'>
-                                        {({ width }) => <TimeWithValuesGraph endTimeValue={8} uom={'ppm'} timeFormat={'H:mm'} marginY={20} marginX={60} historicalValues={co2Data} width={width - 25} height={160} />}
+                                        {({ width }) => <TimeWithValuesGraph endTimeValue={8} uom={'ppm'} timeFormat={'H:mm'} marginY={20} marginX={60} historicalValues={co2Data} width={width - 20} height={160} />}
                                     </ParentSize>
                                 </div>
                             </div>
