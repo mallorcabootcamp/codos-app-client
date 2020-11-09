@@ -19,8 +19,7 @@ import { useStateWithLocalStorage } from '../../hooks/useStateWithLocalStorage';
 const hours = 8;
 
 const Main = () => {
-    const fromDate = 0;
-    const toDate = 0;
+
     const [selectedDevice, setSelectedDevice] = useStateWithLocalStorage('deviceSelected');
     const [menuActived, setMenuActived] = useState<boolean>(false);
     const [currentCo2, setCurrentCo2] = useState<number>(0);
@@ -33,18 +32,24 @@ const Main = () => {
         ApiService.getUsersList().then((apiResponse: string[]) => {
             setDeviceList(apiResponse)
         });
+        
     }, [])
 
     useEffect(() => {
+        // Provisional data to work \/\/\/
+        const HOUR = 1000 * 60 * 60;
+    const fromDate = Math.floor((Date.now() - HOUR) / 1000);
+    const toDate = new Date();
+
         if (selectedDevice) {
-            ApiService.getCurrentCo2(selectedDevice).then((apiResponse: ApiResponse) => {
-                setCurrentCo2(apiResponse.value);
+            ApiService.getCurrentCo2(selectedDevice).then((apiResponse: any) => {
+                setCurrentCo2(apiResponse[0].value);
             })
-            ApiService.getCurrentTemperature(selectedDevice).then((apiResponse: ApiResponse) => {
-                setCurrentTemperature(apiResponse.value);
+            ApiService.getCurrentTemperature(selectedDevice).then((apiResponse: any) => {
+                setCurrentTemperature(apiResponse[0].value);
             })
-            ApiService.getCurrentHumidity(selectedDevice).then((apiResponse: ApiResponse) => {
-                setCurrentHumidity(apiResponse.value);
+            ApiService.getCurrentHumidity(selectedDevice).then((apiResponse: any) => {
+                setCurrentHumidity(apiResponse[0].value);
             })
             ApiService.getCo2Data(fromDate, toDate, selectedDevice).then((apiResponse: ApiResponse[]) => {
                 setCo2Data(apiResponse);
@@ -84,21 +89,21 @@ const Main = () => {
                         <Card>
                             <div className='row icon-with-value-elem'>
                                 <div className='col'>
-                                    <IconWithValue value={`${currentTemperature}º`} icon={Icon.thermometer} />
+                                    <IconWithValue value={`${Math.round(currentTemperature)}º`} icon={Icon.thermometer} />
                                 </div>
                                 <div className='col'>
-                                    <IconWithValue value={`${currentHumidity}%`} icon={Icon.humidity} />
+                                    <IconWithValue value={`${Math.round(currentHumidity)}%`} icon={Icon.humidity} />
                                 </div>
                             </div>
                         </Card>
                     </div>
-                    <div className='container px-5 pt-1 mt-4 mb-4 pb-2'>
+                    <div className='container px-5 pt-3 mt-4 mb-4 pb-2'>
                         <Card className='graph-elem'>
                             <p className='text-elem pt-3 pl-2 mb-3'>Últimas {hours} horas</p>
                             <div className='row'>
                                 <div className='col text-center'>
                                     <ParentSize className='graph-elem'>
-                                        {({ width }) => <TimeWithValuesGraph endTimeValue={8} uom={'ppm'} timeFormat={'HH:mm'} marginY={25} marginX={50} historicalValues={co2Data} width={width - 25} height={160} />}
+                                        {({ width }) => <TimeWithValuesGraph endTimeValue={8} uom={'ppm'} timeFormat={'H:mm'} marginY={20} marginX={60} historicalValues={co2Data} width={width - 20} height={160} />}
                                     </ParentSize>
                                 </div>
                             </div>

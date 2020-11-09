@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
@@ -11,6 +11,7 @@ import { ApiService } from '../../services/ApiService';
 import { ApiResponse } from '../../types/api';
 import { useStateWithLocalStorage } from '../../hooks/useStateWithLocalStorage';
 
+
 const History = (): JSX.Element => {
     const [fromDate, setFromDate] = useState<number>(0);
     const [toDate, setToDate] = useState<number>(0);
@@ -18,14 +19,16 @@ const History = (): JSX.Element => {
     const [co2Data, setCo2Data] = useState<ApiResponse[]>([]);
     const [temperatureData, setTemperatureData] = useState<ApiResponse[]>([]);
     const [humidityData, setHumidityData] = useState<ApiResponse[]>([]);
-    const [selectedDevice, setSelectedDevice] = useStateWithLocalStorage('deviceSelected');
+    const [selectedDevice] = useStateWithLocalStorage('deviceSelected');
 
-    const handleSearchButtonClick = () => {
-        ApiService.getCo2Data(fromDate, toDate, selectedDevice).then((apiResponse: ApiResponse[]) => setCo2Data(apiResponse))
-        ApiService.getTemperatureData(fromDate, toDate, selectedDevice).then((apiResponse: ApiResponse[]) => setTemperatureData(apiResponse))
-        ApiService.getHumidityData(fromDate, toDate, selectedDevice).then((apiResponse: ApiResponse[]) => setHumidityData(apiResponse))
-        setGraphsOnScreen(true);
-    }
+    useEffect(() => {
+        if (graphsOnScreen) {
+        ApiService.getCo2Data(fromDate, toDate, selectedDevice).then((apiResponse: ApiResponse[]) => setCo2Data(apiResponse));
+        ApiService.getTemperatureData(fromDate, toDate, selectedDevice).then((apiResponse: ApiResponse[]) => setTemperatureData(apiResponse));
+        ApiService.getHumidityData(fromDate, toDate, selectedDevice).then((apiResponse: ApiResponse[]) => setHumidityData(apiResponse));
+        }
+    }, [graphsOnScreen, fromDate, toDate, selectedDevice])
+
 
     return (
         <div className='container history-elem-container'>
@@ -43,7 +46,7 @@ const History = (): JSX.Element => {
             </div>
             <div className='row'>
                 <div className="col pl-4 ml-3 my-3">
-                    <button className='search-button btn' disabled={!fromDate || !toDate} onClick={handleSearchButtonClick}>Buscar </button>
+                    <button className='search-button btn' disabled={!fromDate || !toDate} onClick={() => setGraphsOnScreen(!graphsOnScreen)}>Buscar </button>
                 </div>
             </div>
             {graphsOnScreen &&
@@ -51,21 +54,21 @@ const History = (): JSX.Element => {
                     <CardWithTextTab value='eCO²'>
                         <div className="row">
                             <ParentSize className='history-graph-elem'>
-                                {({ width }) => <TimeWithValuesGraph endTimeValue={10} uom={'ppm'} timeFormat={'H:mm'} marginY={20} marginX={50} historicalValues={co2Data} width={width - 20} height={118} />}
+                                {({ width }) => <TimeWithValuesGraph endTimeValue={10} uom={'ppm'} timeFormat={'H:mm'} marginY={20} marginX={55} historicalValues={co2Data} width={width - 20} height={118} />}
                             </ParentSize>
                         </div>
                     </CardWithTextTab>
                     <CardWithTextTab value='Temp.'>
                         <div className="row">
                             <ParentSize className='history-graph-elem'>
-                                {({ width }) => <TimeWithValuesGraph endTimeValue={10} uom={'ºC'} timeFormat={'H:mm'} marginY={20} marginX={50} historicalValues={temperatureData} width={width - 20} height={118} />}
+                                {({ width }) => <TimeWithValuesGraph endTimeValue={10} uom={'ºC'} timeFormat={'H:mm'} marginY={20} marginX={55} historicalValues={temperatureData} width={width - 20} height={118} />}
                             </ParentSize>
                         </div>
                     </CardWithTextTab>
                     <CardWithTextTab value='Humidity'>
                         <div className="row">
                             <ParentSize className='history-graph-elem'>
-                                {({ width }) => <TimeWithValuesGraph endTimeValue={10} uom={'%'} timeFormat={'H:mm'} marginY={20} marginX={50} historicalValues={humidityData} width={width - 20} height={118} />}
+                                {({ width }) => <TimeWithValuesGraph endTimeValue={10} uom={'%'} timeFormat={'H:mm'} marginY={20} marginX={55} historicalValues={humidityData} width={width - 20} height={118} />}
                             </ParentSize>
                         </div>
                     </CardWithTextTab>

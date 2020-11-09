@@ -15,15 +15,17 @@ const axisColor = '#878a8c';
 
 // axis config
 const axisBottomTickLabelProps = {
+  dx: '0em',
+  dy: '-0.5em',
   textAnchor: 'middle' as const,
-  fontFamily: 'Arial',
+  fontFamily: 'Montserrat',
   fontSize: 10,
   fill: axisColor,
 };
 const axisLeftTickLabelProps = {
-  dx: '-0.25em',
+  dx: '0.4em',
   dy: '0.25em',
-  fontFamily: 'Arial',
+  fontFamily: 'Montserrat',
   fontSize: 10,
   textAnchor: 'end' as const,
   fill: axisColor,
@@ -48,7 +50,7 @@ export const TimeWithValuesGraph = ({ endTimeValue, width, historicalValues, uom
     endTime: endTimeValue
   }
   const stock = historicalValues.slice(timeRank.startTime, timeRank.endTime);
-  const getDate = (d: ApiResponse) => new Date(parseInt(d.time));
+  const getDate = (d: ApiResponse) => new Date(parseInt(d.time) * 1000);
   const getStockValue = (d: ApiResponse) => d.value;
   const xMax = width - marginX;
   const yMax = height - marginY;

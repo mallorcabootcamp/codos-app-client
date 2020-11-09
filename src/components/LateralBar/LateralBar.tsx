@@ -1,4 +1,4 @@
-import React, {createRef} from 'react';
+import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import './LateralBar.scss';

@@ -7,21 +7,17 @@ interface Props {
     isVisible: boolean,
 }
 
-
-
 export const LateralMenuTransition = ({ children, isVisible }: Props) => {
     return (
-        <div>
+        <>
             <CSSTransition
                 in={isVisible}
                 timeout={1000}
                 classNames='lateral'
                 unmountOnExit
             >
-
                 {children}
-
             </CSSTransition>
-        </div>
+        </>
     )
 };

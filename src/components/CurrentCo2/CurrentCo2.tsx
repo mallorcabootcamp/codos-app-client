@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import "./CurrentCo2.scss";
 
 const maximumColorRange = 145;
-const maximumECoValue = 1000;
+const maximumECoValue = 10000;
 const redColorValue = 0;
 
 interface Props { eCoValue: number }
