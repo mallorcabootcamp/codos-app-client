@@ -11,6 +11,7 @@ import { ApiService } from '../../services/ApiService';
 import { ApiResponse } from '../../types/api';
 import { useStateWithLocalStorage } from '../../hooks/useStateWithLocalStorage';
 
+
 const History = (): JSX.Element => {
     const [fromDate, setFromDate] = useState<number>(0);
     const [toDate, setToDate] = useState<number>(0);
@@ -18,7 +19,7 @@ const History = (): JSX.Element => {
     const [co2Data, setCo2Data] = useState<ApiResponse[]>([]);
     const [temperatureData, setTemperatureData] = useState<ApiResponse[]>([]);
     const [humidityData, setHumidityData] = useState<ApiResponse[]>([]);
-    const [selectedDevice, setSelectedDevice] = useStateWithLocalStorage('deviceSelected');
+    const [selectedDevice] = useStateWithLocalStorage('deviceSelected');
 
     useEffect(() => {
         if (graphsOnScreen) {
@@ -26,7 +27,7 @@ const History = (): JSX.Element => {
         ApiService.getTemperatureData(fromDate, toDate, selectedDevice).then((apiResponse: ApiResponse[]) => setTemperatureData(apiResponse));
         ApiService.getHumidityData(fromDate, toDate, selectedDevice).then((apiResponse: ApiResponse[]) => setHumidityData(apiResponse));
         }
-    }, [graphsOnScreen])
+    }, [graphsOnScreen, fromDate, toDate, selectedDevice])
 
 
     return (

@@ -1,6 +1,4 @@
 import axios from 'axios';
-// This import is only to check the app while we wait for the api work.
-import historicalValues from '../components/TimeWithValuesGraph/HistoricalValues';
 import { config } from '../config';
 import { ApiResponse } from '../types/api';
 import moment from 'moment';
@@ -42,7 +40,7 @@ export class ApiService {
     }
 
     static async getUsersList(): Promise<Array<string>> {
-        //return ApiService.makeGetRequest('/users');
+        // return ApiService.makeGetRequest('/users');
         return Promise.resolve(['@erguro1973', 'Andreas_IBZ']);
     }
 

@@ -19,11 +19,7 @@ import { useStateWithLocalStorage } from '../../hooks/useStateWithLocalStorage';
 const hours = 8;
 
 const Main = () => {
-    // Provisional data to work \/\/\/
-    const HOUR = 1000 * 60 * 60;
-    const fromDate = Math.floor((Date.now() - HOUR) / 1000);
-    const toDate = new Date();
-    // Provisional data to work /\/\/\
+
     const [selectedDevice, setSelectedDevice] = useStateWithLocalStorage('deviceSelected');
     const [menuActived, setMenuActived] = useState<boolean>(false);
     const [currentCo2, setCurrentCo2] = useState<number>(0);
@@ -36,9 +32,15 @@ const Main = () => {
         ApiService.getUsersList().then((apiResponse: string[]) => {
             setDeviceList(apiResponse)
         });
+        
     }, [])
 
     useEffect(() => {
+        // Provisional data to work \/\/\/
+        const HOUR = 1000 * 60 * 60;
+    const fromDate = Math.floor((Date.now() - HOUR) / 1000);
+    const toDate = new Date();
+
         if (selectedDevice) {
             ApiService.getCurrentCo2(selectedDevice).then((apiResponse: any) => {
                 setCurrentCo2(apiResponse[0].value);
