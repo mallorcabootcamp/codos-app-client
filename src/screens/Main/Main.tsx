@@ -14,6 +14,7 @@ import { ApiResponse } from '../../types/api';
 import { LateralBar } from '../../components/LateralBar/LateralBar';
 import { LateralMenuTransition } from '../../components/LateralMenuTransition/LateralMenuTransition';
 import { useStateWithLocalStorage } from '../../hooks/useStateWithLocalStorage';
+import moment from 'moment';
 
 
 const hours = 8;
@@ -37,9 +38,10 @@ const Main = () => {
 
     useEffect(() => {
         // Provisional data to work \/\/\/
-        const HOUR = 1000 * 60 * 60;
-    const fromDate = Math.floor((Date.now() - HOUR) / 1000);
-    const toDate = new Date();
+        const fromDate = moment().subtract(8, 'hour').format(`YYYY-MM-DD HH:mm`);
+        const toDate = moment().format(`YYYY-MM-DD HH:mm`);
+
+        console.log(fromDate, toDate)
 
         if (selectedDevice) {
             ApiService.getCurrentCo2(selectedDevice).then((apiResponse: any) => {

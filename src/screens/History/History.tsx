@@ -13,22 +13,20 @@ import { useStateWithLocalStorage } from '../../hooks/useStateWithLocalStorage';
 
 
 const History = (): JSX.Element => {
-    const [fromDate, setFromDate] = useState<number>(0);
-    const [toDate, setToDate] = useState<number>(0);
-    const [graphsOnScreen, setGraphsOnScreen] = useState<boolean>(false);
+    const [fromDate, setFromDate] = useState<string>();
+    const [toDate, setToDate] = useState<string>();
     const [co2Data, setCo2Data] = useState<ApiResponse[]>([]);
     const [temperatureData, setTemperatureData] = useState<ApiResponse[]>([]);
     const [humidityData, setHumidityData] = useState<ApiResponse[]>([]);
     const [selectedDevice] = useStateWithLocalStorage('deviceSelected');
 
-    useEffect(() => {
-        if (graphsOnScreen) {
-        ApiService.getCo2Data(fromDate, toDate, selectedDevice).then((apiResponse: ApiResponse[]) => setCo2Data(apiResponse));
-        ApiService.getTemperatureData(fromDate, toDate, selectedDevice).then((apiResponse: ApiResponse[]) => setTemperatureData(apiResponse));
-        ApiService.getHumidityData(fromDate, toDate, selectedDevice).then((apiResponse: ApiResponse[]) => setHumidityData(apiResponse));
+    const refetchData = () => {
+        if (fromDate && toDate) {
+            ApiService.getCo2Data(fromDate, toDate, selectedDevice).then((apiResponse: ApiResponse[]) => setCo2Data(apiResponse));
+            ApiService.getTemperatureData(fromDate, toDate, selectedDevice).then((apiResponse: ApiResponse[]) => setTemperatureData(apiResponse));
+            ApiService.getHumidityData(fromDate, toDate, selectedDevice).then((apiResponse: ApiResponse[]) => setHumidityData(apiResponse));
         }
-    }, [graphsOnScreen, fromDate, toDate, selectedDevice])
-
+    }
 
     return (
         <div className='container history-elem-container'>
@@ -40,16 +38,16 @@ const History = (): JSX.Element => {
             </div>
             <div className='row date-range-pickers-container pt-3 mt-3'>
                 <div className="col mx-4 my-3">
-                    <DatePicker date={fromDate} onDateChanged={(value: number) => setFromDate(value)} text='Desde' />
-                    <DatePicker date={toDate} onDateChanged={(value: number) => setToDate(value)} text='Hasta' />
+                    <DatePicker date={fromDate} onDateChanged={(value: string) => { setFromDate(value) }} text='Desde' />
+                    <DatePicker date={toDate} onDateChanged={(value: string) => setToDate(value)} text='Hasta' />
                 </div>
             </div>
             <div className='row'>
                 <div className="col pl-4 ml-3 my-3">
-                    <button className='search-button btn' disabled={!fromDate || !toDate} onClick={() => setGraphsOnScreen(!graphsOnScreen)}>Buscar </button>
+                    <button className='search-button btn' disabled={!fromDate || !toDate} onClick={() => refetchData()}>Buscar </button>
                 </div>
             </div>
-            {graphsOnScreen &&
+            {temperatureData && humidityData && co2Data &&
                 <>
                     <CardWithTextTab value='eCO²'>
                         <div className="row">

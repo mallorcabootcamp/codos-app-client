@@ -19,19 +19,19 @@ export class ApiService {
         })  
     }
 
-    static async getCo2Data(fromDate: any, toDate: any, selectedDevice: string): Promise<ApiResponse[]> {
+    static async getCo2Data(fromDate: string, toDate: string, selectedDevice: string): Promise<ApiResponse[]> {
         const fromDateTs = Math.round(moment(fromDate).valueOf()/1000);
         const toDateTs = Math.round(moment(toDate).valueOf()/1000);
         return ApiService.makeGetRequest('data/co2', selectedDevice, fromDateTs, toDateTs);
         //return Promise.resolve(historicalValues);
     }
-    static async getTemperatureData(fromDate: number, toDate: number, selectedDevice: string): Promise<ApiResponse[]> {
+    static async getTemperatureData(fromDate: string, toDate: string, selectedDevice: string): Promise<ApiResponse[]> {
         const fromDateTs = Math.round(moment(fromDate).valueOf()/1000);
         const toDateTs = Math.round(moment(toDate).valueOf()/1000);
         return ApiService.makeGetRequest('data/temperature', selectedDevice, fromDateTs, toDateTs);
         //return Promise.resolve(historicalValues);
     }
-    static async getHumidityData(fromDate: number, toDate: number, selectedDevice: string): Promise<ApiResponse[]> {
+    static async getHumidityData(fromDate: string, toDate: string, selectedDevice: string): Promise<ApiResponse[]> {
         const fromDateTs = Math.round(moment(fromDate).valueOf()/1000);
         const toDateTs = Math.round(moment(toDate).valueOf()/1000);
         
