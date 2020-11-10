@@ -16,7 +16,7 @@ export class ApiService {
             },
         }).then((response) => {
             return response.data;
-        })  
+        }).catch((error) => console.log(error));
     }
 
     static async getCo2Data(fromDate: string, toDate: string, selectedDevice: string): Promise<ApiResponse[]> {

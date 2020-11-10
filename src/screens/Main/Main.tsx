@@ -38,10 +38,8 @@ const Main = () => {
 
     useEffect(() => {
         // Provisional data to work \/\/\/
-        const fromDate = moment().subtract(8, 'hour').format(`YYYY-MM-DD HH:mm`);
+        const fromDate = moment().subtract(7, 'hour').format(`YYYY-MM-DD HH:mm`);
         const toDate = moment().format(`YYYY-MM-DD HH:mm`);
-
-        console.log(fromDate, toDate)
 
         if (selectedDevice) {
             ApiService.getCurrentCo2(selectedDevice).then((apiResponse: any) => {
@@ -86,7 +84,7 @@ const Main = () => {
                 </div>}
             {selectedDevice &&
                 <>
-                    <CurrentCo2 eCoValue={currentCo2} />
+                    <CurrentCo2 eCoValue={Math.round(currentCo2)} />
                     <div className='container px-5 text-center'>
                         <Card>
                             <div className='row icon-with-value-elem'>
@@ -105,7 +103,7 @@ const Main = () => {
                             <div className='row'>
                                 <div className='col text-center'>
                                     <ParentSize className='graph-elem'>
-                                        {({ width }) => <TimeWithValuesGraph endTimeValue={8} uom={'ppm'} timeFormat={'H:mm'} marginY={20} marginX={60} historicalValues={co2Data} width={width - 20} height={160} />}
+                                        {({ width }) => <TimeWithValuesGraph endTimeValue={8} uom={'ppm'} timeFormat={'H:mm'} marginY={20} marginX={60} historicalValues={co2Data} bottomAxisNumTicks={7} width={width - 20} height={160} />}
                                     </ParentSize>
                                 </div>
                             </div>

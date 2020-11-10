@@ -16,7 +16,7 @@ const axisColor = '#878a8c';
 // axis config
 const axisBottomTickLabelProps = {
   dx: '0em',
-  dy: '-0.5em',
+  dy: '-0.2em',
   textAnchor: 'middle' as const,
   fontFamily: 'Montserrat',
   fontSize: 10,
@@ -24,7 +24,6 @@ const axisBottomTickLabelProps = {
 };
 const axisLeftTickLabelProps = {
   dx: '0.4em',
-  dy: '0.25em',
   fontFamily: 'Montserrat',
   fontSize: 10,
   textAnchor: 'end' as const,
@@ -39,17 +38,18 @@ interface Props {
   marginY: number,
   marginX: number,
   height: number,
-  timeFormat: string
+  timeFormat: string,
+  bottomAxisNumTicks?: number
 }
 
 // Graph setup
-export const TimeWithValuesGraph = ({ endTimeValue, width, historicalValues, uom, marginY, marginX, height, timeFormat }: Props): JSX.Element => {
+export const TimeWithValuesGraph = ({ endTimeValue, width, historicalValues, uom, marginY, marginX, height, timeFormat, bottomAxisNumTicks }: Props): JSX.Element => {
 
   const timeRank = {
     startTime: 0,
     endTime: endTimeValue
   }
-  const stock = historicalValues.slice(timeRank.startTime, timeRank.endTime);
+  const stock = historicalValues
   const getDate = (d: ApiResponse) => new Date(parseInt(d.time) * 1000);
   const getStockValue = (d: ApiResponse) => d.value;
   const xMax = width - marginX;
@@ -129,7 +129,7 @@ export const TimeWithValuesGraph = ({ endTimeValue, width, historicalValues, uom
         <AxisBottom
           top={yMax}
           scale={scaleAxisBottom}
-          numTicks={timeRank.endTime}
+          numTicks={bottomAxisNumTicks}
           stroke={axisColor}
           hideTicks={true}
           tickStroke={axisColor}
