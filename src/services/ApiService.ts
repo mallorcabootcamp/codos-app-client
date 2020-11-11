@@ -7,8 +7,9 @@ export class ApiService {
     static user: string;
     static async makeGetRequest(endpoint: string, user?: string, fromDate?: number, toDate?: number) {
         return axios({
-            method: 'GET',
+            method: 'POST',
             url: config.apiUrl + endpoint,
+            
             params: {
                 fromDate: fromDate,
                 toDate: toDate,
@@ -16,7 +17,7 @@ export class ApiService {
             },
         }).then((response) => {
             return response.data;
-        }).catch((error) => console.log(error));
+        }).catch((error) => error.response ? Promise.reject(error.response.status) : Promise.reject(error));
     }
 
     static async getCo2Data(fromDate: string, toDate: string, selectedDevice: string): Promise<ApiResponse[]> {
