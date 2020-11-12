@@ -20,11 +20,13 @@ const History = (): JSX.Element => {
     const [temperatureData, setTemperatureData] = useState<ApiResponse[]>();
     const [humidityData, setHumidityData] = useState<ApiResponse[]>();
     const [selectedDevice] = useStateWithLocalStorage('deviceSelected');
+    const [timeScaleValue, setTimeScaleValue] = useState<string>();
 
     
 
     const refetchData = () => {
             const aggregateMinutes = calculateTimeScaleValue(fromDate, toDate);
+            setTimeScaleValue(aggregateMinutes)
             ApiService.getCo2Data(fromDate, toDate, selectedDevice, aggregateMinutes).then((apiResponse: ApiResponse[]) => setCo2Data(apiResponse));
             ApiService.getTemperatureData(fromDate, toDate, selectedDevice, aggregateMinutes).then((apiResponse: ApiResponse[]) => setTemperatureData(apiResponse));
             ApiService.getHumidityData(fromDate, toDate, selectedDevice, aggregateMinutes).then((apiResponse: ApiResponse[]) => setHumidityData(apiResponse));
@@ -57,7 +59,7 @@ const History = (): JSX.Element => {
                                 {({ width }) => <TimeWithValuesGraph 
                                 endTimeValue={10} 
                                 uom={'ppm'} 
-                                timeFormat={'DD-MM'} 
+                                timeFormat={timeScaleValue === '1h' ? 'H:mm' :'DD-MM'} 
                                 marginY={20} 
                                 marginX={55} 
                                 historicalValues={co2Data} 
@@ -74,7 +76,7 @@ const History = (): JSX.Element => {
                                 {({ width }) => <TimeWithValuesGraph 
                                 endTimeValue={10} 
                                 uom={'ºC'} 
-                                timeFormat={'DD-MM'}
+                                timeFormat={timeScaleValue === '1h' ? 'H:mm' :'DD-MM'}
                                 marginY={20} 
                                 marginX={55} 
                                 historicalValues={temperatureData} 
@@ -90,7 +92,7 @@ const History = (): JSX.Element => {
                                 {({ width }) => <TimeWithValuesGraph 
                                 endTimeValue={10} 
                                 uom={'%'} 
-                                timeFormat={'DD-MM'} 
+                                timeFormat={timeScaleValue === '1h' ? 'H:mm' :'DD-MM'} 
                                 marginY={20} 
                                 marginX={55} 
                                 historicalValues={humidityData} 
