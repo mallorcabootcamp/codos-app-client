@@ -1,6 +1,6 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
+import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import './LateralBar.scss';
 
 interface Props {
@@ -14,15 +14,14 @@ export const LateralBar = ({ onClickOnClose, onClickOnDevice, devices, activeDev
 
     return (
         <div className="side-menu">
-            <div className="top d-flex p-3 pl-4 justify-content-between align-items-center">
-                <FontAwesomeIcon icon={faBars} size="lg" />
-                <p className="m-0 font-weight-bold">NOMBRE DE LA APP</p>
-                <div className="close-button border-0" onClick={onClickOnClose}>
+            <div className="row top d-flex p-3 pl-4 justify-content-between align-items-center text-center">
+                <p className="col ml-5 mt-4 font-weight-bold">CODOS APP</p>
+                <div className="close-button border-0 mr-4" onClick={onClickOnClose}>
                     <FontAwesomeIcon icon={faTimesCircle} size="lg" />
                 </div>
             </div>
 
-            <div className="menu my-5 ml-5 d-flex flex-column ">
+            <div className="row menu my-5 ml-5 d-flex flex-column ">
                 <p className="font-weight-bold pb-4 h5">Listado de dispositivos</p>
                 <ul className='list-unstyled'>
                     {devices.map(device => (
@@ -37,7 +36,7 @@ export const LateralBar = ({ onClickOnClose, onClickOnDevice, devices, activeDev
 
             <hr className="ml-5 text-left font-weight-bold" />
 
-            <div className="about mt-5 pl-5 font-weight-bold">
+            <div className="row about ml-5 mt-5 font-weight-bold">
                 <p>About</p>
             </div>
 

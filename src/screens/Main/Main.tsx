@@ -61,7 +61,7 @@ const Main = () => {
     const onClickOnDevice = (device: string) => {
         setSelectedDevice(device);
         setMenuActived(false);
-    }
+    };
 
     return (
         <div>
