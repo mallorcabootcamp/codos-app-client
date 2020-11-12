@@ -10,6 +10,7 @@ import './History.scss'
 import { ApiService } from '../../services/ApiService';
 import { ApiResponse } from '../../types/api';
 import { useStateWithLocalStorage } from '../../hooks/useStateWithLocalStorage';
+import { calculateTimeScaleValue } from '../../utils/calculateTimeScaleValue';
 
 
 const History = (): JSX.Element => {
@@ -20,10 +21,13 @@ const History = (): JSX.Element => {
     const [humidityData, setHumidityData] = useState<ApiResponse[]>();
     const [selectedDevice] = useStateWithLocalStorage('deviceSelected');
 
+    
+
     const refetchData = () => {
-            ApiService.getCo2Data(fromDate, toDate, selectedDevice).then((apiResponse: ApiResponse[]) => setCo2Data(apiResponse));
-            ApiService.getTemperatureData(fromDate, toDate, selectedDevice).then((apiResponse: ApiResponse[]) => setTemperatureData(apiResponse));
-            ApiService.getHumidityData(fromDate, toDate, selectedDevice).then((apiResponse: ApiResponse[]) => setHumidityData(apiResponse));
+            const aggregateMinutes = calculateTimeScaleValue(fromDate, toDate);
+            ApiService.getCo2Data(fromDate, toDate, selectedDevice, aggregateMinutes).then((apiResponse: ApiResponse[]) => setCo2Data(apiResponse));
+            ApiService.getTemperatureData(fromDate, toDate, selectedDevice, aggregateMinutes).then((apiResponse: ApiResponse[]) => setTemperatureData(apiResponse));
+            ApiService.getHumidityData(fromDate, toDate, selectedDevice, aggregateMinutes).then((apiResponse: ApiResponse[]) => setHumidityData(apiResponse));
     }
 
     return (
