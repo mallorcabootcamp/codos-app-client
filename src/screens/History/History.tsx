@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import ParentSize from "@visx/responsive/lib/components/ParentSize";
@@ -21,19 +21,24 @@ const History = (): JSX.Element => {
     const [humidityData, setHumidityData] = useState<ApiResponse[]>();
     const [selectedDevice] = useStateWithLocalStorage('deviceSelected');
     const [timeScaleValue, setTimeScaleValue] = useState<string>();
+    const [isError, setIsError] = useState<boolean>(false);
 
     
 
     const refetchData = () => {
-            const aggregateMinutes = calculateTimeScaleValue(fromDate, toDate);
-            setTimeScaleValue(aggregateMinutes)
-            ApiService.getCo2Data(fromDate, toDate, selectedDevice, aggregateMinutes).then((apiResponse: ApiResponse[]) => setCo2Data(apiResponse));
-            ApiService.getTemperatureData(fromDate, toDate, selectedDevice, aggregateMinutes).then((apiResponse: ApiResponse[]) => setTemperatureData(apiResponse));
-            ApiService.getHumidityData(fromDate, toDate, selectedDevice, aggregateMinutes).then((apiResponse: ApiResponse[]) => setHumidityData(apiResponse));
+            const timeScaleValue = calculateTimeScaleValue(fromDate, toDate);
+            setTimeScaleValue(timeScaleValue)
+            ApiService.getCo2Data(fromDate, toDate, selectedDevice, timeScaleValue)
+            .then((apiResponse: ApiResponse[]) => setCo2Data(apiResponse)).catch(() => setIsError(true));
+            ApiService.getTemperatureData(fromDate, toDate, selectedDevice, timeScaleValue)
+            .then((apiResponse: ApiResponse[]) => setTemperatureData(apiResponse)).catch(() => setIsError(true));
+            ApiService.getHumidityData(fromDate, toDate, selectedDevice, timeScaleValue)
+            .then((apiResponse: ApiResponse[]) => setHumidityData(apiResponse)).catch(() => setIsError(true));
     }
 
     return (
         <div className='container history-elem-container'>
+            {isError && <Redirect to='/unexpected-error/history' /> }
             <div className='row'>
                 <Link to='/' className='ml-4 mt-4 rounded-circle arrow-back-elem'><FontAwesomeIcon icon={faChevronLeft} size="lg" /></Link>
             </div>

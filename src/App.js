@@ -1,27 +1,28 @@
 import React from 'react';
-import { HashRouter, Switch, Route } from "react-router-dom";
+import { HashRouter, Switch, Route  } from "react-router-dom";
 import Main from './screens/Main/Main';
 import History from './screens/History/History';
-import NotFound from './screens/NotFound/NotFound'
+import UnexpectedError from './screens/UnexpectedError/UnexpectedError'
 import { ScrollToTop } from '../src/components/ScrollToTop/ScrollToTop';
 import "./index.scss";
 
 function App() {
 
+
   return (
     <HashRouter>
       <Switch>
-        <Route path='/History'>
+        <Route path='/history'>
           <ScrollToTop>
             <History />
           </ScrollToTop>
         </Route>
-        <Route path='/' exact>
+        <Route path={['/', '/main']} exact>
           <ScrollToTop>
             <Main />
           </ScrollToTop>
         </Route>
-        <Route path="/NotFound" component={NotFound} />
+        <Route path="/unexpected-error/:route" component={UnexpectedError} />
       </Switch>
     </HashRouter>
   );

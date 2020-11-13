@@ -29,7 +29,7 @@ const Main = () => {
     const [currentHumidity, setCurrentHumidity] = useState<number>(0)
     const [co2Data, setCo2Data] = useState<ApiResponse[]>([]);
     const [deviceList, setDeviceList] = useState<string[]>([]);
-    const [handleError, setHandleError] = useState<boolean>(false);
+    const [isError, setIsError] = useState<boolean>(false);
 
     useEffect(() => {
         ApiService.getUsersList().then((apiResponse: string[]) => {
@@ -42,19 +42,19 @@ const Main = () => {
         const fromDate = moment().subtract(7, 'hour').format(`YYYY-MM-DD HH:mm`);
         const toDate = moment().format(`YYYY-MM-DD HH:mm`);
         if (selectedDevice) {
-            const aggregateMinutes = calculateTimeScaleValue(fromDate, toDate)
+            const timeScaleValue = calculateTimeScaleValue(fromDate, toDate)
             ApiService.getCurrentCo2(selectedDevice).then((apiResponse: any) => {
                 setCurrentCo2(apiResponse[0].value);
-            }).catch(() => setHandleError(true))
+            }).catch(() => setIsError(true))
             ApiService.getCurrentTemperature(selectedDevice).then((apiResponse: any) => {
                 setCurrentTemperature(apiResponse[0].value);
-            }).catch(() => setHandleError(true))
+            }).catch(() => setIsError(true))
             ApiService.getCurrentHumidity(selectedDevice).then((apiResponse: any) => {
                 setCurrentHumidity(apiResponse[0].value);
-            }).catch(() => setHandleError(true))
-            ApiService.getCo2Data(fromDate, toDate, selectedDevice, aggregateMinutes).then((apiResponse: ApiResponse[]) => {
+            }).catch(() => setIsError(true))
+            ApiService.getCo2Data(fromDate, toDate, selectedDevice, timeScaleValue).then((apiResponse: ApiResponse[]) => {
                 setCo2Data(apiResponse);
-            }).catch(() => setHandleError(true))
+            }).catch((error) => setIsError(error))
         }
     }, [selectedDevice]);
 
@@ -65,7 +65,7 @@ const Main = () => {
 
     return (
         <div>
-            {handleError && <Redirect to='/NotFound' /> }
+            {isError && <Redirect to='/unexpected-error/main'/> }
     
             <div className='container'>
                 <LateralMenuTransition isVisible={menuActived}>
@@ -114,7 +114,7 @@ const Main = () => {
                     </div>
                     <div className='container pt-1 pb-5'>
                         <div className='text-center m-auto rounded-circle search-elem'>
-                            <Link to='/History' className='search-link'><FontAwesomeIcon icon={faSearch} size="lg" /></Link>
+                            <Link to='/history' className='search-link'><FontAwesomeIcon icon={faSearch} size="lg" /></Link>
                         </div>
                     </div>
                 </>
