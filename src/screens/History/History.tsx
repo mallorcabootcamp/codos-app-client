@@ -12,6 +12,9 @@ import { ApiResponse } from '../../types/api';
 import { useStateWithLocalStorage } from '../../hooks/useStateWithLocalStorage';
 import { calculateTimeScaleValue } from '../../utils/calculateTimeScaleValue';
 
+const eCo2 = 'eCO2[ppm]';
+const temperature = 'T[°C]';
+const humidity = 'rH[o/o]';
 
 const History = (): JSX.Element => {
     const [fromDate, setFromDate] = useState<string>("");
@@ -28,11 +31,11 @@ const History = (): JSX.Element => {
     const refetchData = () => {
             const timeScaleValue = calculateTimeScaleValue(fromDate, toDate);
             setTimeScaleValue(timeScaleValue)
-            ApiService.getCo2Data(fromDate, toDate, selectedDevice, timeScaleValue)
+            ApiService.getPeriodData(fromDate, toDate, selectedDevice, timeScaleValue, eCo2)
             .then((apiResponse: ApiResponse[]) => setCo2Data(apiResponse)).catch(() => setIsError(true));
-            ApiService.getTemperatureData(fromDate, toDate, selectedDevice, timeScaleValue)
+            ApiService.getPeriodData(fromDate, toDate, selectedDevice, timeScaleValue, temperature)
             .then((apiResponse: ApiResponse[]) => setTemperatureData(apiResponse)).catch(() => setIsError(true));
-            ApiService.getHumidityData(fromDate, toDate, selectedDevice, timeScaleValue)
+            ApiService.getPeriodData(fromDate, toDate, selectedDevice, timeScaleValue, humidity)
             .then((apiResponse: ApiResponse[]) => setHumidityData(apiResponse)).catch(() => setIsError(true));
     }
 

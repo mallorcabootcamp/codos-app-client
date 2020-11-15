@@ -19,6 +19,9 @@ import { calculateTimeScaleValue } from '../../utils/calculateTimeScaleValue';
 
 
 const hours = 8;
+const eCo2 = 'eCO2[ppm]';
+const temperature = 'T[°C]';
+const humidity = 'rH[o/o]';
 
 const Main = () => {
 
@@ -43,18 +46,18 @@ const Main = () => {
         const toDate = moment().format(`YYYY-MM-DD HH:mm`);
         if (selectedDevice) {
             const timeScaleValue = calculateTimeScaleValue(fromDate, toDate)
-            ApiService.getCurrentCo2(selectedDevice).then((apiResponse: any) => {
-                setCurrentCo2(apiResponse[0].value);
+            ApiService.getCurrentData(selectedDevice, eCo2).then((apiResponse: any) => {
+                setCurrentCo2(apiResponse[0].value);  
             }).catch(() => setIsError(true))
-            ApiService.getCurrentTemperature(selectedDevice).then((apiResponse: any) => {
+            ApiService.getCurrentData(selectedDevice, temperature).then((apiResponse: any) => {
                 setCurrentTemperature(apiResponse[0].value);
-            }).catch(() => setIsError(true))
-            ApiService.getCurrentHumidity(selectedDevice).then((apiResponse: any) => {
+            }).catch()
+            ApiService.getCurrentData(selectedDevice, humidity).then((apiResponse: any) => {
                 setCurrentHumidity(apiResponse[0].value);
             }).catch(() => setIsError(true))
-            ApiService.getCo2Data(fromDate, toDate, selectedDevice, timeScaleValue).then((apiResponse: ApiResponse[]) => {
+            ApiService.getPeriodData(fromDate, toDate, selectedDevice, timeScaleValue, eCo2).then((apiResponse: ApiResponse[]) => {
                 setCo2Data(apiResponse);
-            }).catch((error) => setIsError(error))
+            }).catch(() => setIsError(true))
         }
     }, [selectedDevice]);
 
