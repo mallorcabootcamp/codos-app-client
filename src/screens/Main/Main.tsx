@@ -9,19 +9,17 @@ import { TimeWithValuesGraph } from "../../components/TimeWithValuesGraph/TimeWi
 import { Link, Redirect } from 'react-router-dom';
 import { Card } from '../../components/Card/Card';
 import './Main.scss';
-import { ApiService } from '../../services/ApiService';
+import { ApiService } from '../../services/ApiService/ApiService';
 import { ApiResponse } from '../../types/api';
 import { LateralBar } from '../../components/LateralBar/LateralBar';
 import { LateralMenuTransition } from '../../components/LateralMenuTransition/LateralMenuTransition';
 import { useStateWithLocalStorage } from '../../hooks/useStateWithLocalStorage';
 import moment from 'moment';
 import { calculateTimeScaleValue } from '../../utils/calculateTimeScaleValue';
+import { ApiServiceDataProp } from '../../services/ApiService/ApiServiceDataProp';
 
 
 const hours = 8;
-const eCo2 = 'eCO2[ppm]';
-const temperature = 'T[°C]';
-const humidity = 'rH[o/o]';
 
 const Main = () => {
 
@@ -38,7 +36,6 @@ const Main = () => {
         ApiService.getUsersList().then((apiResponse: string[]) => {
             setDeviceList(apiResponse)
         });
-
     }, [])
 
     useEffect(() => {
@@ -46,16 +43,16 @@ const Main = () => {
         const toDate = moment().format(`YYYY-MM-DD HH:mm`);
         if (selectedDevice) {
             const timeScaleValue = calculateTimeScaleValue(fromDate, toDate)
-            ApiService.getCurrentData(selectedDevice, eCo2).then((apiResponse: any) => {
+            ApiService.getCurrentData(selectedDevice, ApiServiceDataProp.co2).then((apiResponse: any) => {
                 setCurrentCo2(apiResponse[0].value);  
             }).catch(() => setIsError(true))
-            ApiService.getCurrentData(selectedDevice, temperature).then((apiResponse: any) => {
+            ApiService.getCurrentData(selectedDevice, ApiServiceDataProp.temperature).then((apiResponse: any) => {
                 setCurrentTemperature(apiResponse[0].value);
             }).catch()
-            ApiService.getCurrentData(selectedDevice, humidity).then((apiResponse: any) => {
+            ApiService.getCurrentData(selectedDevice, ApiServiceDataProp.humidity).then((apiResponse: any) => {
                 setCurrentHumidity(apiResponse[0].value);
             }).catch(() => setIsError(true))
-            ApiService.getPeriodData(fromDate, toDate, selectedDevice, timeScaleValue, eCo2).then((apiResponse: ApiResponse[]) => {
+            ApiService.getPeriodData(fromDate, toDate, selectedDevice, timeScaleValue, ApiServiceDataProp.co2).then((apiResponse: ApiResponse[]) => {
                 setCo2Data(apiResponse);
             }).catch(() => setIsError(true))
         }

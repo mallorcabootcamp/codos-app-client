@@ -1,7 +1,8 @@
 import axios from 'axios';
-import { config } from '../config';
-import { ApiResponse } from '../types/api';
+import { config } from '../../config';
+import { ApiResponse } from '../../types/api';
 import moment from 'moment';
+import { ApiServiceDataProp } from './ApiServiceDataProp';
 
 export class ApiService {
     static user: string;
@@ -22,7 +23,7 @@ export class ApiService {
         })
     }
 
-    static async getPeriodData(fromDate: string, toDate: string, selectedDevice: string, timeScaleValue: string, dataValue: string): Promise<ApiResponse[]> {
+    static async getPeriodData(fromDate: string, toDate: string, selectedDevice: string, timeScaleValue: string, dataValue: ApiServiceDataProp): Promise<ApiResponse[]> {
         const fromDateTs = Math.round(moment(fromDate).valueOf()/1000);
         const toDateTs = Math.round(moment(toDate).valueOf()/1000);
         return ApiService.makeGetRequest('period/data', selectedDevice, fromDateTs, toDateTs, timeScaleValue, dataValue);

@@ -7,14 +7,11 @@ import { DatePicker } from '../../components/DatePicker/DatePicker';
 import { TimeWithValuesGraph } from '../../components/TimeWithValuesGraph/TimeWithValuesGraph';
 import { CardWithTextTab } from '../../components/CardWithTextTab/CardWithTextTab'
 import './History.scss'
-import { ApiService } from '../../services/ApiService';
+import { ApiService } from '../../services/ApiService/ApiService';
 import { ApiResponse } from '../../types/api';
 import { useStateWithLocalStorage } from '../../hooks/useStateWithLocalStorage';
 import { calculateTimeScaleValue } from '../../utils/calculateTimeScaleValue';
-
-const eCo2 = 'eCO2[ppm]';
-const temperature = 'T[°C]';
-const humidity = 'rH[o/o]';
+import { ApiServiceDataProp } from '../../services/ApiService/ApiServiceDataProp';
 
 const History = (): JSX.Element => {
     const [fromDate, setFromDate] = useState<string>("");
@@ -31,11 +28,11 @@ const History = (): JSX.Element => {
     const refetchData = () => {
             const timeScaleValue = calculateTimeScaleValue(fromDate, toDate);
             setTimeScaleValue(timeScaleValue)
-            ApiService.getPeriodData(fromDate, toDate, selectedDevice, timeScaleValue, eCo2)
+            ApiService.getPeriodData(fromDate, toDate, selectedDevice, timeScaleValue, ApiServiceDataProp.co2)
             .then((apiResponse: ApiResponse[]) => setCo2Data(apiResponse)).catch(() => setIsError(true));
-            ApiService.getPeriodData(fromDate, toDate, selectedDevice, timeScaleValue, temperature)
+            ApiService.getPeriodData(fromDate, toDate, selectedDevice, timeScaleValue, ApiServiceDataProp.temperature)
             .then((apiResponse: ApiResponse[]) => setTemperatureData(apiResponse)).catch(() => setIsError(true));
-            ApiService.getPeriodData(fromDate, toDate, selectedDevice, timeScaleValue, humidity)
+            ApiService.getPeriodData(fromDate, toDate, selectedDevice, timeScaleValue, ApiServiceDataProp.humidity)
             .then((apiResponse: ApiResponse[]) => setHumidityData(apiResponse)).catch(() => setIsError(true));
     }
 
