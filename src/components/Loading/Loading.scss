@@ -1,0 +1,17 @@
+@import '../../Vars.scss';
+
+.loading {
+    animation: rotate 3s infinite;
+    color: $whiteColor;
+    font-size: 2em;
+}
+
+@keyframes rotate {
+    from {
+        
+    }
+  
+    to {
+        transform: rotate(360deg)
+    }
+  }
