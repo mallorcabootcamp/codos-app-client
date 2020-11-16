@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import ParentSize from "@visx/responsive/lib/components/ParentSize";
@@ -7,10 +7,11 @@ import { DatePicker } from '../../components/DatePicker/DatePicker';
 import { TimeWithValuesGraph } from '../../components/TimeWithValuesGraph/TimeWithValuesGraph';
 import { CardWithTextTab } from '../../components/CardWithTextTab/CardWithTextTab'
 import './History.scss'
-import { ApiService } from '../../services/ApiService';
+import { ApiService } from '../../services/ApiService/ApiService';
 import { ApiResponse } from '../../types/api';
 import { useStateWithLocalStorage } from '../../hooks/useStateWithLocalStorage';
-
+import { calculateTimeScaleValue } from '../../utils/calculateTimeScaleValue';
+import { ApiServiceDataProp } from '../../services/ApiService/ApiServiceDataProp';
 
 const History = (): JSX.Element => {
     const [fromDate, setFromDate] = useState<string>("");
@@ -19,15 +20,25 @@ const History = (): JSX.Element => {
     const [temperatureData, setTemperatureData] = useState<ApiResponse[]>();
     const [humidityData, setHumidityData] = useState<ApiResponse[]>();
     const [selectedDevice] = useStateWithLocalStorage('deviceSelected');
+    const [timeScaleValue, setTimeScaleValue] = useState<string>();
+    const [isError, setIsError] = useState<boolean>(false);
+
+    
 
     const refetchData = () => {
-            ApiService.getCo2Data(fromDate, toDate, selectedDevice).then((apiResponse: ApiResponse[]) => setCo2Data(apiResponse));
-            ApiService.getTemperatureData(fromDate, toDate, selectedDevice).then((apiResponse: ApiResponse[]) => setTemperatureData(apiResponse));
-            ApiService.getHumidityData(fromDate, toDate, selectedDevice).then((apiResponse: ApiResponse[]) => setHumidityData(apiResponse));
+            const timeScaleValue = calculateTimeScaleValue(fromDate, toDate);
+            setTimeScaleValue(timeScaleValue)
+            ApiService.getPeriodData(fromDate, toDate, selectedDevice, timeScaleValue, ApiServiceDataProp.co2)
+            .then((apiResponse: ApiResponse[]) => setCo2Data(apiResponse)).catch(() => setIsError(true));
+            ApiService.getPeriodData(fromDate, toDate, selectedDevice, timeScaleValue, ApiServiceDataProp.temperature)
+            .then((apiResponse: ApiResponse[]) => setTemperatureData(apiResponse)).catch(() => setIsError(true));
+            ApiService.getPeriodData(fromDate, toDate, selectedDevice, timeScaleValue, ApiServiceDataProp.humidity)
+            .then((apiResponse: ApiResponse[]) => setHumidityData(apiResponse)).catch(() => setIsError(true));
     }
 
     return (
         <div className='container history-elem-container'>
+            {isError && <Redirect to='/unexpected-error/history' /> }
             <div className='row'>
                 <Link to='/' className='ml-4 mt-4 rounded-circle arrow-back-elem'><FontAwesomeIcon icon={faChevronLeft} size="lg" /></Link>
             </div>
@@ -53,7 +64,7 @@ const History = (): JSX.Element => {
                                 {({ width }) => <TimeWithValuesGraph 
                                 endTimeValue={10} 
                                 uom={'ppm'} 
-                                timeFormat={'DD-MM'} 
+                                timeFormat={timeScaleValue === '1h' ? 'H:mm' :'DD-MM'} 
                                 marginY={20} 
                                 marginX={55} 
                                 historicalValues={co2Data} 
@@ -70,7 +81,7 @@ const History = (): JSX.Element => {
                                 {({ width }) => <TimeWithValuesGraph 
                                 endTimeValue={10} 
                                 uom={'ºC'} 
-                                timeFormat={'DD-MM'}
+                                timeFormat={timeScaleValue === '1h' ? 'H:mm' :'DD-MM'}
                                 marginY={20} 
                                 marginX={55} 
                                 historicalValues={temperatureData} 
@@ -86,7 +97,7 @@ const History = (): JSX.Element => {
                                 {({ width }) => <TimeWithValuesGraph 
                                 endTimeValue={10} 
                                 uom={'%'} 
-                                timeFormat={'DD-MM'} 
+                                timeFormat={timeScaleValue === '1h' ? 'H:mm' :'DD-MM'} 
                                 marginY={20} 
                                 marginX={55} 
                                 historicalValues={humidityData} 

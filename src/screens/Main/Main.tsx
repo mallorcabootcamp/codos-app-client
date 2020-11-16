@@ -6,15 +6,17 @@ import { IconWithValue } from '../../components/IconWithValue/IconWithValue';
 import { Icon } from '../../components/IconWithValue/Icon';
 import ParentSize from "@visx/responsive/lib/components/ParentSize";
 import { TimeWithValuesGraph } from "../../components/TimeWithValuesGraph/TimeWithValuesGraph";
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { Card } from '../../components/Card/Card';
 import './Main.scss';
-import { ApiService } from '../../services/ApiService';
+import { ApiService } from '../../services/ApiService/ApiService';
 import { ApiResponse } from '../../types/api';
 import { LateralBar } from '../../components/LateralBar/LateralBar';
 import { LateralMenuTransition } from '../../components/LateralMenuTransition/LateralMenuTransition';
 import { useStateWithLocalStorage } from '../../hooks/useStateWithLocalStorage';
 import moment from 'moment';
+import { calculateTimeScaleValue } from '../../utils/calculateTimeScaleValue';
+import { ApiServiceDataProp } from '../../services/ApiService/ApiServiceDataProp';
 
 
 const hours = 8;
@@ -28,42 +30,43 @@ const Main = () => {
     const [currentHumidity, setCurrentHumidity] = useState<number>(0)
     const [co2Data, setCo2Data] = useState<ApiResponse[]>([]);
     const [deviceList, setDeviceList] = useState<string[]>([]);
+    const [isError, setIsError] = useState<boolean>(false);
 
     useEffect(() => {
         ApiService.getUsersList().then((apiResponse: string[]) => {
             setDeviceList(apiResponse)
         });
-        
     }, [])
 
     useEffect(() => {
-        // Provisional data to work \/\/\/
         const fromDate = moment().subtract(7, 'hour').format(`YYYY-MM-DD HH:mm`);
         const toDate = moment().format(`YYYY-MM-DD HH:mm`);
-
         if (selectedDevice) {
-            ApiService.getCurrentCo2(selectedDevice).then((apiResponse: any) => {
-                setCurrentCo2(apiResponse[0].value);
-            })
-            ApiService.getCurrentTemperature(selectedDevice).then((apiResponse: any) => {
+            const timeScaleValue = calculateTimeScaleValue(fromDate, toDate)
+            ApiService.getCurrentData(selectedDevice, ApiServiceDataProp.co2).then((apiResponse: any) => {
+                setCurrentCo2(apiResponse[0].value);  
+            }).catch(() => setIsError(true))
+            ApiService.getCurrentData(selectedDevice, ApiServiceDataProp.temperature).then((apiResponse: any) => {
                 setCurrentTemperature(apiResponse[0].value);
-            })
-            ApiService.getCurrentHumidity(selectedDevice).then((apiResponse: any) => {
+            }).catch()
+            ApiService.getCurrentData(selectedDevice, ApiServiceDataProp.humidity).then((apiResponse: any) => {
                 setCurrentHumidity(apiResponse[0].value);
-            })
-            ApiService.getCo2Data(fromDate, toDate, selectedDevice).then((apiResponse: ApiResponse[]) => {
+            }).catch(() => setIsError(true))
+            ApiService.getPeriodData(fromDate, toDate, selectedDevice, timeScaleValue, ApiServiceDataProp.co2).then((apiResponse: ApiResponse[]) => {
                 setCo2Data(apiResponse);
-            })
+            }).catch(() => setIsError(true))
         }
     }, [selectedDevice]);
 
     const onClickOnDevice = (device: string) => {
         setSelectedDevice(device);
         setMenuActived(false);
-    }
+    };
 
     return (
         <div>
+            {isError && <Redirect to='/unexpected-error/main'/> }
+    
             <div className='container'>
                 <LateralMenuTransition isVisible={menuActived}>
                     <LateralBar activeDevice={selectedDevice} devices={deviceList} onClickOnClose={() => setMenuActived(false)} onClickOnDevice={onClickOnDevice} />
@@ -111,7 +114,7 @@ const Main = () => {
                     </div>
                     <div className='container pt-1 pb-5'>
                         <div className='text-center m-auto rounded-circle search-elem'>
-                            <Link to='/History' className='search-link'><FontAwesomeIcon icon={faSearch} size="lg" /></Link>
+                            <Link to='/history' className='search-link'><FontAwesomeIcon icon={faSearch} size="lg" /></Link>
                         </div>
                     </div>
                 </>
