@@ -28,12 +28,15 @@ const History = (): JSX.Element => {
     const refetchData = () => {
             const timeScaleValue = calculateTimeScaleValue(fromDate, toDate);
             setTimeScaleValue(timeScaleValue)
-            ApiService.getPeriodData(fromDate, toDate, selectedDevice, timeScaleValue, ApiServiceDataProp.co2)
-            .then((apiResponse: ApiResponse[]) => setCo2Data(apiResponse)).catch(() => setIsError(true));
-            ApiService.getPeriodData(fromDate, toDate, selectedDevice, timeScaleValue, ApiServiceDataProp.temperature)
-            .then((apiResponse: ApiResponse[]) => setTemperatureData(apiResponse)).catch(() => setIsError(true));
-            ApiService.getPeriodData(fromDate, toDate, selectedDevice, timeScaleValue, ApiServiceDataProp.humidity)
-            .then((apiResponse: ApiResponse[]) => setHumidityData(apiResponse)).catch(() => setIsError(true));
+            const periodCo2 = ApiService.getPeriodData(fromDate, toDate, selectedDevice, timeScaleValue, ApiServiceDataProp.co2)
+            const periodTemperature = ApiService.getPeriodData(fromDate, toDate, selectedDevice, timeScaleValue, ApiServiceDataProp.temperature)
+            const periodHumidity =ApiService.getPeriodData(fromDate, toDate, selectedDevice, timeScaleValue, ApiServiceDataProp.humidity)
+            Promise.all([periodCo2, periodTemperature, periodHumidity]).then((apiResponse: any) => {
+                setCo2Data(apiResponse[0])
+                setTemperatureData(apiResponse[1])
+                setHumidityData(apiResponse[2])
+            }).catch(() => setIsError(true));
+            
     }
 
     return (

@@ -43,17 +43,15 @@ const Main = () => {
         const toDate = moment().format(`YYYY-MM-DD HH:mm`);
         if (selectedDevice) {
             const timeScaleValue = calculateTimeScaleValue(fromDate, toDate)
-            ApiService.getCurrentData(selectedDevice, ApiServiceDataProp.co2).then((apiResponse: any) => {
-                setCurrentCo2(apiResponse[0].value);  
-            }).catch(() => setIsError(true))
-            ApiService.getCurrentData(selectedDevice, ApiServiceDataProp.temperature).then((apiResponse: any) => {
-                setCurrentTemperature(apiResponse[0].value);
-            }).catch(() => setIsError(true))
-            ApiService.getCurrentData(selectedDevice, ApiServiceDataProp.humidity).then((apiResponse: any) => {
-                setCurrentHumidity(apiResponse[0].value);
-            }).catch(() => setIsError(true))
-            ApiService.getPeriodData(fromDate, toDate, selectedDevice, timeScaleValue, ApiServiceDataProp.co2).then((apiResponse: ApiResponse[]) => {
-                setCo2Data(apiResponse);
+            const currentCo2 = ApiService.getCurrentData(selectedDevice, ApiServiceDataProp.co2)
+            const currentTemperature = ApiService.getCurrentData(selectedDevice, ApiServiceDataProp.temperature)
+            const currentHumidity = ApiService.getCurrentData(selectedDevice, ApiServiceDataProp.humidity)
+            const periodCo2 = ApiService.getPeriodData(fromDate, toDate, selectedDevice, timeScaleValue, ApiServiceDataProp.co2)
+            Promise.all([currentCo2, currentTemperature, currentHumidity, periodCo2]).then((apiResponse: any) => {
+                setCurrentCo2(apiResponse[0][0].value);
+                setCurrentTemperature(apiResponse[1][0].value);
+                setCurrentHumidity(apiResponse[2][0].value);
+                setCo2Data(apiResponse[3]);
             }).catch(() => setIsError(true))
         }
     }, [selectedDevice]);
@@ -62,6 +60,8 @@ const Main = () => {
         setSelectedDevice(device);
         setMenuActived(false);
     };
+
+    isError && <Redirect to='/unexpected-error/main'/>
 
     return (
         <div>

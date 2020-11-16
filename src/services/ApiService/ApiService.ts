@@ -30,8 +30,8 @@ export class ApiService {
         //return Promise.resolve(historicalValues);
     }
     static async getUsersList(): Promise<Array<string>> {
-        // return ApiService.makeGetRequest('/users');
-        return Promise.resolve(['@erguro1973', 'Andreas_IBZ', '@Andreas_IBZ']);
+        return ApiService.makeGetRequest('/users');
+        // return Promise.resolve(['@erguro1973', 'Andreas_IBZ', '@Andreas_IBZ']);
     }
 
     static async getCurrentData(selectedDevice: string, dataValue: string): Promise<ApiResponse> {
