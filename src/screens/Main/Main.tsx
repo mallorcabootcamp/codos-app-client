@@ -48,7 +48,7 @@ const Main = () => {
             }).catch(() => setIsError(true))
             ApiService.getCurrentData(selectedDevice, ApiServiceDataProp.temperature).then((apiResponse: any) => {
                 setCurrentTemperature(apiResponse[0].value);
-            }).catch()
+            }).catch(() => setIsError(true))
             ApiService.getCurrentData(selectedDevice, ApiServiceDataProp.humidity).then((apiResponse: any) => {
                 setCurrentHumidity(apiResponse[0].value);
             }).catch(() => setIsError(true))

@@ -26,7 +26,7 @@ export class ApiService {
     static async getPeriodData(fromDate: string, toDate: string, selectedDevice: string, timeScaleValue: string, dataValue: ApiServiceDataProp): Promise<ApiResponse[]> {
         const fromDateTs = Math.round(moment(fromDate).valueOf()/1000);
         const toDateTs = Math.round(moment(toDate).valueOf()/1000);
-        return ApiService.makeGetRequest('period/data', selectedDevice, fromDateTs, toDateTs, timeScaleValue, dataValue);
+        return ApiService.makeGetRequest('data/period', selectedDevice, fromDateTs, toDateTs, timeScaleValue, dataValue);
         //return Promise.resolve(historicalValues);
     }
     static async getUsersList(): Promise<Array<string>> {
@@ -35,7 +35,7 @@ export class ApiService {
     }
 
     static async getCurrentData(selectedDevice: string, dataValue: string): Promise<ApiResponse> {
-        return ApiService.makeGetRequest('current/data', selectedDevice, undefined, undefined, undefined, dataValue);
+        return ApiService.makeGetRequest('data/current', selectedDevice, undefined, undefined, undefined, dataValue);
         //return Promise.resolve({value: 29, time: "1587726000000"});
         
     }
