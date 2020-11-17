@@ -38,11 +38,11 @@ const History = (): JSX.Element => {
         const periodCo2 = ApiService.getPeriodData(fromDate, toDate, selectedDevice, timeScaleValue, ApiServiceDataProp.co2)
         const periodTemperature = ApiService.getPeriodData(fromDate, toDate, selectedDevice, timeScaleValue, ApiServiceDataProp.temperature)
         const periodHumidity = ApiService.getPeriodData(fromDate, toDate, selectedDevice, timeScaleValue, ApiServiceDataProp.humidity)
-        Promise.all([periodCo2, periodTemperature, periodHumidity]).then((apiResponse: any) => {
+        Promise.all([periodCo2, periodTemperature, periodHumidity]).then(([co2, temperature, humidity]: ApiResponse[][]) => {
             setIsLoading(false);
-            setCo2Data(apiResponse[0])
-            setTemperatureData(apiResponse[1])
-            setHumidityData(apiResponse[2])
+            setCo2Data(co2)
+            setTemperatureData(temperature)
+            setHumidityData(humidity)
         }).catch(() => setIsError(true));
 
     }

@@ -47,11 +47,22 @@ const Main = () => {
             const currentTemperature = ApiService.getCurrentData(selectedDevice, ApiServiceDataProp.temperature)
             const currentHumidity = ApiService.getCurrentData(selectedDevice, ApiServiceDataProp.humidity)
             const periodCo2 = ApiService.getPeriodData(fromDate, toDate, selectedDevice, timeScaleValue, ApiServiceDataProp.co2)
-            Promise.all([currentCo2, currentTemperature, currentHumidity, periodCo2]).then((apiResponse: any) => {
-                setCurrentCo2(apiResponse[0][0].value);
-                setCurrentTemperature(apiResponse[1][0].value);
-                setCurrentHumidity(apiResponse[2][0].value);
-                setCo2Data(apiResponse[3]);
+            Promise.all([
+                currentCo2,
+                currentTemperature,
+                currentHumidity,
+                periodCo2
+            ]).then((
+                [
+                    currentCo2Response,
+                    currentTemperatureResponse,
+                    currentHumidityResponse,
+                    periodCo2Response
+                ]: ApiResponse[][]) => {
+                setCurrentCo2(currentCo2Response[0].value);
+                setCurrentTemperature(currentTemperatureResponse[0].value);
+                setCurrentHumidity(currentHumidityResponse[0].value);
+                setCo2Data(periodCo2Response);
             }).catch(() => setIsError(true))
         }
     }, [selectedDevice]);
@@ -61,12 +72,12 @@ const Main = () => {
         setMenuActived(false);
     };
 
-    isError && <Redirect to='/unexpected-error/main'/>
+    if (isError) {
+        return <Redirect to='/unexpected-error/main' />
+    }
 
     return (
         <div>
-            {isError && <Redirect to='/unexpected-error/main'/> }
-    
             <div className='container'>
                 <LateralMenuTransition isVisible={menuActived}>
                     <LateralBar activeDevice={selectedDevice} devices={deviceList} onClickOnClose={() => setMenuActived(false)} onClickOnDevice={onClickOnDevice} />
