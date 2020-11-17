@@ -47,9 +47,13 @@ const History = (): JSX.Element => {
 
     }
 
+    if (isError) {
+        return <Redirect to='/unexpected-error/history' />
+    }
+
+
     return (
         <div className='container history-elem-container'>
-            {isError && <Redirect to='/unexpected-error/history' />}
             <div className='row'>
                 <Link to='/' className='ml-4 mt-4 rounded-circle arrow-back-elem'><FontAwesomeIcon icon={faChevronLeft} size="lg" /></Link>
             </div>
