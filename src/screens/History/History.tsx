@@ -12,6 +12,8 @@ import { ApiResponse } from '../../types/api';
 import { useStateWithLocalStorage } from '../../hooks/useStateWithLocalStorage';
 import { calculateTimeScaleValue } from '../../utils/calculateTimeScaleValue';
 import { ApiServiceDataProp } from '../../services/ApiService/ApiServiceDataProp';
+import { Loading } from '../../components/Loading/Loading';
+
 
 const History = (): JSX.Element => {
     const [fromDate, setFromDate] = useState<string>("");
@@ -22,26 +24,36 @@ const History = (): JSX.Element => {
     const [selectedDevice] = useStateWithLocalStorage('deviceSelected');
     const [timeScaleValue, setTimeScaleValue] = useState<string>();
     const [isError, setIsError] = useState<boolean>(false);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
 
-    
+
 
     const refetchData = () => {
-            const timeScaleValue = calculateTimeScaleValue(fromDate, toDate);
-            setTimeScaleValue(timeScaleValue)
-            const periodCo2 = ApiService.getPeriodData(fromDate, toDate, selectedDevice, timeScaleValue, ApiServiceDataProp.co2)
-            const periodTemperature = ApiService.getPeriodData(fromDate, toDate, selectedDevice, timeScaleValue, ApiServiceDataProp.temperature)
-            const periodHumidity =ApiService.getPeriodData(fromDate, toDate, selectedDevice, timeScaleValue, ApiServiceDataProp.humidity)
-            Promise.all([periodCo2, periodTemperature, periodHumidity]).then((apiResponse: any) => {
-                setCo2Data(apiResponse[0])
-                setTemperatureData(apiResponse[1])
-                setHumidityData(apiResponse[2])
-            }).catch(() => setIsError(true));
-            
+        setCo2Data(undefined)
+        setTemperatureData(undefined)
+        setHumidityData(undefined)
+        setIsLoading(true);
+        const timeScaleValue = calculateTimeScaleValue(fromDate, toDate);
+        setTimeScaleValue(timeScaleValue)
+        const periodCo2 = ApiService.getPeriodData(fromDate, toDate, selectedDevice, timeScaleValue, ApiServiceDataProp.co2)
+        const periodTemperature = ApiService.getPeriodData(fromDate, toDate, selectedDevice, timeScaleValue, ApiServiceDataProp.temperature)
+        const periodHumidity = ApiService.getPeriodData(fromDate, toDate, selectedDevice, timeScaleValue, ApiServiceDataProp.humidity)
+        Promise.all([periodCo2, periodTemperature, periodHumidity]).then(([co2, temperature, humidity]: ApiResponse[][]) => {
+            setIsLoading(false);
+            setCo2Data(co2)
+            setTemperatureData(temperature)
+            setHumidityData(humidity)
+        }).catch(() => setIsError(true));
+
     }
+
+    if (isError) {
+        return <Redirect to='/unexpected-error/history' />
+    }
+
 
     return (
         <div className='container history-elem-container'>
-            {isError && <Redirect to='/unexpected-error/history' /> }
             <div className='row'>
                 <Link to='/' className='ml-4 mt-4 rounded-circle arrow-back-elem'><FontAwesomeIcon icon={faChevronLeft} size="lg" /></Link>
             </div>
@@ -59,21 +71,22 @@ const History = (): JSX.Element => {
                     <button className='search-button btn' disabled={!fromDate || !toDate} onClick={refetchData}>Buscar </button>
                 </div>
             </div>
+            {isLoading && <Loading />}
             {temperatureData && humidityData && co2Data &&
                 <>
                     <CardWithTextTab value='eCO²'>
                         <div className="row">
                             <ParentSize className='history-graph-elem'>
-                                {({ width }) => <TimeWithValuesGraph 
-                                endTimeValue={10} 
-                                uom={'ppm'} 
-                                timeFormat={timeScaleValue === '1h' ? 'H:mm' :'DD-MM'} 
-                                marginY={20} 
-                                marginX={55} 
-                                historicalValues={co2Data} 
-                                bottomAxisNumTicks={5} 
-                                width={width - 20} 
-                                height={118} 
+                                {({ width }) => <TimeWithValuesGraph
+                                    endTimeValue={10}
+                                    uom={'ppm'}
+                                    timeFormat={timeScaleValue === '1h' ? 'H:mm' : 'DD-MM'}
+                                    marginY={20}
+                                    marginX={55}
+                                    historicalValues={co2Data}
+                                    bottomAxisNumTicks={5}
+                                    width={width - 20}
+                                    height={118}
                                 />}
                             </ParentSize>
                         </div>
@@ -81,32 +94,32 @@ const History = (): JSX.Element => {
                     <CardWithTextTab value='Temp.'>
                         <div className="row">
                             <ParentSize className='history-graph-elem'>
-                                {({ width }) => <TimeWithValuesGraph 
-                                endTimeValue={10} 
-                                uom={'ºC'} 
-                                timeFormat={timeScaleValue === '1h' ? 'H:mm' :'DD-MM'}
-                                marginY={20} 
-                                marginX={55} 
-                                historicalValues={temperatureData} 
-                                bottomAxisNumTicks={5} 
-                                width={width - 20} 
-                                height={118} />}
+                                {({ width }) => <TimeWithValuesGraph
+                                    endTimeValue={10}
+                                    uom={'ºC'}
+                                    timeFormat={timeScaleValue === '1h' ? 'H:mm' : 'DD-MM'}
+                                    marginY={20}
+                                    marginX={55}
+                                    historicalValues={temperatureData}
+                                    bottomAxisNumTicks={5}
+                                    width={width - 20}
+                                    height={118} />}
                             </ParentSize>
                         </div>
                     </CardWithTextTab>
                     <CardWithTextTab value='Humidity'>
                         <div className="row">
                             <ParentSize className='history-graph-elem'>
-                                {({ width }) => <TimeWithValuesGraph 
-                                endTimeValue={10} 
-                                uom={'%'} 
-                                timeFormat={timeScaleValue === '1h' ? 'H:mm' :'DD-MM'} 
-                                marginY={20} 
-                                marginX={55} 
-                                historicalValues={humidityData} 
-                                bottomAxisNumTicks={5} 
-                                width={width - 20} 
-                                height={118} />}
+                                {({ width }) => <TimeWithValuesGraph
+                                    endTimeValue={10}
+                                    uom={'%'}
+                                    timeFormat={timeScaleValue === '1h' ? 'H:mm' : 'DD-MM'}
+                                    marginY={20}
+                                    marginX={55}
+                                    historicalValues={humidityData}
+                                    bottomAxisNumTicks={5}
+                                    width={width - 20}
+                                    height={118} />}
                             </ParentSize>
                         </div>
                     </CardWithTextTab>
