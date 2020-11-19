@@ -17,14 +17,10 @@
     .unexpected-error__button{
         background-color: $darkGreyColor;
         border-radius: 10px;
-        a:visited{
+        a{
+            &:visited,&:hover,&:active{
             color: $whiteColor;
         }
-        a:hover{
-            color: $whiteColor;
-        }
-        a:active{
-            color: $whiteColor;
         }
     }
 

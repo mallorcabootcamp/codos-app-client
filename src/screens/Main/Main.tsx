@@ -17,6 +17,7 @@ import { useStateWithLocalStorage } from '../../hooks/useStateWithLocalStorage';
 import moment from 'moment';
 import { calculateTimeScaleValue } from '../../utils/calculateTimeScaleValue';
 import { ApiServiceDataProp } from '../../services/ApiService/ApiServiceDataProp';
+import { Loading } from '../../components/Loading/Loading';
 
 
 const hours = 8;
@@ -31,6 +32,7 @@ const Main = () => {
     const [co2Data, setCo2Data] = useState<ApiResponse[]>([]);
     const [deviceList, setDeviceList] = useState<string[]>([]);
     const [isError, setIsError] = useState<boolean>(false);
+    const [isLoading, setIsLoading] = useState<boolean>(true);
 
     useEffect(() => {
         ApiService.getUsersList().then((apiResponse: string[]) => {
@@ -59,6 +61,7 @@ const Main = () => {
                     currentHumidityResponse,
                     periodCo2Response
                 ]: ApiResponse[][]) => {
+                setIsLoading(false);
                 setCurrentCo2(currentCo2Response[0].value);
                 setCurrentTemperature(currentTemperatureResponse[0].value);
                 setCurrentHumidity(currentHumidityResponse[0].value);
@@ -74,6 +77,19 @@ const Main = () => {
 
     if (isError) {
         return <Redirect to='/unexpected-error?redirectTo=/' />
+    }
+
+    if (isLoading) {
+        return (
+            <div className='container is-loading '>
+                <div className="row">
+                    <div className='col'>
+                        <Loading color='loading-dark'></Loading>
+                    </div>
+                </div>
+            </div>
+        )
+
     }
 
     return (

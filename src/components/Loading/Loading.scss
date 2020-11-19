@@ -2,10 +2,14 @@
 
 .loading {
     animation: rotate 3s infinite;
-    color: $whiteColor;
-    font-size: 2em;
+    font-size: 3em;
 }
-
+.loading-white {
+    color: $whiteColor;
+}
+.loading-dark {
+    color: $darkGreyColor;
+}
 @keyframes rotate {
     from {
         

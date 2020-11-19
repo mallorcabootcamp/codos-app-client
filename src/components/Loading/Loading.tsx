@@ -3,9 +3,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import './Loading.scss';
 
-export const Loading = () => {
+export const Loading = ({color}: any) => {
     return (
-        <div className='text-center loading py-5'>
+        <div className={`text-center loading py-5 ${color}`}>
             <FontAwesomeIcon icon={faSpinner} size="lg" />
         </div>
     )

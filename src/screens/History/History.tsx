@@ -71,7 +71,7 @@ const History = (): JSX.Element => {
                     <button className='search-button btn' disabled={!fromDate || !toDate} onClick={refetchData}>Buscar </button>
                 </div>
             </div>
-            {isLoading && <Loading />}
+            {isLoading && <Loading color='loading-white' />}
             {temperatureData && humidityData && co2Data &&
                 <>
                     <CardWithTextTab value='eCO²'>
