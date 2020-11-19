@@ -73,7 +73,7 @@ const Main = () => {
     };
 
     if (isError) {
-        return <Redirect to='/unexpected-error/main' />
+        return <Redirect to='/unexpected-error?redirectTo=/' />
     }
 
     return (
