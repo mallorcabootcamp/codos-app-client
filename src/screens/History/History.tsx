@@ -48,7 +48,7 @@ const History = (): JSX.Element => {
     }
 
     if (isError) {
-        return <Redirect to='/unexpected-error/history' />
+        return <Redirect to='/unexpected-error?redirectTo=history' />
     }
 
 

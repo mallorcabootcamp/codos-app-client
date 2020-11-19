@@ -1,14 +1,14 @@
 import React from 'react'
-import { Link, useParams } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import robotImg from '../../img/unexpected-error.png';
+import { parse } from 'query-string';
 import './UnexpectedError.scss';
-
-type TRoute = { route: string }
-
 
 const UnexpectedError = () => {
 
-    const { route }: TRoute = useParams();
+    const location = useLocation();
+
+    const { redirectTo } = parse(location.search);
 
     return (
         <div className='container pt-5'>
@@ -28,7 +28,7 @@ const UnexpectedError = () => {
                 </div>
                 <div className='row'>
                     <div className='col text-center m-5'>
-                        <button className='btn mt-3 py-2 px-5 font-weight-bold unexpected-error__button'><Link to={`/${route}`} className='search-link'>Volver</Link> </button>
+                        <button className='btn mt-3 py-2 px-5 font-weight-bold unexpected-error__button'><Link to={redirectTo as string || '/'} className='search-link'>Volver</Link> </button>
                     </div>
                 </div>
             </div>

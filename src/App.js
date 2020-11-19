@@ -17,12 +17,12 @@ function App() {
             <History />
           </ScrollToTop>
         </Route>
-        <Route path={['/', '/main']} exact>
+        <Route path={'/'} exact>
           <ScrollToTop>
             <Main />
           </ScrollToTop>
         </Route>
-        <Route path="/unexpected-error/:route" component={UnexpectedError} />
+        <Route path="/unexpected-error" component={UnexpectedError} />
       </Switch>
     </HashRouter>
   );
