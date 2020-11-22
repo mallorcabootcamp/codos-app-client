@@ -11,7 +11,7 @@ const UnexpectedError = () => {
     const { redirectTo } = parse(location.search);
 
     return (
-        <div className='container pt-5'>
+        <div className='container pt-5 parent-unexcected-error'>
             <div className='unexpected-error'>
                 <div className='row'>
                     <div className='col'>

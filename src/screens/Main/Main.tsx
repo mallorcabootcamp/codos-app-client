@@ -81,9 +81,9 @@ const Main = () => {
 
     if (isLoading) {
         return (
-            <div className='container is-loading '>
+            <div className='container is-loading-container'>
                 <div className="row">
-                    <div className='col'>
+                    <div className='col is-loading'>
                         <Loading color='loading-dark'></Loading>
                     </div>
                 </div>
