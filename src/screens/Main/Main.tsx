@@ -79,7 +79,7 @@ const Main = () => {
         return <Redirect to='/unexpected-error?redirectTo=/' />
     }
 
-    if (isLoading) {
+    if (isLoading && selectedDevice) {
         return (
             <div className='container is-loading-container'>
                 <div className="row">
