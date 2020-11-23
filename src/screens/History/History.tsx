@@ -51,7 +51,7 @@ const History = (): JSX.Element => {
         return <Redirect to='/unexpected-error?redirectTo=history' />
     }
 
-
+   
     return (
         <div className='container history-elem-container'>
             <div className='row'>
@@ -66,11 +66,14 @@ const History = (): JSX.Element => {
                     <DatePicker date={toDate} onDateChanged={(value: string) => setToDate(value)} text='Hasta' />
                 </div>
             </div>
+           
             <div className='row'>
                 <div className="col pl-4 ml-3 my-3">
-                    <button className='search-button btn' disabled={!fromDate || !toDate} onClick={refetchData}>Buscar </button>
+                    <button className='search-button btn' disabled={(!fromDate || !toDate) || (fromDate === toDate)} onClick={refetchData}>Buscar </button>
                 </div>
             </div>
+            {(fromDate === toDate && fromDate !== "") && <p className='row px-5 pt-5 invalid-dates'>Por favor, seleccione un periodo mayor entre fechas.</p>}
+            
             {isLoading && <Loading color='loading-white' />}
             {temperatureData && humidityData && co2Data &&
                 <>

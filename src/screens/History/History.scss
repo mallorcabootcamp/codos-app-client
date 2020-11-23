@@ -40,8 +40,15 @@
     padding: 20px 20px 10px 20px;
     margin-top: -20px;
 }
-.search-button{
-    background-color: $whiteColor !important;
-    color: $darkGreyColor;
-    border-radius: 10px;
+div{
+    .search-button{
+        background-color: $whiteColor;
+        color: $darkGreyColor;
+        border-radius: 5px;
+    } 
+}
+
+
+.invalid-dates{
+    color: $whiteColor;
 }
