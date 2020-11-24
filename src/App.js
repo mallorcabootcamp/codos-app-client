@@ -5,6 +5,7 @@ import History from './screens/History/History';
 import UnexpectedError from './screens/UnexpectedError/UnexpectedError'
 import { ScrollToTop } from '../src/components/ScrollToTop/ScrollToTop';
 import "./index.scss";
+import { About } from './screens/About/About';
 
 function App() {
 
@@ -23,6 +24,7 @@ function App() {
           </ScrollToTop>
         </Route>
         <Route path="/unexpected-error" component={UnexpectedError} />
+        <Route path='/about' component={About} />
       </Switch>
     </HashRouter>
   );

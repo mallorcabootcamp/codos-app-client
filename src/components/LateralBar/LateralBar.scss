@@ -35,6 +35,13 @@
         font-size: $fontSizeExtraLarge;
         color: $whiteColor;
     }
+    
+    .about-link{
+        &:active,&:hover,&:visited{
+            color: $whiteColor;
+        }
+    }
+    
 }
 
 

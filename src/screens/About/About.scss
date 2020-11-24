@@ -1,0 +1,24 @@
+@import '../../Vars.scss';
+
+.about__container{
+    color: $whiteColor;
+
+    .about__header{
+        font-weight: 700;
+        width: 100%;
+    }
+    
+    .about__anchor{
+        width: 100%;
+        text-decoration: underline;
+        line-height : 26px;
+        
+        &:active,&:hover,&:visited{
+            color: $whiteColor;
+        }
+    }
+
+}
+
+
+

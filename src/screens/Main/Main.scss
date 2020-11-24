@@ -21,16 +21,9 @@
     font-size: 26px;
     padding-top: 18px;
     a {
+        &:visited,&:hover,&:active{
         color: $whiteColor;
-    }
-    a:visited{
-        color: $whiteColor;
-    }
-    a:hover{
-        color: $whiteColor;
-    }
-    a:active{
-        color: $whiteColor;
+        }
     }
 
 }
