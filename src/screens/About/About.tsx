@@ -1,12 +1,12 @@
 import React from 'react'
-import { GreyScreenWithTittleLayout } from '../../components/GreyScreenWithTittleLayout/GreyScreenWithTittleLayout'
+import { GreyScreenWithTitleLayout } from '../../components/GreyScreenWithTitleLayout/GreyScreenWithTitleLayout'
 import './About.scss'
 import Package from '../../../package.json'
 
 
 export const About = () => {
     return (
-        <GreyScreenWithTittleLayout tittle='Información'>
+        <GreyScreenWithTitleLayout title='Información'>
             <div className='about dark'>
                 <div className='row mx-5 pt-5 mt-3'>
                     <p className='about__header mb-1'>Proyecto de:</p>
@@ -40,6 +40,6 @@ export const About = () => {
                     </ul>
                 </div>
             </div>
-        </GreyScreenWithTittleLayout>
+        </GreyScreenWithTitleLayout>
     )
 }

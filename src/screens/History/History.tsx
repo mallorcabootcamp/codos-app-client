@@ -11,7 +11,7 @@ import { useStateWithLocalStorage } from '../../hooks/useStateWithLocalStorage';
 import { calculateTimeScaleValue } from '../../utils/calculateTimeScaleValue';
 import { ApiServiceDataProp } from '../../services/ApiService/ApiServiceDataProp';
 import { Loading } from '../../components/Loading/Loading';
-import { GreyScreenWithTittleLayout } from '../../components/GreyScreenWithTittleLayout/GreyScreenWithTittleLayout';
+import { GreyScreenWithTitleLayout } from '../../components/GreyScreenWithTitleLayout/GreyScreenWithTitleLayout';
 
 
 
@@ -53,7 +53,7 @@ const History = () => {
 
 
     return (
-        <GreyScreenWithTittleLayout tittle='Histórico'>
+        <GreyScreenWithTitleLayout title='Histórico'>
             <div className='history dark'>
                 <div className='row date-range-pickers-container pt-3 mt-3'>
                     <div className="col mx-3 my-3">
@@ -125,7 +125,7 @@ const History = () => {
                     </>
                 }
             </div>
-        </GreyScreenWithTittleLayout>
+        </GreyScreenWithTitleLayout>
     );
 }
 
