@@ -10,7 +10,7 @@ interface Props {
 }
 
 
-export const GreyScreenWithTittleLayout = ({tittle, children}: Props):JSX.Element => {
+export const GreyScreenWithTittleLayout = ({tittle, children}: Props) => {
     return (
         <div className='grey-layout__container container'>
             <div className='row'>

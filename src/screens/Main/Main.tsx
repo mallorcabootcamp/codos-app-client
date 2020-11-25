@@ -81,7 +81,7 @@ const Main = () => {
 
     if (isLoading && selectedDevice) {
         return (
-            <div className='container is-loading-container'>
+            <div className='container is-loading-container light'>
                 <div className="row">
                     <div className='col is-loading'>
                         <Loading color='loading-dark'></Loading>
@@ -93,7 +93,7 @@ const Main = () => {
     }
 
     return (
-        <div>
+        <div className='light'>
             <div className='container'>
                 <LateralMenuTransition isVisible={menuActived}>
                     <LateralBar activeDevice={selectedDevice} devices={deviceList} onClickOnClose={() => setMenuActived(false)} onClickOnDevice={onClickOnDevice} />

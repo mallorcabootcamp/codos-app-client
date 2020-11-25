@@ -11,10 +11,10 @@ interface Props {
     onClickOnDevice: (device: string) => void,
 }
 
-export const LateralBar = ({ onClickOnClose, onClickOnDevice, devices, activeDevice }: Props): JSX.Element => {
+export const LateralBar = ({ onClickOnClose, onClickOnDevice, devices, activeDevice }: Props) => {
 
     return (
-        <div className="side-menu">
+        <div className="side-menu dark">
             <div className="row top d-flex p-3 pl-4 justify-content-between align-items-center text-center">
                 <p className="col ml-5 mt-4 font-weight-bold">CODOS APP</p>
                 <div className="close-button border-0 mr-4" onClick={onClickOnClose}>

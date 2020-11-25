@@ -1,23 +1,18 @@
 @import '../../Vars.scss';
 
-.date-range-pickers-container{
-    padding: 15px 0 10px 0;
-    margin: 0 auto;
-}
-
-.history-graph-elem{
-    padding: 20px 20px 10px 20px;
-    margin-top: -20px;
-}
-div{
+.history{
+    .date-range-pickers-container{
+        padding: 15px 0 10px 0;
+        margin: 0 auto;
+    }
     .search-button{
         background-color: $whiteColor;
         color: $darkGreyColor;
         border-radius: 5px;
     } 
-}
 
-
-.invalid-dates{
-    color: $whiteColor;
+    .history-graph-elem{
+        padding: 20px 20px 10px 20px;
+        margin-top: -20px;
+    }
 }

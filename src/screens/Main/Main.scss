@@ -1,13 +1,7 @@
 @import '../../Vars.scss';
 
-.menu-elem{
-    color: $darkGreyColor;
-}
-
 .icon-with-value-elem{
     padding: 25px 25px 7px 25px;
-    color: $darkGreyColor;
-    
 }
 
 .select-a-device{
@@ -20,12 +14,6 @@
     background-color: $darkGreyColor;
     font-size: 26px;
     padding-top: 18px;
-    a {
-        &:visited,&:hover,&:active{
-        color: $whiteColor;
-        }
-    }
-
 }
 .is-loading-container{
     display: flex;

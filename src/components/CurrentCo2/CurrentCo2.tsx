@@ -7,7 +7,7 @@ const redColorValue = 0;
 
 interface Props { eCoValue: number }
 
-export const CurrentCo2 = ({ eCoValue }: Props): JSX.Element => {
+export const CurrentCo2 = ({ eCoValue }: Props) => {
 
     const backgroundColor = useMemo(() => {
         return getBackgroundColor(eCoValue);
