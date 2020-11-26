@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/static/css/main.9a03a6d4.chunk.css",
+    "main.css": "/static/css/main.ea9be02c.chunk.css",
     "main.js": "/static/js/main.fea1e8bb.chunk.js",
     "main.js.map": "/static/js/main.fea1e8bb.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.8f977291.js",
@@ -8,7 +8,7 @@
     "static/js/2.47e3a92b.chunk.js": "/static/js/2.47e3a92b.chunk.js",
     "static/js/2.47e3a92b.chunk.js.map": "/static/js/2.47e3a92b.chunk.js.map",
     "index.html": "/index.html",
-    "static/css/main.9a03a6d4.chunk.css.map": "/static/css/main.9a03a6d4.chunk.css.map",
+    "static/css/main.ea9be02c.chunk.css.map": "/static/css/main.ea9be02c.chunk.css.map",
     "static/js/2.47e3a92b.chunk.js.LICENSE.txt": "/static/js/2.47e3a92b.chunk.js.LICENSE.txt",
     "static/media/CurrentCo2.scss": "/static/media/decoration.ed4fa110.svg",
     "static/media/unexpected-error.49148320.png": "/static/media/unexpected-error.49148320.png"
@@ -16,7 +16,7 @@
   "entrypoints": [
     "static/js/runtime-main.8f977291.js",
     "static/js/2.47e3a92b.chunk.js",
-    "static/css/main.9a03a6d4.chunk.css",
+    "static/css/main.ea9be02c.chunk.css",
     "static/js/main.fea1e8bb.chunk.js"
   ]
 }
