@@ -43,7 +43,7 @@ interface Props {
 }
 
 // Graph setup
-export const TimeWithValuesGraph = ({ endTimeValue, width, historicalValues, uom, marginY, marginX, height, timeFormat, bottomAxisNumTicks }: Props): JSX.Element => {
+export const TimeWithValuesGraph = ({ endTimeValue, width, historicalValues, uom, marginY, marginX, height, timeFormat, bottomAxisNumTicks }: Props)=> {
 
   const timeRank = {
     startTime: 0,

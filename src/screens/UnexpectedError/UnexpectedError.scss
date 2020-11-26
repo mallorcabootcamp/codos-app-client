@@ -22,11 +22,6 @@
         .unexpected-error__button{
             background-color: $darkGreyColor;
             border-radius: 10px;
-            a{
-                &:visited,&:hover,&:active{
-                color: $whiteColor;
-            }
-            }
         }
 
     }

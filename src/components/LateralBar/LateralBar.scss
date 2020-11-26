@@ -1,7 +1,6 @@
 @import '../../Vars.scss';
 
 .side-menu {
-    color: $whiteColor;
     background-color: $darkGreyColor;
     height: 100%;
     width: 90%;
@@ -16,7 +15,6 @@
     
     .menu-button {
         width: fit-content;
-        color: $lightGreyColor;
         background-color: $darkGreyColor;
         font-size: $fontSizeNormal;
     }
@@ -33,7 +31,6 @@
     
     .fa-times-circle{
         font-size: $fontSizeExtraLarge;
-        color: $whiteColor;
     }
 }
 

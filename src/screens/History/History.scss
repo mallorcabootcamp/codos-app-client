@@ -1,47 +1,18 @@
 @import '../../Vars.scss';
 
-.history-elem-container{
-    background-color:$darkGreyColor;
-    min-height: 100vh;
-    min-width: 100%;
-}
-
-.arrow-back-elem{
-    color: $darkGreyColor;
-    background-color: $whiteColor;
-    height: 50px;
-    width: 50px;
-    font-size: $fontSizeNormal;
-    padding: 9px 14px;
-
-    a:visited{
-        color: $darkGreyColor;
+.history{
+    .date-range-pickers-container{
+        padding: 15px 0 10px 0;
+        margin: 0 auto;
     }
-    a:hover{
+    .search-button{
+        background-color: $whiteColor;
         color: $darkGreyColor;
-    }
-    a:active{
-        color: $darkGreyColor;
-    }
-}
+        border-radius: 5px;
+    } 
 
-.history-text-elem{
-    color: $whiteColor;
-    font-size: $fontSizeLarge;
-    margin: -15px auto;
-}
-
-.date-range-pickers-container{
-    padding: 15px 0 10px 0;
-    margin: 0 auto;
-    
-}
-.history-graph-elem{
-    padding: 20px 20px 10px 20px;
-    margin-top: -20px;
-}
-.search-button{
-    background-color: $whiteColor !important;
-    color: $darkGreyColor;
-    border-radius: 10px;
+    .history-graph-elem{
+        padding: 20px 20px 10px 20px;
+        margin-top: -20px;
+    }
 }

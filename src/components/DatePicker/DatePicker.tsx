@@ -8,7 +8,7 @@ interface Props {
   onDateChanged: (value: string) => void;
 }
 
-export const DatePicker = ({ text, date, onDateChanged }: Props): JSX.Element => {
+export const DatePicker = ({ text, date, onDateChanged }: Props) => {
   const idValue = useMemo(() => shortid.generate(), []);
   return (
     <>

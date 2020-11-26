@@ -5,7 +5,7 @@ import {Icon} from './Icon';
 import "./IconWithValue.scss";
 
 
-export const IconWithValue = ({ value, icon }: {value:string, icon:string}):JSX.Element => {
+export const IconWithValue = ({ value, icon }: {value:string, icon:string}) => {
 
     return <p className='icon-elem'><FontAwesomeIcon icon={getIconFromIconName(icon)} size="lg" /> <span className='value-elem'>{value}</span></p>
     

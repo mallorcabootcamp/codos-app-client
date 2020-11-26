@@ -2,6 +2,7 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import './LateralBar.scss';
+import { Link } from 'react-router-dom';
 
 interface Props {
     devices: string[],
@@ -10,10 +11,10 @@ interface Props {
     onClickOnDevice: (device: string) => void,
 }
 
-export const LateralBar = ({ onClickOnClose, onClickOnDevice, devices, activeDevice }: Props): JSX.Element => {
+export const LateralBar = ({ onClickOnClose, onClickOnDevice, devices, activeDevice }: Props) => {
 
     return (
-        <div className="side-menu">
+        <div className="side-menu dark">
             <div className="row top d-flex p-3 pl-4 justify-content-between align-items-center text-center">
                 <p className="col ml-5 mt-4 font-weight-bold">CODOS APP</p>
                 <div className="close-button border-0 mr-4" onClick={onClickOnClose}>
@@ -25,10 +26,10 @@ export const LateralBar = ({ onClickOnClose, onClickOnDevice, devices, activeDev
                 <p className="font-weight-bold pb-4 h5">Listado de dispositivos</p>
                 <ul className='list-unstyled'>
                     {devices.map(device => (
-                        <li key={device} 
-                                className={`border-0 my-2 px-0 ${device === activeDevice && 'menu-button-actived'} menu-button`}
-                                onClick={() => onClickOnDevice(device)}>
-                                {device}
+                        <li key={device}
+                            className={`border-0 my-2 px-0 ${device === activeDevice && 'menu-button-actived'} menu-button`}
+                            onClick={() => onClickOnDevice(device)}>
+                            {device}
                         </li>
                     ))}
                 </ul>
@@ -37,7 +38,7 @@ export const LateralBar = ({ onClickOnClose, onClickOnDevice, devices, activeDev
             <hr className="ml-5 text-left font-weight-bold" />
 
             <div className="row about ml-5 mt-5 font-weight-bold">
-                <p>About</p>
+                <Link to='/about' className='about-link'>About</Link>
             </div>
 
         </div >
