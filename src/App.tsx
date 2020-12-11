@@ -3,8 +3,8 @@ import { HashRouter, Switch, Route  } from "react-router-dom";
 import Main from './screens/Main/Main';
 import History from './screens/History/History';
 import UnexpectedError from './screens/UnexpectedError/UnexpectedError'
-import { ScrollToTop } from '../src/components/ScrollToTop/ScrollToTop';
-import "./index.scss";
+import { ScrollToTop } from './components/ScrollToTop/ScrollToTop';
+import "./styles/index.scss";
 import { About } from './screens/About/About';
 
 function App() {

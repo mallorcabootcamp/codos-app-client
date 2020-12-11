@@ -1,4 +1,4 @@
-export const Icon = {
-    thermometer: `thermometer`,
-    humidity: `humidity`
+export enum Icon {
+    thermometer,
+    humidity
 }

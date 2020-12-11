@@ -1,13 +1,12 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import classnames from 'classnames';
 import './Card.scss'
 
 interface Props {
-    children: JSX.Element | JSX.Element[],
     className?: string
 }
 
-export const Card = ({ children, className }: Props) => {
+export const Card: FunctionComponent<Props> = ({ children, className }) => {
     const classes = classnames(`card-elem`, className);
     return (
         <div className={classes}>
