@@ -1,4 +1,4 @@
-@import '../../Vars.scss';
+@import '../../styles/vars.scss';
 
 .loading {
     animation: rotate 2s infinite;
@@ -11,10 +11,6 @@
     color: $darkGreyColor;
 }
 @keyframes rotate {
-    from {
-        
-    }
-  
     to {
         transform: rotate(360deg)
     }

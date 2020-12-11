@@ -65,6 +65,7 @@ export const TimeWithValuesGraph = ({ endTimeValue, width, historicalValues, uom
       }),
     [xMax, marginX, timeRank.endTime]
   );
+  
   const scaleAxisLeft = useMemo(
     () =>
       scaleLinear({

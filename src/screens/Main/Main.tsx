@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { CurrentCo2 } from '../../components/CurrentCo2/CurrentCo2';
@@ -44,7 +44,7 @@ const Main = () => {
         const fromDate = moment().subtract(7, 'hour').format(`YYYY-MM-DD HH:mm`);
         const toDate = moment().format(`YYYY-MM-DD HH:mm`);
         if (selectedDevice) {
-            const timeScaleValue = calculateTimeScaleValue(fromDate, toDate)
+            const timeScaleValue = calculateTimeScaleValue(fromDate, toDate) // TODO: This might be unnecessary here
             const currentCo2 = ApiService.getCurrentData(selectedDevice, ApiServiceDataProp.co2)
             const currentTemperature = ApiService.getCurrentData(selectedDevice, ApiServiceDataProp.temperature)
             const currentHumidity = ApiService.getCurrentData(selectedDevice, ApiServiceDataProp.humidity)
@@ -70,10 +70,10 @@ const Main = () => {
         }
     }, [selectedDevice]);
 
-    const onClickOnDevice = (device: string) => {
+    const onClickOnDevice = useCallback((device: string) => {
         setSelectedDevice(device);
         setMenuActived(false);
-    };
+    }, []);
 
     if (isError) {
         return <Redirect to='/unexpected-error?redirectTo=/' />
@@ -89,7 +89,6 @@ const Main = () => {
                 </div>
             </div>
         )
-
     }
 
     return (
@@ -133,7 +132,7 @@ const Main = () => {
                             <div className='row'>
                                 <div className='col text-center'>
                                     <ParentSize className='graph-elem'>
-                                        {({ width }) => <TimeWithValuesGraph endTimeValue={8} uom={'ppm'} timeFormat={'H:mm'} marginY={20} marginX={60} historicalValues={co2Data} bottomAxisNumTicks={7} width={width - 20} height={160} />}
+                                        {({ width }) => <TimeWithValuesGraph endTimeValue={8} uom={'ppm'} timeFormat={'H:mm'} marginY={20} marginX={60} historicalValues={co2Data} bottomAxisNumTicks={7} width={width} height={160} />}
                                     </ParentSize>
                                 </div>
                             </div>
