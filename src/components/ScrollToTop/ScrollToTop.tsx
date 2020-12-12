@@ -1,7 +1,11 @@
-import { useEffect } from "react";
+import { FunctionComponent, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
-export const ScrollToTop = ({children}: {children: JSX.Element} ) => {
+interface Props {
+  children: JSX.Element;
+}
+
+export const ScrollToTop: FunctionComponent<Props> = ({ children }) => {
   const { pathname } = useLocation();
 
   useEffect(() => {
@@ -9,4 +13,4 @@ export const ScrollToTop = ({children}: {children: JSX.Element} ) => {
   }, [pathname]);
 
   return children;
-}
+};

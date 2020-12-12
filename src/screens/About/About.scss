@@ -1,18 +1,14 @@
-@import '../../styles/vars.scss';
+@import "../../styles/vars.scss";
 
-.about{
-    .about__header{
-        font-weight: 700;
-        width: 100%;
-    }
-    
-    .about__anchor{
-        width: 100%;
-        text-decoration: underline;
-        line-height : 26px;
-    }
+.about {
+  .about__header {
+    font-weight: 700;
+    width: 100%;
+  }
 
+  .about__anchor {
+    width: 100%;
+    text-decoration: underline;
+    line-height: 26px;
+  }
 }
-
-
-

@@ -1,18 +1,18 @@
-@import '../../styles/vars.scss';
+@import "../../styles/vars.scss";
 
-.history{
-    .date-range-pickers-container{
-        padding: 15px 0 10px 0;
-        margin: 0 auto;
-    }
-    .search-button{
-        background-color: $whiteColor;
-        color: $darkGreyColor;
-        border-radius: 5px;
-    } 
+.history {
+  .date-range-pickers-container {
+    padding: 15px 0 10px 0;
+    margin: 0 auto;
+  }
+  .search-button {
+    background-color: $whiteColor;
+    color: $darkGreyColor;
+    border-radius: 5px;
+  }
 
-    .history-graph-elem{
-        padding: 20px 20px 10px 20px;
-        margin-top: -20px;
-    }
+  .history-graph-elem {
+    padding: 20px 20px 10px 20px;
+    margin-top: -20px;
+  }
 }

@@ -1,30 +1,27 @@
-@import '../../styles/vars.scss';
+@import "../../styles/vars.scss";
 .parent-unexcected-error {
-    display: flex;
+  display: flex;
 
-    .unexpected-error{
-        position: absolute;
-        text-align: center;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
+  .unexpected-error {
+    position: absolute;
+    text-align: center;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 
-        .unexpected-error__text {
-            width: 150px;
-            color: $darkGreyColor;
-            position: absolute;
-            left: 55%;
-            transform: translateY(-20%);
-        }
-        .unexpected-error__robot-img{
-            position: relative;   
-        }
-        .unexpected-error__button{
-            background-color: $darkGreyColor;
-            border-radius: 10px;
-        }
-
+    .unexpected-error__text {
+      width: 150px;
+      color: $darkGreyColor;
+      position: absolute;
+      left: 55%;
+      transform: translateY(-20%);
     }
+    .unexpected-error__robot-img {
+      position: relative;
+    }
+    .unexpected-error__button {
+      background-color: $darkGreyColor;
+      border-radius: 10px;
+    }
+  }
 }
-
-
