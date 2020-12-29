@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useReducer } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faSearch } from "@fortawesome/free-solid-svg-icons";
 import { CurrentCo2 } from "../../components/CurrentCo2/CurrentCo2";
@@ -19,6 +19,7 @@ import { ApiServiceDataProp } from "../../services/ApiService/ApiServiceDataProp
 import { Loading } from "../../components/Loading/Loading";
 import { MainGraphConfig } from "./MainGraphConfig";
 import { LoadingColors } from "../../components/Loading/LoadingColors";
+import { reducer, IAction, initialState } from "./State";
 
 const hours = 8;
 
@@ -26,18 +27,11 @@ const Main = () => {
   const [selectedDevice, setSelectedDevice] = useStateWithLocalStorage(
     "deviceSelected"
   );
-  const [menuActived, setMenuActived] = useState<boolean>(false);
-  const [currentCo2, setCurrentCo2] = useState<number>(0);
-  const [currentTemperature, setCurrentTemperature] = useState<number>(0);
-  const [currentHumidity, setCurrentHumidity] = useState<number>(0);
-  const [co2Data, setCo2Data] = useState<ApiResponse[]>([]);
-  const [deviceList, setDeviceList] = useState<string[]>([]);
-  const [isError, setIsError] = useState<boolean>(false);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
     ApiService.getUsersList().then((apiResponse: string[]) => {
-      setDeviceList(apiResponse);
+      dispatch({ type: IAction.setDeviceList, value: apiResponse });
     });
   }, []);
 
@@ -71,30 +65,39 @@ const Main = () => {
             currentHumidityResponse,
             periodCo2Response,
           ]: ApiResponse[][]) => {
-            setIsLoading(false);
-            setCurrentCo2(currentCo2Response[0].value);
-            setCurrentTemperature(currentTemperatureResponse[0].value);
-            setCurrentHumidity(currentHumidityResponse[0].value);
-            setCo2Data(periodCo2Response);
+            dispatch({ type: IAction.setIsLoading, value: false });
+            dispatch({
+              type: IAction.setCurrentCo2,
+              value: currentCo2Response[0].value,
+            });
+            dispatch({
+              type: IAction.setCurrentTemperature,
+              value: currentTemperatureResponse[0].value,
+            });
+            dispatch({
+              type: IAction.setCurrentHumidity,
+              value: currentHumidityResponse[0].value,
+            });
+            dispatch({ type: IAction.setCo2Data, value: periodCo2Response });
           }
         )
-        .catch(() => setIsError(true));
+        .catch(() => dispatch({ type: IAction.setIsError, value: true }));
     }
   }, [selectedDevice]);
 
   const onClickOnDevice = useCallback(
     (device: string) => {
       setSelectedDevice(device);
-      setMenuActived(false);
+      dispatch({ type: IAction.setMenuActived, value: false });
     },
     [setSelectedDevice]
   );
 
-  if (isError) {
+  if (state.isError) {
     return <Redirect to="/unexpected-error?redirectTo=/" />;
   }
 
-  if (isLoading && selectedDevice) {
+  if (state.isLoading && selectedDevice) {
     return (
       <div className="container is-loading-container">
         <div className="row">
@@ -109,17 +112,24 @@ const Main = () => {
   return (
     <div className="main">
       <div className="container">
-        <LateralMenuTransition isVisible={menuActived}>
+        <LateralMenuTransition isVisible={state.isMenuActived}>
           <LateralBar
             activeDevice={selectedDevice}
-            devices={deviceList}
-            onClickOnClose={() => setMenuActived(false)}
+            devices={state.deviceList}
+            onClickOnClose={() =>
+              dispatch({ type: IAction.setMenuActived, value: false })
+            }
             onClickOnDevice={onClickOnDevice}
           />
         </LateralMenuTransition>
         <div className="row">
           <div className="col ml-4 pt-4 mt-3 h4 mb-0 d-inline menu-elem">
-            <p className="mb-0 d-inline" onClick={() => setMenuActived(true)}>
+            <p
+              className="mb-0 d-inline"
+              onClick={() =>
+                dispatch({ type: IAction.setMenuActived, value: true })
+              }
+            >
               <FontAwesomeIcon icon={faBars} size="lg" />
             </p>
           </div>
@@ -138,19 +148,19 @@ const Main = () => {
       )}
       {selectedDevice && (
         <>
-          <CurrentCo2 eCoValue={Math.round(currentCo2)} />
+          <CurrentCo2 eCoValue={Math.round(state.currentCo2)} />
           <div className="container px-5 text-center">
             <Card>
               <div className="row icon-with-value-elem">
                 <div className="col">
                   <IconWithValue
-                    value={`${Math.round(currentTemperature)}º`}
+                    value={`${Math.round(state.currentTemperature)}º`}
                     icon={Icon.thermometer}
                   />
                 </div>
                 <div className="col">
                   <IconWithValue
-                    value={`${Math.round(currentHumidity)}%`}
+                    value={`${Math.round(state.currentHumidity)}%`}
                     icon={Icon.humidity}
                   />
                 </div>
@@ -170,7 +180,7 @@ const Main = () => {
                         timeFormat={"H:mm"}
                         marginY={MainGraphConfig.marginY}
                         marginX={MainGraphConfig.marginX}
-                        historicalValues={co2Data}
+                        historicalValues={state.co2Data}
                         bottomAxisNumTicks={MainGraphConfig.bottomAxisNumTicks}
                         width={width}
                         height={MainGraphConfig.height}

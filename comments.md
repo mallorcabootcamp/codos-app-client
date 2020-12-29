@@ -20,8 +20,8 @@
 
 - Grey screen should fill all the horizontal space. Done
 
-- Limit container width: 900px (instead of 120X) from bootstrap. Pending to solve better
+- Limit container width: 900px (instead of 120X) from bootstrap. Done
 
-- useCallback (when a function is passed as parameter of other component)
+- useCallback (when a function is passed as parameter of other component). Done
 
-- In main: can we change useState for useReducer
+- In main: can we change useState for useReducer. Done
