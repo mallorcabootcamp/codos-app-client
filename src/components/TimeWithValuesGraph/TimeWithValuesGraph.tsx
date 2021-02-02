@@ -12,6 +12,7 @@ import { ApiResponse } from "../../types/api";
 const graphColor = "#bdc3c7";
 const axisColor = "#878a8c";
 const rightPadding = 20;
+const topPadding = 20;
 
 // axis config
 const axisBottomTickLabelProps = {
@@ -77,7 +78,7 @@ export const TimeWithValuesGraph: FunctionComponent<Props> = ({
     () =>
       scaleLinear({
         domain: [
-          Math.max(...stock.map((d: ApiResponse) => d.value)),
+          Math.max(...stock.map((d: ApiResponse) => d.value)) + topPadding,
           Math.min(...stock.map((d: ApiResponse) => d.value)),
         ],
         range: [0, yMax - marginY],
@@ -105,7 +106,7 @@ export const TimeWithValuesGraph: FunctionComponent<Props> = ({
   const stockValueScale = useMemo(
     () =>
       scaleLinear({
-        range: [marginY, yMax],
+        range: [marginY + topPadding, yMax],
         domain: [
           Math.min(...stock.map((d: ApiResponse) => Math.min(d.value))),
           Math.max(...stock.map((d: ApiResponse) => Math.max(d.value))),
