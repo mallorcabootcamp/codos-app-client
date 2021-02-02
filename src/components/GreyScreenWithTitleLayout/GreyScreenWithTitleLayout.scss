@@ -1,28 +1,33 @@
-@import '../../styles/vars.scss';
+@import "../../styles/vars.scss";
 
-.grey-layout__container{
-    background-color:$darkGreyColor;
+.grey-background {
+  background-color: $darkGreyColor;
+
+  .grey-layout__container {
+    background-color: $darkGreyColor;
     min-height: 100vh;
-    
-    .grey-layout__arrow-back-elem{
-        color: $darkGreyColor;
-        background-color: $whiteColor;
-        height: 50px;
-        width: 50px;
-        font-size: $fontSizeNormal;
-        padding: 9px 14px;
-    
-        a{
-            &:visited,&:hover,&:active{
-            color: $darkGreyColor;
-            }
-        }
-    }
-    
-    .grey-layout__text-elem{
-        color: $whiteColor;
-        font-size: $fontSizeLarge;
-        margin: -15px auto;
-    }
-}
 
+    .grey-layout__arrow-back-elem {
+      color: $darkGreyColor;
+      background-color: $whiteColor;
+      height: 50px;
+      width: 50px;
+      font-size: $fontSizeNormal;
+      padding: 9px 14px;
+
+      a {
+        &:visited,
+        &:hover,
+        &:active {
+          color: $darkGreyColor;
+        }
+      }
+    }
+
+    .grey-layout__text-elem {
+      color: $whiteColor;
+      font-size: $fontSizeLarge;
+      margin: -15px auto;
+    }
+  }
+}

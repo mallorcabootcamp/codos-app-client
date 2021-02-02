@@ -1,62 +1,69 @@
 //eslint-disable-next-line
-import React, { useMemo } from "react";
+import React, { FunctionComponent, useMemo } from "react";
 import { AreaClosed } from "@visx/shape";
-import {  scaleLinear, scaleTime } from '@visx/scale'
-import { AxisBottom, AxisLeft } from '@visx/axis';
+import { scaleLinear, scaleTime } from "@visx/scale";
+import { AxisBottom, AxisLeft } from "@visx/axis";
 import { extent } from "d3-array";
-import { GridColumns } from '@visx/grid';
-import moment from 'moment';
+import { GridColumns } from "@visx/grid";
+import moment from "moment";
 import "./TimeWithValuesGraph.scss";
-import { ApiResponse } from '../../types/api';
+import { ApiResponse } from "../../types/api";
 
-
-const graphColor = '#bdc3c7';
-const axisColor = '#878a8c';
+const graphColor = "#bdc3c7";
+const axisColor = "#878a8c";
+const rightPadding = 20;
 
 // axis config
 const axisBottomTickLabelProps = {
-  dx: '0em',
-  dy: '-0.2em',
-  textAnchor: 'middle' as const,
-  fontFamily: 'Montserrat',
+  dx: "0em",
+  dy: "-0.2em",
+  textAnchor: "middle" as const,
+  fontFamily: "Montserrat",
   fontSize: 10,
   fill: axisColor,
 };
 const axisLeftTickLabelProps = {
-  dx: '0.4em',
-  fontFamily: 'Montserrat',
+  dx: "0.4em",
+  fontFamily: "Montserrat",
   fontSize: 10,
-  textAnchor: 'end' as const,
+  textAnchor: "end" as const,
   fill: axisColor,
 };
 
 interface Props {
-  endTimeValue: number,
-  width: number,
-  historicalValues: ApiResponse[],
-  uom: string,
-  marginY: number,
-  marginX: number,
-  height: number,
-  timeFormat: string,
-  bottomAxisNumTicks?: number
+  endTimeValue: number;
+  width: number;
+  historicalValues: ApiResponse[];
+  uom: string;
+  marginY: number;
+  marginX: number;
+  height: number;
+  timeFormat: string;
+  bottomAxisNumTicks?: number;
 }
 
-// Graph setup
-export const TimeWithValuesGraph = ({ endTimeValue, width, historicalValues, uom, marginY, marginX, height, timeFormat, bottomAxisNumTicks }: Props)=> {
-
+export const TimeWithValuesGraph: FunctionComponent<Props> = ({
+  endTimeValue,
+  width,
+  historicalValues,
+  uom,
+  marginY,
+  marginX,
+  height,
+  timeFormat,
+  bottomAxisNumTicks,
+}) => {
+  const widthWithPadding = width - rightPadding;
   const timeRank = {
     startTime: 0,
-    endTime: endTimeValue
-  }
-  const stock = historicalValues
+    endTime: endTimeValue,
+  };
+  const stock = historicalValues;
   const getDate = (d: ApiResponse) => new Date(parseInt(d.time) * 1000);
   const getStockValue = (d: ApiResponse) => d.value;
-  const xMax = width - marginX;
+  const xMax = widthWithPadding - marginX;
   const yMax = height - marginY;
 
-
-  // scales
   const scaleGridColumns = useMemo(
     () =>
       scaleLinear({
@@ -65,13 +72,13 @@ export const TimeWithValuesGraph = ({ endTimeValue, width, historicalValues, uom
       }),
     [xMax, marginX, timeRank.endTime]
   );
-  
+
   const scaleAxisLeft = useMemo(
     () =>
       scaleLinear({
         domain: [
           Math.max(...stock.map((d: ApiResponse) => d.value)),
-          Math.min(...stock.map((d: ApiResponse) => d.value))
+          Math.min(...stock.map((d: ApiResponse) => d.value)),
         ],
         range: [0, yMax - marginY],
       }),
@@ -82,7 +89,7 @@ export const TimeWithValuesGraph = ({ endTimeValue, width, historicalValues, uom
     () =>
       scaleTime({
         range: [marginX, xMax + marginX],
-        domain: extent(stock, getDate) as [Date, Date]
+        domain: extent(stock, getDate) as [Date, Date],
       }),
     [xMax, marginX, stock]
   );
@@ -91,7 +98,7 @@ export const TimeWithValuesGraph = ({ endTimeValue, width, historicalValues, uom
     () =>
       scaleTime({
         range: [marginX, xMax + marginX],
-        domain: extent(stock, getDate) as [Date, Date]
+        domain: extent(stock, getDate) as [Date, Date],
       }),
     [xMax, marginX, stock]
   );
@@ -101,16 +108,16 @@ export const TimeWithValuesGraph = ({ endTimeValue, width, historicalValues, uom
         range: [marginY, yMax],
         domain: [
           Math.min(...stock.map((d: ApiResponse) => Math.min(d.value))),
-          Math.max(...stock.map((d: ApiResponse) => Math.max(d.value)))
+          Math.max(...stock.map((d: ApiResponse) => Math.max(d.value))),
         ],
-        reverse: true
+        reverse: true,
       }),
     [yMax, marginY, stock]
   );
 
   return (
-    <div className='text-left time-with-values-graph-elem'>
-      <svg width={width + marginY} height={height}>
+    <div className="text-left time-with-values-graph-elem">
+      <svg width={widthWithPadding + marginY} height={height}>
         <AreaClosed
           data={stock}
           x={(d: ApiResponse) => dateScale(getDate(d)) ?? 0}
@@ -136,7 +143,7 @@ export const TimeWithValuesGraph = ({ endTimeValue, width, historicalValues, uom
           tickStroke={axisColor}
           tickLabelProps={() => axisBottomTickLabelProps}
           tickFormat={(value) => {
-            return moment(value as Date).format(timeFormat)
+            return moment(value as Date).format(timeFormat);
           }}
         />
 
@@ -151,8 +158,7 @@ export const TimeWithValuesGraph = ({ endTimeValue, width, historicalValues, uom
           tickLabelProps={() => axisLeftTickLabelProps}
           tickFormat={(e) => `${e} ${uom}`}
         />
-
       </svg>
     </div>
   );
-}
+};

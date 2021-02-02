@@ -1,17 +1,17 @@
-@import '../../styles/vars.scss';
+@import "../../styles/vars.scss";
 
 .loading {
-    animation: rotate 2s infinite;
-    font-size: 3em;
+  animation: rotate 2s infinite;
+  font-size: 3em;
 }
 .loading-white {
-    color: $whiteColor;
+  color: $whiteColor;
 }
 .loading-dark {
-    color: $darkGreyColor;
+  color: $darkGreyColor;
 }
 @keyframes rotate {
-    to {
-        transform: rotate(360deg)
-    }
+  to {
+    transform: rotate(360deg);
   }
+}

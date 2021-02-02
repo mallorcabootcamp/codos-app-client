@@ -1,4 +1,4 @@
 export enum Icon {
-    thermometer,
-    humidity
+  thermometer,
+  humidity,
 }

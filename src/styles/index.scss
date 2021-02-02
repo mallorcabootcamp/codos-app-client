@@ -1,26 +1,42 @@
-@import "bootstrap/scss/bootstrap.scss"; //TODO: load only bootstrap you need
 @import "vars.scss";
+@import "bootstrap/scss/_functions.scss";
+@import "bootstrap/scss/_variables.scss";
+@import "bootstrap/scss/_mixins.scss";
+@import "bootstrap/scss/_reboot.scss";
+@import "bootstrap/scss/_type.scss";
+@import "bootstrap/scss/_grid.scss";
+@import "bootstrap/scss/_buttons.scss";
+@import "bootstrap/scss/_utilities.scss";
 
-
-body {
-    font-family: "Montserrat";
-    background-color: $whiteColor;
+.container {
+  max-width: 900px;
+  min-width: 350px;
 }
 
-body, html{
-    height: 100%;
+body {
+  font-family: "Montserrat";
+  color: $darkGreyColor;
+  background-color: $whiteColor;
+}
+
+body,
+html {
+  height: 100%;
 }
 
 a {
-    &:visited,&:hover,&:active,&:link{
+  &:visited,
+  &:hover,
+  &:active,
+  &:link {
     color: $whiteColor;
-    }
+  }
 }
 
 .light {
-    color: $darkGreyColor;
+  color: $darkGreyColor;
 }
 
 .dark {
-    color: $whiteColor;
+  color: $whiteColor;
 }

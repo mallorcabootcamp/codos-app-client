@@ -1,39 +1,34 @@
-@import '../../styles/vars.scss';
+@import "../../styles/vars.scss";
 
 .side-menu {
+  background-color: $darkGreyColor;
+  height: 100%;
+  width: 90%;
+  position: fixed;
+  .about {
+    font-size: $fontSizeNormal;
+  }
+  hr {
+    border-top: 1px solid $lightGreyColor;
+    width: 150px;
+  }
+
+  .menu-button {
+    width: fit-content;
     background-color: $darkGreyColor;
-    height: 100%;
-    width: 90%;
-    position: fixed;
-    .about {
-        font-size: $fontSizeNormal;
-    }
-    hr {
-        border-top: 1px solid $lightGreyColor;
-        width: 150px;
-    }
-    
-    .menu-button {
-        width: fit-content;
-        background-color: $darkGreyColor;
-        font-size: $fontSizeNormal;
-    }
-    .menu-button-actived {
-        color: $greenSelected;
-        outline: 0;
-        font-weight: 700;
-    }
-    
-    .fa-bars {
-        font-size: $fontSizeLarge;
-    }
-    
-    
-    .fa-times-circle{
-        font-size: $fontSizeExtraLarge;
-    }
+    font-size: $fontSizeNormal;
+  }
+  .menu-button-actived {
+    color: $greenSelected;
+    outline: 0;
+    font-weight: 700;
+  }
+
+  .fa-bars {
+    font-size: $fontSizeLarge;
+  }
+
+  .fa-times-circle {
+    font-size: $fontSizeExtraLarge;
+  }
 }
-
-
-
-
